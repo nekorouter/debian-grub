@@ -148,7 +148,6 @@ pata_test
 *.pf2
 *.pp
 po/*.mo
-po/grub.pot
 po/POTFILES
 po/stamp-po
 printf_test
@@ -220,9 +219,7 @@ widthspec.h
 docs/stamp-1
 docs/version-dev.texi
 Makefile.utilgcry.def
-po/*.po
 po/*.gmo
-po/LINGUAS
 po/remove-potcdate.sed
 include/grub/gcrypt/gcrypt.h
 include/grub/gcrypt/g10lib.h
