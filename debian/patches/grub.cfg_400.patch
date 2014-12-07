@@ -1,4 +1,4 @@
-From e3361108b4e3a2ea5d26b9ce7eb20973b776b17e Mon Sep 17 00:00:00 2001
+From a10e9fd1a1cd9320a6bc09bbad27ead461e4e072 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 13 Jan 2014 12:12:55 +0000
 Subject: Make grub.cfg world-readable if it contains no passwords

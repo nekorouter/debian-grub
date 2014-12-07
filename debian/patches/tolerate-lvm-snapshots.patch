@@ -1,4 +1,4 @@
-From 2cbc65eff2de3b02bf653df089a049d555ef06a3 Mon Sep 17 00:00:00 2001
+From f9f7edbfd6b92e452ca29236914dc5adff43c19c Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Thu, 10 Apr 2014 16:54:33 +0100
 Subject: Tolerate devices with no filesystem UUID returned by os-prober

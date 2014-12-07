@@ -1,4 +1,4 @@
-From e4951626e0ab33c446cfd7e9a22044f602ca0106 Mon Sep 17 00:00:00 2001
+From 7487d4ec2d851d6d65f9c52b5b77a3a22fcbffe0 Mon Sep 17 00:00:00 2001
 From: Matthew Garrett <mjg@redhat.com>
 Date: Mon, 13 Jan 2014 12:13:15 +0000
 Subject: Add "linuxefi" loader which avoids ExitBootServices

@@ -1,4 +1,4 @@
-From 9f599c89688957e58a6f6841e1dc4ea126a27a54 Mon Sep 17 00:00:00 2001
+From 879c23a40e962e07f7fb38ad4949b13530f41543 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 13 Jan 2014 12:12:51 +0000
 Subject: Write marker if core.img was written to filesystem
