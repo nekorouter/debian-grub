@@ -497,5 +497,6 @@ endif
 
 	# make sure PO files are always up-to-date
 	debconf-updatepo
+	touch po-tp.org/grub.pot
 
 .PHONY: $(patsubst %,configure/%,$(BUILD_PACKAGES)) $(patsubst %,build/%,$(BUILD_PACKAGES)) $(patsubst %,install/%,$(BUILD_PACKAGES))
