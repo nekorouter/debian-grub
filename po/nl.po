@@ -1,17 +1,17 @@
-# Dutch translations for GNU boot loader GRUB.
+# Dutch translations for the GNU boot loader GRUB.
 # Copyright (C) 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the grub package.
 #
-# "Hör auf mit den blöden Gedanken."
+# « Pli helpas guto da feliĉo, ol barelo da saĝo. »
 #
 # Erwin Poeze <erwin.poeze@gmail.com>, 2009, 2010.
 # Benno Schulenberg <benno@vertaalt.nl>, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: grub-2.00+20130519\n"
+"Project-Id-Version: grub-2.02-pre2\n"
 "Report-Msgid-Bugs-To: bug-grub@gnu.org\n"
 "POT-Creation-Date: 2013-12-24 21:18+0100\n"
-"PO-Revision-Date: 2013-05-29 13:24+0200\n"
+"PO-Revision-Date: 2013-12-28 16:06+0100\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -82,13 +82,8 @@ msgstr "De 'creator'-revisie van RSDP, XSDT en RSDT instellen."
 
 #. TRANSLATORS: "hangs" here is a noun, not a verb.
 #: grub-core/commands/acpi.c:58
-msgid ""
-"Don't update EBDA. May fix failures or hangs on some BIOSes but makes it "
-"ineffective with OS not receiving RSDP from GRUB."
-msgstr ""
-"EBDA niet bijwerken. Dit kan storingen en vastlopers op sommige BIOS'en "
-"verhelpen, maar maakt het functieloos bij besturingssystemen die geen RSDP "
-"van GRUB ontvangen."
+msgid "Don't update EBDA. May fix failures or hangs on some BIOSes but makes it ineffective with OS not receiving RSDP from GRUB."
+msgstr "EBDA niet bijwerken. Dit kan storingen en vastlopers op sommige BIOS'en verhelpen, maar maakt het functieloos bij besturingssystemen die geen RSDP van GRUB ontvangen."
 
 #: grub-core/commands/acpi.c:654 grub-core/commands/acpi.c:671
 #: grub-core/commands/i386/pc/play.c:105 grub-core/commands/keylayouts.c:228
@@ -139,12 +134,8 @@ msgid "premature end of file %s"
 msgstr "voortijdig einde van bestand %s"
 
 #: grub-core/commands/acpi.c:783
-msgid ""
-"[-1|-2] [--exclude=TABLE1,TABLE2|--load-only=TABLE1,TABLE2] FILE1 [FILE2] "
-"[...]"
-msgstr ""
-"[-1|-2] [--exclude=TABEL1,TABEL2|--load-only=TABEL1,TABEL2] BESTAND1 "
-"[BESTAND2] [...]"
+msgid "[-1|-2] [--exclude=TABLE1,TABLE2|--load-only=TABLE1,TABLE2] FILE1 [FILE2] [...]"
+msgstr "[-1|-2] [--exclude=TABEL1,TABEL2|--load-only=TABEL1,TABEL2] BESTAND1 [BESTAND2] [...]"
 
 #: grub-core/commands/acpi.c:786
 msgid "Load host ACPI tables and tables specified by arguments."
@@ -288,15 +279,13 @@ msgid "No boot time statistics is available\n"
 msgstr "Er zijn geen opstart-statistieken beschikbaar\n"
 
 #: grub-core/commands/boottime.c:59
-#, fuzzy
 msgid "Show boot time statistics."
-msgstr "Opstart-statistieken ophalen."
+msgstr "Opstart-statistieken tonen."
 
 #: grub-core/commands/cacheinfo.c:38
 #, c-format
 msgid "Disk cache statistics: hits = %lu (%lu.%02lu%%), misses = %lu\n"
-msgstr ""
-"Schijfcache-statistieken: treffers = %lu (%lu.%02lu%%), missers = %lu\n"
+msgstr "Schijfcache-statistieken: treffers = %lu (%lu.%02lu%%), missers = %lu\n"
 
 #: grub-core/commands/cacheinfo.c:43
 msgid "No disk cache statistics available\n"
@@ -359,11 +348,8 @@ msgid "Load another config file without changing context."
 msgstr "Nog een configuratiebestand laden zonder de context te wijzigen."
 
 #: grub-core/commands/configfile.c:75
-msgid ""
-"Load another config file without changing context but take only menu entries."
-msgstr ""
-"Nog een configuratiebestand laden zonder de context te wijzigen, maar alleen "
-"menu-items nemen."
+msgid "Load another config file without changing context but take only menu entries."
+msgstr "Nog een configuratiebestand laden zonder de context te wijzigen, maar alleen menu-items nemen."
 
 #: grub-core/commands/configfile.c:81
 msgid "Load another config file but take only menu entries."
@@ -410,11 +396,8 @@ msgid "Can't enable ROM area."
 msgstr "Kan ROM-gebied niet inschakelen."
 
 #: grub-core/commands/efi/loadbios.c:209
-msgid ""
-"Create BIOS-like structures for backward compatibility with existing OS."
-msgstr ""
-"BIOS-achtige structuren aanmaken voor terugwaartse compatibiliteit met "
-"bestaande beheersystemen."
+msgid "Create BIOS-like structures for backward compatibility with existing OS."
+msgstr "BIOS-achtige structuren aanmaken voor terugwaartse compatibiliteit met bestaande beheersystemen."
 
 #: grub-core/commands/efi/loadbios.c:214
 msgid "BIOS_DUMP [INT10_DUMP]"
@@ -425,138 +408,133 @@ msgid "Load BIOS dump."
 msgstr "BIOS-dump laden."
 
 #: grub-core/commands/eval.c:63
-#, fuzzy
 msgid "STRING ..."
-msgstr "TEKENREEKS"
+msgstr "TEKENREEKS..."
 
+# XXX  period?
 #: grub-core/commands/eval.c:64
 msgid "Evaluate arguments as GRUB commands"
-msgstr ""
+msgstr "Argumenten evalueren als GRUB-opdrachten."
 
 #: grub-core/commands/file.c:39
-#, fuzzy
 msgid "Check if FILE can be booted as i386 PAE Xen unprivileged guest kernel"
-msgstr "Een multiboot-kernel laden."
+msgstr "Controleren of BESTAND als ongeprivilegieerde i386-PAE-Xen-gast-kernel gestart kan worden"
 
 #: grub-core/commands/file.c:42
-#, fuzzy
 msgid "Check if FILE can be booted as x86_64 Xen unprivileged guest kernel"
-msgstr "Een multiboot-kernel laden."
+msgstr "Controleren of BESTAND als ongeprivilegieerde x86_64-Xen-gast-kernel gestart kan worden"
 
 #: grub-core/commands/file.c:44
-#, fuzzy
 msgid "Check if FILE can be used as Xen x86 privileged guest kernel"
-msgstr "Een multiboot-kernel laden."
+msgstr "Controleren of BESTAND als geprivilegieerde x86-Xen-gast-kernel gebruikt kan worden"
 
 #: grub-core/commands/file.c:46
-#, fuzzy
 msgid "Check if FILE can be used as x86 multiboot kernel"
-msgstr "Een multiboot-kernel laden."
+msgstr "Controleren of BESTAND als x86-multiboot-kernel gebruikt kan worden"
 
 #: grub-core/commands/file.c:48
-#, fuzzy
 msgid "Check if FILE can be used as x86 multiboot2 kernel"
-msgstr "Een multiboot-2-kernel laden."
+msgstr "Controleren of BESTAND als x86-multiboot2-kernel gebruikt kan worden"
 
 #: grub-core/commands/file.c:50
 msgid "Check if FILE is ARM Linux"
-msgstr ""
+msgstr "Controleren of BESTAND een ARM-Linux-bestand is"
 
 #: grub-core/commands/file.c:52
 msgid "Check if FILE is ARM64 Linux"
-msgstr ""
+msgstr "Controleren of BESTAND een ARM64-Linux-bestand is"
 
 #: grub-core/commands/file.c:54
 msgid "Check if FILE is IA64 Linux"
-msgstr ""
+msgstr "Controleren of BESTAND een IA64-Linux-bestand is"
 
 #: grub-core/commands/file.c:56
 msgid "Check if FILE is MIPS Linux"
-msgstr ""
+msgstr "Controleren of BESTAND een MIPS-Linux-bestand is"
 
 #: grub-core/commands/file.c:58
 msgid "Check if FILE is MIPSEL Linux"
-msgstr ""
+msgstr "Controleren of BESTAND een MIPSEL-Linux-bestand is"
 
 #: grub-core/commands/file.c:60
 msgid "Check if FILE is SPARC64 Linux"
-msgstr ""
+msgstr "Controleren of BESTAND een SPARC64-Linux-bestand is"
 
 #: grub-core/commands/file.c:62
 msgid "Check if FILE is POWERPC Linux"
-msgstr ""
+msgstr "Controleren of BESTAND een POWERPC-Linux-bestand is"
 
 #: grub-core/commands/file.c:64
 msgid "Check if FILE is x86 Linux"
-msgstr ""
+msgstr "Controleren of BESTAND een x86-Linux-bestand is"
 
 #: grub-core/commands/file.c:66
 msgid "Check if FILE is x86 Linux supporting 32-bit protocol"
-msgstr ""
+msgstr "Controleren of BESTAND een x86-Linux-bestand is dat het 32-bits-protocol ondersteunt"
 
 #: grub-core/commands/file.c:68
 msgid "Check if FILE is x86 kFreeBSD"
-msgstr ""
+msgstr "Controleren of BESTAND een x86-kFreeBSD-bestand is"
 
 #: grub-core/commands/file.c:70
 msgid "Check if FILE is i386 kFreeBSD"
-msgstr ""
+msgstr "Controleren of BESTAND een i386-kFreeBSD-bestand is"
 
 #: grub-core/commands/file.c:72
 msgid "Check if FILE is x86_64 kFreeBSD"
-msgstr ""
+msgstr "Controleren of BESTAND een x86_64-kFreeBSD-bestand is"
 
 #: grub-core/commands/file.c:75
 msgid "Check if FILE is x86 kNetBSD"
-msgstr ""
+msgstr "Controleren of BESTAND een x86-kNetBSD-bestand is"
 
 #: grub-core/commands/file.c:77
 msgid "Check if FILE is i386 kNetBSD"
-msgstr ""
+msgstr "Controleren of BESTAND een i386-kNetBSD-bestand is"
 
 #: grub-core/commands/file.c:79
 msgid "Check if FILE is x86_64 kNetBSD"
-msgstr ""
+msgstr "Controleren of BESTAND een x86_64-kNetBSD-bestand is"
 
 #: grub-core/commands/file.c:82
 msgid "Check if FILE is i386 EFI file"
-msgstr ""
+msgstr "Controleren of BESTAND een i386-EFI-bestand is"
 
 #: grub-core/commands/file.c:84
 msgid "Check if FILE is x86_64 EFI file"
-msgstr ""
+msgstr "Controleren of BESTAND een x86_64-EFI-bestand is"
 
 #: grub-core/commands/file.c:86
 msgid "Check if FILE is IA64 EFI file"
-msgstr ""
+msgstr "Controleren of BESTAND een IA64-EFI-bestand is"
 
 #: grub-core/commands/file.c:88
 msgid "Check if FILE is ARM64 EFI file"
-msgstr ""
+msgstr "Controleren of BESTAND een ARM64-EFI-bestand is"
 
 #: grub-core/commands/file.c:90
 msgid "Check if FILE is ARM EFI file"
-msgstr ""
+msgstr "Controleren of BESTAND een ARM-EFI-bestand is"
 
 #: grub-core/commands/file.c:92
 msgid "Check if FILE is hiberfil.sys in hibernated state"
-msgstr ""
+msgstr "Controleren of BESTAND een hiberfil.sys-bestand in slaaptoestand is"
 
 #: grub-core/commands/file.c:94
 msgid "Check if FILE is x86_64 XNU (Mac OS X kernel)"
-msgstr ""
+msgstr "Controleren of BESTAND een x86_64-XNU-bestand is (een Mac OS X-kernel)"
 
 #: grub-core/commands/file.c:96
 msgid "Check if FILE is i386 XNU (Mac OS X kernel)"
-msgstr ""
+msgstr "Controleren of BESTAND een i386-XNU-bestand is (een Mac OS X-kernel)"
 
 #: grub-core/commands/file.c:98
 msgid "Check if FILE is XNU (Mac OS X kernel) hibernated image"
-msgstr ""
+msgstr "Controleren of BESTAND een XNU-bestand (Mac OS X-kernel) in slaaptoestand is"
 
 #: grub-core/commands/file.c:100
 msgid "Check if FILE is BIOS bootsector"
-msgstr ""
+msgstr "Controleren of BESTAND een BIOS-opstartsector is"
 
 #. TRANSLATORS: it's a standalone boolean value,
 #. opposite of "true".
@@ -569,13 +547,12 @@ msgid "false"
 msgstr "onwaar"
 
 #: grub-core/commands/file.c:670
-#, fuzzy
 msgid "OPTIONS FILE"
-msgstr "[OPTIES] LETTERTYPEBESTANDEN"
+msgstr "OPTIES BESTAND"
 
 #: grub-core/commands/file.c:671
 msgid "Check if FILE is of specified type."
-msgstr ""
+msgstr "Controleert of BESTAND van het aangegeven type is."
 
 #. TRANSLATORS: It means that the specified partition e.g.
 #. hd0,msdos1=/dev/sda1 doesn't exist.
@@ -595,23 +572,12 @@ msgstr "APPARAAT [PARTITIE[+/-[TYPE]]] ..."
 #. TRANSLATORS: MBR type is one-byte partition
 #. type id.
 #: grub-core/commands/gptsync.c:253
-msgid ""
-"Fill hybrid MBR of GPT drive DEVICE. Specified partitions will be a part of "
-"hybrid MBR. Up to 3 partitions are allowed. TYPE is an MBR type. + means "
-"that partition is active. Only one partition can be active."
-msgstr ""
-"Hybride MBR van GPT-APPARAAT vullen.  Opgegeven partities zullen onderdeel "
-"zijn van de hybride MBR.  Maximaal drie partities zijn toegestaan.  TYPE is "
-"een MBR-soort; + betekent dat de partitie actief is; slechts één partitie "
-"kan actief zijn."
+msgid "Fill hybrid MBR of GPT drive DEVICE. Specified partitions will be a part of hybrid MBR. Up to 3 partitions are allowed. TYPE is an MBR type. + means that partition is active. Only one partition can be active."
+msgstr "Hybride MBR van GPT-APPARAAT vullen.  Opgegeven partities zullen onderdeel zijn van de hybride MBR.  Maximaal drie partities zijn toegestaan.  TYPE is een MBR-soort; + betekent dat de partitie actief is; slechts één partitie kan actief zijn."
 
 #: grub-core/commands/halt.c:40
-msgid ""
-"Halts the computer.  This command does not work on all firmware "
-"implementations."
-msgstr ""
-"Stopt de computer.  Deze opdracht werkt niet met alle firmware-"
-"implementaties."
+msgid "Halts the computer.  This command does not work on all firmware implementations."
+msgstr "Stopt de computer.  Deze opdracht werkt niet met alle firmware-implementaties."
 
 #: grub-core/commands/hashsum.c:32
 msgid "Specify hash to use."
@@ -623,8 +589,7 @@ msgstr "HASH"
 
 #: grub-core/commands/hashsum.c:33
 msgid "Check hashes of files with hash list FILE."
-msgstr ""
-"Hashes van bestanden controleren aan de hand van dit hash-lijstbestand."
+msgstr "Hashes van bestanden controleren aan de hand van dit hash-lijstbestand."
 
 #: grub-core/commands/hashsum.c:35
 msgid "Base directory for hash list."
@@ -801,9 +766,8 @@ msgid "Show raw contents of a file or memory."
 msgstr "Onbewerkte inhoud van bestand of geheugen tonen."
 
 #: grub-core/commands/i386/cmosdump.c:58
-#, fuzzy
 msgid "Show raw dump of the CMOS contents."
-msgstr "Inhoud van CMOS dumpen."
+msgstr "Onbewerkte inhoud van CMOS tonen."
 
 #: grub-core/commands/i386/cmostest.c:108
 #: grub-core/commands/i386/cmostest.c:111
@@ -816,20 +780,17 @@ msgid "Test bit at BYTE:BIT in CMOS."
 msgstr "Een bit testen op positie BYTE:BIT in CMOS."
 
 #: grub-core/commands/i386/cmostest.c:112
-#, fuzzy
 msgid "Clear bit at BYTE:BIT in CMOS."
 msgstr "Een bit wissen op positie BYTE:BIT in CMOS."
 
 #. TRANSLATORS: A bit may be either set (1) or clear (0).
 #: grub-core/commands/i386/cmostest.c:116
-#, fuzzy
 msgid "Set bit at BYTE:BIT in CMOS."
-msgstr "Een bit testen op positie BYTE:BIT in CMOS."
+msgstr "Een bit zetten op positie BYTE:BIT in CMOS."
 
 #: grub-core/commands/i386/coreboot/cb_timestamps.c:112
-#, fuzzy
 msgid "Show coreboot boot time statistics."
-msgstr "Opstart-statistieken van coreboot ophalen."
+msgstr "Opstart-statistieken van coreboot tonen."
 
 #: grub-core/commands/i386/coreboot/cbls.c:137
 msgid "List coreboot tables."
@@ -842,9 +803,8 @@ msgid "Check if CPU supports 64-bit (long) mode (default)."
 msgstr "Controleren of de CPU 64-bits (\"lang\") ondersteunt (standaard)."
 
 #: grub-core/commands/i386/cpuid.c:37
-#, fuzzy
 msgid "Check if CPU supports Physical Address Extension."
-msgstr "Controleren of de CPU 64-bits (\"lang\") ondersteunt (standaard)."
+msgstr "Controleren of de CPU verlenging van het fysieke adres (PAE) ondersteunt."
 
 #: grub-core/commands/i386/cpuid.c:119
 msgid "Check for CPU features."
@@ -870,6 +830,7 @@ msgstr "Zowel directe als inverse verwijzingen uitvoeren."
 msgid "No drives have been remapped"
 msgstr "Er zijn geen schijven herverwezen"
 
+# XXX  should translation have length equal to original?
 #. TRANSLATORS:  This is the header of mapping list.
 #. On the left is how OS will see the disks and
 #. on the right current GRUB vision.
@@ -1180,15 +1141,11 @@ msgstr "Een verouderde configuratie ontleden in nieuwe context"
 
 #: grub-core/commands/legacycfg.c:815
 msgid "Parse legacy config in same context taking only menu entries"
-msgstr ""
-"Een verouderde configuratie ontleden in dezelfde context, maar alleen menu-"
-"items nemen"
+msgstr "Een verouderde configuratie ontleden in dezelfde context, maar alleen menu-items nemen"
 
 #: grub-core/commands/legacycfg.c:820
 msgid "Parse legacy config in new context taking only menu entries"
-msgstr ""
-"Een verouderde configuratie ontleden in nieuwe context, maar alleen menu-"
-"items nemen"
+msgstr "Een verouderde configuratie ontleden in nieuwe context, maar alleen menu-items nemen"
 
 #: grub-core/commands/legacycfg.c:824
 msgid "[--no-mem-option] [--type=TYPE] FILE [ARG ...]"
@@ -1230,12 +1187,11 @@ msgstr "Bestandsnaam opgeven."
 
 #: grub-core/commands/loadenv.c:39
 msgid "Skip signature-checking of the environment file."
-msgstr ""
+msgstr "Vingerafdrukcontrole van omgevingsbestand overslaan."
 
 #: grub-core/commands/loadenv.c:458
-#, fuzzy
 msgid "[-f FILE] [-s|--skip-sig] [variable_name_to_whitelist] [...]"
-msgstr "[-f BESTAND] VARIABELENAAM..."
+msgstr "[-f BESTAND] [-s|--skip-sig] [TOE-TE-STANE-VARIABELENAAM...]"
 
 #: grub-core/commands/loadenv.c:459
 msgid "Load variables from environment block file."
@@ -1343,10 +1299,12 @@ msgstr "Geheugentoewijzing geleverd door firmware tonen."
 msgid "List PCI devices."
 msgstr "PCI-apparaten tonen."
 
+# XXX  s/intel macs/Intel Macs/
 #: grub-core/commands/macbless.c:225
 msgid "Bless FILE of HFS or HFS+ partition for intel macs."
 msgstr ""
 
+# XXX  what the donkey is a bless?
 #: grub-core/commands/macbless.c:229
 msgid "Bless DIR of HFS or HFS+ partition for PPC macs."
 msgstr ""
@@ -1538,13 +1496,8 @@ msgid "[MODULE1 MODULE2 ...]"
 msgstr "[MODULE1 MODULE2 ...]"
 
 #: grub-core/commands/nativedisk.c:311
-msgid ""
-"Switch to native disk drivers. If no modules are specified default set (pata,"
-"ahci,usbms,ohci,uhci,ehci) is used"
-msgstr ""
-"Naar originele schijfstuurprogramma's overschakelen. Als er geen modules "
-"gegeven zijn, dan wordt de standaardset (pata,ahci,usbms,ohci,uhci,ehci) "
-"gebruikt."
+msgid "Switch to native disk drivers. If no modules are specified default set (pata,ahci,usbms,ohci,uhci,ehci) is used"
+msgstr "Naar originele schijfstuurprogramma's overschakelen. Als er geen modules gegeven zijn, dan wordt de standaardset (pata,ahci,usbms,ohci,uhci,ehci) gebruikt."
 
 #: grub-core/commands/parttool.c:40
 msgid ""
@@ -1559,7 +1512,7 @@ msgid "=VAL"
 msgstr "=WAARDE"
 
 #: grub-core/commands/parttool.c:136
-#, fuzzy, c-format
+#, c-format
 msgid "Sorry, no parttool is available for %s\n"
 msgstr "Sorry, 'parttool' werkt niet voor %s\n"
 
@@ -1630,9 +1583,8 @@ msgid "[-s POSITION] [-d DEVICE]"
 msgstr "[-s POSITIE] [-d APPARAAT]"
 
 #: grub-core/commands/pcidump.c:169
-#, fuzzy
 msgid "Show raw dump of the PCI configuration space."
-msgstr "Instellingenruimte van PCI weergeven."
+msgstr "Onbewerkte inhoud van PCI-instellingenruimte tonen."
 
 #: grub-core/commands/probe.c:40 grub-core/commands/tr.c:32
 msgid "Set a variable to return value."
@@ -1720,28 +1672,16 @@ msgid "NAME [VARIABLE] [HINTS]"
 msgstr "NAAM [VARIABELE] [HINTS]"
 
 #: grub-core/commands/search_file.c:4
-msgid ""
-"Search devices by file. If VARIABLE is specified, the first device found is "
-"set to a variable."
-msgstr ""
-"Apparaten doorzoeken naar bestand.  Als VARIABELE opgegeven is, wordt de "
-"naam van het eerstgevonden apparaat daaraan toegekend."
+msgid "Search devices by file. If VARIABLE is specified, the first device found is set to a variable."
+msgstr "Apparaten doorzoeken naar bestand.  Als VARIABELE opgegeven is, wordt de naam van het eerstgevonden apparaat daaraan toegekend."
 
 #: grub-core/commands/search_label.c:4
-msgid ""
-"Search devices by label. If VARIABLE is specified, the first device found is "
-"set to a variable."
-msgstr ""
-"Apparaten op label zoeken.  Als VARIABELE opgegeven is, wordt de naam van "
-"het eerstgevonden apparaat daaraan toegekend."
+msgid "Search devices by label. If VARIABLE is specified, the first device found is set to a variable."
+msgstr "Apparaten op label zoeken.  Als VARIABELE opgegeven is, wordt de naam van het eerstgevonden apparaat daaraan toegekend."
 
 #: grub-core/commands/search_uuid.c:4
-msgid ""
-"Search devices by UUID. If VARIABLE is specified, the first device found is "
-"set to a variable."
-msgstr ""
-"Apparaten op UUID zoeken.  Als VARIABELE opgegeven is, wordt de naam van het "
-"eerstgevonden apparaat daaraan toegekend."
+msgid "Search devices by UUID. If VARIABLE is specified, the first device found is set to a variable."
+msgstr "Apparaten op UUID zoeken.  Als VARIABELE opgegeven is, wordt de naam van het eerstgevonden apparaat daaraan toegekend."
 
 #: grub-core/commands/search_wrap.c:34
 msgid "Search devices by a file."
@@ -1764,11 +1704,8 @@ msgid "Do not probe any floppy drive."
 msgstr "Geen floppy-apparaten polsen."
 
 #: grub-core/commands/search_wrap.c:44
-msgid ""
-"First try the device HINT. If HINT ends in comma, also try subpartitions"
-msgstr ""
-"Eerst apparaat HINT proberen.  Als HINT eindigt op een komma, ook "
-"subpartities proberen."
+msgid "First try the device HINT. If HINT ends in comma, also try subpartitions"
+msgstr "Eerst apparaat HINT proberen.  Als HINT eindigt op een komma, ook subpartities proberen."
 
 #: grub-core/commands/search_wrap.c:45 grub-core/commands/search_wrap.c:49
 #: grub-core/commands/search_wrap.c:53 grub-core/commands/search_wrap.c:57
@@ -1777,58 +1714,32 @@ msgid "HINT"
 msgstr "HINT"
 
 #: grub-core/commands/search_wrap.c:47
-msgid ""
-"First try the device HINT if currently running on IEEE1275. If HINT ends in "
-"comma, also try subpartitions"
-msgstr ""
-"Eerst apparaat HINT proberen, wanneer draaiend op IEE1275.  Als HINT eindigt "
-"op een komma, ook subpartities proberen."
+msgid "First try the device HINT if currently running on IEEE1275. If HINT ends in comma, also try subpartitions"
+msgstr "Eerst apparaat HINT proberen, wanneer draaiend op IEE1275.  Als HINT eindigt op een komma, ook subpartities proberen."
 
 #: grub-core/commands/search_wrap.c:51
-msgid ""
-"First try the device HINT if currently running on BIOS. If HINT ends in "
-"comma, also try subpartitions"
-msgstr ""
-"Eerst apparaat HINT proberen, wanneer draaiend op BIOS.  Als HINT eindigt op "
-"een komma, ook subpartities proberen."
+msgid "First try the device HINT if currently running on BIOS. If HINT ends in comma, also try subpartitions"
+msgstr "Eerst apparaat HINT proberen, wanneer draaiend op BIOS.  Als HINT eindigt op een komma, ook subpartities proberen."
 
 #: grub-core/commands/search_wrap.c:55
-msgid ""
-"First try the device HINT if direct hardware access is supported. If HINT "
-"ends in comma, also try subpartitions"
-msgstr ""
-"Eerst apparaat HINT proberen wanneer directe hardwaretoegang ondersteund "
-"wordt.  Als HINT eindigt op een komma, ook subpartities proberen."
+msgid "First try the device HINT if direct hardware access is supported. If HINT ends in comma, also try subpartitions"
+msgstr "Eerst apparaat HINT proberen wanneer directe hardwaretoegang ondersteund wordt.  Als HINT eindigt op een komma, ook subpartities proberen."
 
 #: grub-core/commands/search_wrap.c:59
-msgid ""
-"First try the device HINT if currently running on EFI. If HINT ends in "
-"comma, also try subpartitions"
-msgstr ""
-"Eerst apparaat HINT proberen, wanneer draaiend op EFI.  Als HINT eindigt op "
-"een komma, ook subpartities proberen."
+msgid "First try the device HINT if currently running on EFI. If HINT ends in comma, also try subpartitions"
+msgstr "Eerst apparaat HINT proberen, wanneer draaiend op EFI.  Als HINT eindigt op een komma, ook subpartities proberen."
 
 #: grub-core/commands/search_wrap.c:63
-msgid ""
-"First try the device HINT if currently running on ARC. If HINT ends in "
-"comma, also try subpartitions"
-msgstr ""
-"Eerst apparaat HINT proberen, wanneer draaiend op ARC.  Als HINT eindigt op "
-"een komma, ook subpartities proberen."
+msgid "First try the device HINT if currently running on ARC. If HINT ends in comma, also try subpartitions"
+msgstr "Eerst apparaat HINT proberen, wanneer draaiend op ARC.  Als HINT eindigt op een komma, ook subpartities proberen."
 
 #: grub-core/commands/search_wrap.c:202
 msgid "[-f|-l|-u|-s|-n] [--hint HINT [--hint HINT] ...] NAME"
 msgstr "[-f|-l|-u|-s|-n] [--hint HINT [--hint HINT]...] NAAM"
 
 #: grub-core/commands/search_wrap.c:204
-msgid ""
-"Search devices by file, filesystem label or filesystem UUID. If --set is "
-"specified, the first device found is set to a variable. If no variable name "
-"is specified, `root' is used."
-msgstr ""
-"Apparaten op bestand, label of UUID zoeken.  Als '--set' gegeven is, dan "
-"wordt het eerstgevonden apparaat toegekend aan een variabele; als geen "
-"variabelenaam gegeven is, dan wordt hiervoor 'root' gebruikt."
+msgid "Search devices by file, filesystem label or filesystem UUID. If --set is specified, the first device found is set to a variable. If no variable name is specified, `root' is used."
+msgstr "Apparaten op bestand, label of UUID zoeken.  Als '--set' gegeven is, dan wordt het eerstgevonden apparaat toegekend aan een variabele; als geen variabelenaam gegeven is, dan wordt hiervoor 'root' gebruikt."
 
 #: grub-core/commands/setpci.c:132
 #, c-format
@@ -1861,52 +1772,42 @@ msgstr "Een opgegeven aantal seconden wachten."
 
 #: grub-core/commands/syslinuxcfg.c:50 util/grub-syslinux2cfg.c:66
 msgid "root directory of the syslinux disk [default=/]."
-msgstr ""
+msgstr "hoofdmap van de syslinux-schijf  [standaard=/]"
 
+# XXX  s/the//
 #: grub-core/commands/syslinuxcfg.c:53 util/grub-syslinux2cfg.c:72
-msgid ""
-"current directory of the syslinux [default is parent directory of input "
-"file]."
-msgstr ""
+msgid "current directory of the syslinux [default is parent directory of input file]."
+msgstr "huidige map van syslinux  [standaard is de oudermap van het invoerbestand]"
 
 #: grub-core/commands/syslinuxcfg.c:55 util/grub-syslinux2cfg.c:75
 msgid "assume input is an isolinux configuration file."
-msgstr ""
+msgstr "aannemen dat invoer een isolinux-configuratiebestand is"
 
 #: grub-core/commands/syslinuxcfg.c:56 util/grub-syslinux2cfg.c:76
 msgid "assume input is a pxelinux configuration file."
-msgstr ""
+msgstr "aannemen dat invoer een pxelinux-configuratiebestand is"
 
 #: grub-core/commands/syslinuxcfg.c:57 util/grub-syslinux2cfg.c:77
-#, fuzzy
 msgid "assume input is a syslinux configuration file."
-msgstr "Aannemen dat de invoer een wachtwoordzin is."
+msgstr "aannemen dat invoer een syslinux-configuratiebestand is"
 
 #. TRANSLATORS: "syslinux config" means
 #. "config as used by syslinux".
 #: grub-core/commands/syslinuxcfg.c:186
-#, fuzzy
 msgid "Execute syslinux config in same context"
-msgstr "Een verouderde configuratie ontleden in dezelfde context"
+msgstr "Een syslinux-configuratie uitvoeren in dezelfde context"
 
 #: grub-core/commands/syslinuxcfg.c:192
-#, fuzzy
 msgid "Execute syslinux config in new context"
-msgstr "Een verouderde configuratie ontleden in nieuwe context"
+msgstr "Een syslinux-configuratie uitvoeren in nieuwe context"
 
 #: grub-core/commands/syslinuxcfg.c:198
-#, fuzzy
 msgid "Execute syslinux config in same context taking only menu entries"
-msgstr ""
-"Een verouderde configuratie ontleden in dezelfde context, maar alleen menu-"
-"items nemen"
+msgstr "Een syslinux-configuratie uitvoeren in dezelfde context, maar alleen menu-items nemen"
 
 #: grub-core/commands/syslinuxcfg.c:204
-#, fuzzy
 msgid "Execute syslinux config in new context taking only menu entries"
-msgstr ""
-"Een verouderde configuratie ontleden in nieuwe context, maar alleen menu-"
-"items nemen"
+msgstr "Een syslinux-configuratie uitvoeren in nieuwe context, maar alleen menu-items nemen"
 
 #: grub-core/commands/terminal.c:90
 msgid "no terminal specified"
@@ -2011,19 +1912,20 @@ msgstr "De tijd meten die OPDRACHT duurt"
 
 #: grub-core/commands/tr.c:33
 msgid "Translate to upper case."
-msgstr ""
+msgstr "Omzetten naar hoofdletters."
 
 #: grub-core/commands/tr.c:34
 msgid "Translate to lower case."
-msgstr ""
+msgstr "Omzetten naar kleine letters."
 
+# XXX  how can SET1 be optional?
 #: grub-core/commands/tr.c:119
 msgid "[OPTIONS] [SET1] [SET2] [STRING]"
-msgstr ""
+msgstr "[OPTIE...] SET1 [SET2] [TEKENREEKS]"
 
 #: grub-core/commands/tr.c:120
 msgid "Translate SET1 characters to SET2 in STRING."
-msgstr ""
+msgstr "In TEKENREEKS de tekens in SET1 omzetten naar SET2."
 
 #. TRANSLATORS: it's a command description.
 #: grub-core/commands/true.c:50
@@ -2041,7 +1943,7 @@ msgstr "USB-ondersteuning testen."
 
 #: grub-core/commands/verify.c:44
 msgid "Skip signature-checking of the public key file."
-msgstr ""
+msgstr "Vingerafdrukcontrole van publiekesleutelbestand overslaan."
 
 #. TRANSLATORS: it's about GNUPG signatures.
 #: grub-core/commands/verify.c:70 grub-core/commands/verify.c:80
@@ -2074,9 +1976,8 @@ msgid "module `%s' isn't loaded"
 msgstr "module '%s' is niet geladen"
 
 #: grub-core/commands/verify.c:964
-#, fuzzy
 msgid "[-s|--skip-sig] FILE SIGNATURE_FILE [PUBKEY_FILE]"
-msgstr "BESTAND VINGERAFDRUKBESTAND [PUBLIEKESLEUTELBESTAND]"
+msgstr "[-s|--skip-sig] BESTAND VINGERAFDRUKBESTAND [PUBLIEKESLEUTELBESTAND]"
 
 #: grub-core/commands/verify.c:965
 msgid "Verify detached signature."
@@ -2084,26 +1985,24 @@ msgstr "Een losse vingerafdruk controleren."
 
 #: grub-core/commands/verify.c:968
 msgid "[-s|--skip-sig] PUBKEY_FILE"
-msgstr ""
+msgstr "[-s|--skip-sig] PUBLIEKESLEUTELBESTAND"
 
+# XXX  should this not say: "add key *from* given file"?
 #: grub-core/commands/verify.c:969
-#, fuzzy
 msgid "Add PUBKEY_FILE to trusted keys."
 msgstr "Sleutel uit gegeven bestand aan vertrouwde sleutels toevoegen."
 
 #: grub-core/commands/verify.c:973
-#, fuzzy
 msgid "Show the list of trusted keys."
-msgstr "Vertrouwde sleutels tonen."
+msgstr "Lijst van vertrouwde sleutels tonen."
 
 #: grub-core/commands/verify.c:975
 msgid "PUBKEY_ID"
 msgstr "PUBLIEKESLEUTEL-ID"
 
 #: grub-core/commands/verify.c:976
-#, fuzzy
 msgid "Remove PUBKEY_ID from trusted keys."
-msgstr "Sleutel met gegeven ID uit vertrouwde sleutels verwijderen."
+msgstr "Sleutel met gegeven PUBLIEKESLEUTEL-ID uit vertrouwde sleutels verwijderen."
 
 #: grub-core/commands/videoinfo.c:61
 msgid "Text-only "
@@ -2211,12 +2110,8 @@ msgid "[WxH[xD]]"
 msgstr "[BxH[xD]]"
 
 #: grub-core/commands/videoinfo.c:240 grub-core/commands/videoinfo.c:249
-msgid ""
-"List available video modes. If resolution is given show only modes matching "
-"it."
-msgstr ""
-"Beschikbare videomodi tonen.  Als een resolutie gegeven is, alleen "
-"overeenkomende modi tonen."
+msgid "List available video modes. If resolution is given show only modes matching it."
+msgstr "Beschikbare videomodi tonen.  Als een resolutie gegeven is, alleen overeenkomende modi tonen."
 
 #. TRANSLATORS: "x" has to be entered in,
 #. like an identifier, so please don't
@@ -2237,12 +2132,11 @@ msgstr "Video-subsysteem testen."
 
 #: grub-core/commands/xen/lsxen.c:80 grub-core/commands/xen/lsxen.c:82
 msgid "[DIR]"
-msgstr ""
+msgstr "[MAP]"
 
 #: grub-core/commands/xen/lsxen.c:81 grub-core/commands/xen/lsxen.c:83
-#, fuzzy
 msgid "List Xen storage."
-msgstr "DNS-servers tonen."
+msgstr "Xen-opslag tonen."
 
 #. TRANSLATORS: GRUBUUID stands for "filesystem
 #. UUID as used in GRUB".
@@ -2251,12 +2145,8 @@ msgid "[-l] GRUBUUID [VARNAME]"
 msgstr "[-l] GRUB-UUID [VARNAAM]"
 
 #: grub-core/commands/xnu_uuid.c:111
-msgid ""
-"Transform 64-bit UUID to format suitable for XNU. If -l is given keep it "
-"lowercase as done by blkid."
-msgstr ""
-"Een 64-bit UUID geschikt maken voor XNU.  Als optie '-l' gegeven is, dan "
-"alleen in kleine letters zoals 'blkid' doet."
+msgid "Transform 64-bit UUID to format suitable for XNU. If -l is given keep it lowercase as done by blkid."
+msgstr "Een 64-bit UUID geschikt maken voor XNU.  Als optie '-l' gegeven is, dan alleen in kleine letters zoals 'blkid' doet."
 
 #: grub-core/disk/arc/arcdisk.c:248 grub-core/disk/efi/efidisk.c:587
 #: grub-core/disk/i386/pc/biosdisk.c:483 grub-core/disk/i386/pc/biosdisk.c:528
@@ -2338,12 +2228,8 @@ msgstr "Een versleuteld apparaat aankoppelen."
 #. message, not runtime message.
 #: grub-core/disk/diskfilter.c:341 grub-core/disk/diskfilter.c:373
 #, c-format
-msgid ""
-"Couldn't find physical volume `%s'. Some modules may be missing from core "
-"image."
-msgstr ""
-"Kan fysiek volumen '%s' niet vinden.  Mogelijk ontbreken er modules in de "
-"core-image."
+msgid "Couldn't find physical volume `%s'. Some modules may be missing from core image."
+msgstr "Kan fysiek volumen '%s' niet vinden.  Mogelijk ontbreken er modules in de core-image."
 
 #: grub-core/disk/diskfilter.c:477
 #, c-format
@@ -2394,11 +2280,8 @@ msgid "attempt to read or write outside of disk `%s'"
 msgstr "poging tot lezen of schrijven buiten schijf '%s'"
 
 #: grub-core/disk/i386/pc/biosdisk.c:647
-msgid ""
-"Native disk drivers are in use. Refusing to use firmware disk interface."
-msgstr ""
-"De eigen schijfstuurprogramma's worden gebruikt.  De firmware-interface is "
-"afgewezen."
+msgid "Native disk drivers are in use. Refusing to use firmware disk interface."
+msgstr "De eigen schijfstuurprogramma's worden gebruikt.  De firmware-interface is afgewezen."
 
 #. TRANSLATORS: it's a partition for embedding,
 #. not a partition embed into something. GRUB
@@ -2407,7 +2290,6 @@ msgstr ""
 #. "embedding zone") and this operation is
 #. called "embedding".
 #: grub-core/disk/ldm.c:1015
-#, fuzzy
 msgid "your LDM Embedding Partition is too small; embedding won't be possible"
 msgstr "uw LDM-inbeddende partitie is te klein; inbedding is niet mogelijk"
 
@@ -2522,16 +2404,12 @@ msgstr "is geen normaal bestand"
 
 #: grub-core/fs/btrfs.c:584 grub-core/fs/zfs/zfs.c:1460
 msgid "couldn't find a necessary member device of multi-device filesystem"
-msgstr ""
-"kan een benodigd deelapparaat van een multi-apparaat-bestandssysteem niet "
-"vinden"
+msgstr "kan een benodigd deelapparaat van een multi-apparaat-bestandssysteem niet vinden"
 
 #: grub-core/fs/btrfs.c:1729 grub-core/fs/zfs/zfs.c:4247
 #: grub-core/partmap/msdos.c:400
 msgid "your core.img is unusually large.  It won't fit in the embedding area"
-msgstr ""
-"Uw core.img is ongebruikelijk groot.  Het zal niet in de inbeddingsruimte "
-"passen."
+msgstr "Uw core.img is ongebruikelijk groot.  Het zal niet in de inbeddingsruimte passen."
 
 #: grub-core/fs/fshelp.c:220 grub-core/fs/hfs.c:1134 grub-core/fs/minix.c:614
 #: grub-core/fs/ufs.c:654 grub-core/fs/ufs.c:750 grub-core/kern/fs.c:168
@@ -2641,39 +2519,38 @@ msgstr "Apparaat-ID: %s\n"
 
 #: grub-core/fs/zfs/zfsinfo.c:146
 msgid "This VDEV is a mirror"
-msgstr ""
+msgstr "Deze VDEV is een mirror"
 
 #: grub-core/fs/zfs/zfsinfo.c:151
 #, c-format
 msgid "This VDEV is a RAIDZ%llu\n"
-msgstr ""
+msgstr "Deze VDEV is een RAIDZ%llu\n"
 
 #: grub-core/fs/zfs/zfsinfo.c:156
-#, fuzzy
 msgid "Incorrect VDEV"
-msgstr "Onjuiste mirror"
+msgstr "Onjuiste VDEV"
 
 #: grub-core/fs/zfs/zfsinfo.c:159
-#, fuzzy, c-format
+#, c-format
 msgid "VDEV with %d children\n"
-msgstr "Mirror met %d dochters\n"
+msgstr "VDEV met %d dochters\n"
 
 #. TRANSLATORS: it's the element carying the number %d, not
 #. total element number. And the number itself is fine,
 #. only the element isn't.
 #.
 #: grub-core/fs/zfs/zfsinfo.c:175
-#, fuzzy, c-format
+#, c-format
 msgid "VDEV element number %d isn't correct\n"
-msgstr "Mirror-elementnummer %d is niet correct\n"
+msgstr "VDEV-elementnummer %d is niet correct\n"
 
 #. TRANSLATORS: it's the element carying the number %d, not
 #. total element number. This is used in enumeration
 #. "Element number 1", "Element number 2", ...
 #: grub-core/fs/zfs/zfsinfo.c:182
-#, fuzzy, c-format
+#, c-format
 msgid "VDEV element number %d:\n"
-msgstr "Mirror-elementnummer %d:\n"
+msgstr "VDEV-elementnummer %d:\n"
 
 #: grub-core/fs/zfs/zfsinfo.c:191
 #, c-format
@@ -2798,21 +2675,12 @@ msgid "Translates the string with the current settings."
 msgstr "Vertaalt de tekenreeks met de huidige instellingen."
 
 #: grub-core/gfxmenu/gui_label.c:186 grub-core/normal/menu_text.c:184
-msgid ""
-"Press enter to boot the selected OS, `e' to edit the commands before booting "
-"or `c' for a command-line. ESC to return previous menu."
-msgstr ""
-"Druk op Enter om het geselecteerde systeem te starten, 'e' om de opdrachten "
-"te bewerken, of 'c' voor een opdrachtregel.  Druk op ESC voor het vorige "
-"menu."
+msgid "Press enter to boot the selected OS, `e' to edit the commands before booting or `c' for a command-line. ESC to return previous menu."
+msgstr "Druk op Enter om het geselecteerde systeem te starten, 'e' om de opdrachten te bewerken, of 'c' voor een opdrachtregel.  Druk op ESC voor het vorige menu."
 
 #: grub-core/gfxmenu/gui_label.c:190 grub-core/normal/menu_text.c:192
-msgid ""
-"Press enter to boot the selected OS, `e' to edit the commands before booting "
-"or `c' for a command-line."
-msgstr ""
-"Druk op Enter om het geselecteerde systeem te starten, 'e' om de opdrachten "
-"te bewerken, of 'c' voor een opdrachtregel."
+msgid "Press enter to boot the selected OS, `e' to edit the commands before booting or `c' for a command-line."
+msgstr "Druk op Enter om het geselecteerde systeem te starten, 'e' om de opdrachten te bewerken, of 'c' voor een opdrachtregel."
 
 #: grub-core/gfxmenu/gui_label.c:194
 msgid "enter: boot, `e': options, `c': cmd-line"
@@ -2870,9 +2738,7 @@ msgid "Garbage in ARGP_HELP_FMT: %s"
 msgstr "Rommel in ARGP_HELP_FMT: %s"
 
 #: grub-core/gnulib/argp-help.c:1249
-msgid ""
-"Mandatory or optional arguments to long options are also mandatory or "
-"optional for any corresponding short options."
+msgid "Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options."
 msgstr ""
 "Een argument dat verplicht of optioneel is voor een lange optie,\n"
 "is dat ook voor de overeenkomstige korte optie."
@@ -3178,12 +3044,8 @@ msgstr "kan niet schrijven naar '%s': %s"
 #.
 #: grub-core/kern/emu/hostdisk.c:503
 #, c-format
-msgid ""
-"the device.map entry `%s' is invalid. Ignoring it. Please correct or delete "
-"your device.map"
-msgstr ""
-"het item '%s' in 'device.map' is ongeldig; het wordt genegeerd; corrigeer of "
-"verwijder uw 'device.map'"
+msgid "the device.map entry `%s' is invalid. Ignoring it. Please correct or delete your device.map"
+msgstr "het item '%s' in 'device.map' is ongeldig; het wordt genegeerd; corrigeer of verwijder uw 'device.map'"
 
 #. TRANSLATORS: device.map is a filename. Not to be translated.
 #. device.map specifies disk correspondance overrides. Previously
@@ -3192,12 +3054,8 @@ msgstr ""
 #. possibilities.
 #: grub-core/kern/emu/hostdisk.c:555
 #, c-format
-msgid ""
-"the drive name `%s' in device.map is incorrect. Using %s instead. Please use "
-"the form [hfc]d[0-9]* (E.g. `hd0' or `cd')"
-msgstr ""
-"apparaatnaam '%s' in 'device.map' is onjuist; daarvoor in de plaats wordt %s "
-"gebruikt; gebruik de vorm [hfc]d[0-9]* (bijvoorbeeld 'hd0' of 'cd')"
+msgid "the drive name `%s' in device.map is incorrect. Using %s instead. Please use the form [hfc]d[0-9]* (E.g. `hd0' or `cd')"
+msgstr "apparaatnaam '%s' in 'device.map' is onjuist; daarvoor in de plaats wordt %s gebruikt; gebruik de vorm [hfc]d[0-9]* (bijvoorbeeld 'hd0' of 'cd')"
 
 #: grub-core/kern/emu/hostfs.c:77 grub-core/kern/emu/hostfs.c:110
 #, c-format
@@ -3218,12 +3076,12 @@ msgstr "Root-apparaat instellen."
 #: grub-core/kern/emu/main.c:93 util/grub-probe.c:711 util/grub-setup.c:85
 #, c-format
 msgid "use FILE as the device map [default=%s]"
-msgstr "BESTAND als apparaattoewijzingstabel gebruiken [standaard %s]"
+msgstr "BESTAND als apparaattoewijzingstabel gebruiken  [standaard %s]"
 
 #: grub-core/kern/emu/main.c:95 util/grub-setup.c:83
 #, c-format
 msgid "use GRUB files in the directory DIR [default=%s]"
-msgstr "de GRUB-bestanden uit MAP gebruiken [standaard %s]"
+msgstr "de GRUB-bestanden uit MAP gebruiken  [standaard %s]"
 
 #: grub-core/kern/emu/main.c:96 include/grub/util/install.h:65
 #: util/grub-editenv.c:58 util/grub-fstest.c:525 util/grub-glue-efi.c:58
@@ -3328,11 +3186,8 @@ msgstr "het argument '%s' vereist een geheel getal"
 
 #: grub-core/lib/arg.c:407
 #, c-format
-msgid ""
-"a value was assigned to the argument `%s' while it doesn't require an "
-"argument"
-msgstr ""
-"er werd een waarde gegeven voor argument '%s' terwijl het geen waarde vereist"
+msgid "a value was assigned to the argument `%s' while it doesn't require an argument"
+msgstr "er werd een waarde gegeven voor argument '%s' terwijl het geen waarde vereist"
 
 #: grub-core/lib/backtrace.c:64
 msgid "Print backtrace."
@@ -3344,7 +3199,7 @@ msgstr "GRUB weet nog niet hoe deze machine te stoppen!"
 
 #: grub-core/lib/legacy_parse.c:75
 msgid "Default server is ${net_default_server}"
-msgstr ""
+msgstr "Standaardserver is ${net_default_server}"
 
 #: grub-core/lib/legacy_parse.c:843 grub-core/video/colors.c:296
 #: grub-core/video/colors.c:305 grub-core/video/colors.c:311
@@ -3359,17 +3214,15 @@ msgstr "Herstarten is mislukt"
 
 #: grub-core/loader/arm/linux.c:242
 msgid "device tree must be supplied (see `devicetree' command)"
-msgstr ""
+msgstr "apparatenboom moet gegeven zijn (zie opdracht 'devicetree')"
 
 #: grub-core/loader/arm/linux.c:330
-#, fuzzy
 msgid "invalid zImage"
-msgstr "ongeldig lettertypebereik"
+msgstr "ongeldige zImage"
 
 #: grub-core/loader/arm/linux.c:449 grub-core/loader/arm64/linux.c:224
-#, fuzzy
 msgid "invalid device tree"
-msgstr "Ongeldig apparaat '%s'.\n"
+msgstr "ongeldige apparatenboom"
 
 #: grub-core/loader/arm/linux.c:513 grub-core/loader/arm64/linux.c:473
 #: grub-core/loader/i386/linux.c:1141 grub-core/loader/i386/pc/linux.c:474
@@ -3391,14 +3244,12 @@ msgstr "Een initiële RAM-schijf laden."
 
 #. TRANSLATORS: DTB stands for device tree blob.
 #: grub-core/loader/arm/linux.c:518 grub-core/loader/arm64/linux.c:478
-#, fuzzy
 msgid "Load DTB file."
-msgstr "Een XNU-image laden."
+msgstr "Een DTB-bestand laden."
 
 #: grub-core/loader/arm64/linux.c:123
-msgid ""
-"plain Image kernel not supported - rebuild with CONFIG_(U)EFI_STUB enabled"
-msgstr ""
+msgid "plain Image kernel not supported - rebuild with CONFIG_(U)EFI_STUB enabled"
+msgstr "een gewone Image-kernel wordt niet ondersteund; hercompileer grub met 'CONFIG_(U)EFI_STUB' ingeschakeld"
 
 #: grub-core/loader/efi/appleloader.c:231
 msgid "[OPTS]"
@@ -3434,6 +3285,7 @@ msgstr "Vragen om naam van bestand waarvan herstart moet worden."
 msgid "Use CD-ROM as root."
 msgstr "Een CD-ROM als root-apparaat gebruiken."
 
+# (doet momenteel niets)
 #: grub-core/loader/i386/bsd.c:106
 #, fuzzy
 msgid "Invoke user configuration routing."
@@ -3586,20 +3438,14 @@ msgstr "Verouderde parameter 'ask' wordt niet meer ondersteund."
 #: grub-core/loader/i386/linux.c:957
 #, c-format
 msgid "%s is deprecated. Use set gfxpayload=%s before linux command instead.\n"
-msgstr ""
-"%s wordt afgeraden. Gebruik in plaats daarvan 'set gfxpayload=%s' vóór de "
-"'linux'-opdracht.\n"
+msgstr "%s wordt afgeraden. Gebruik in plaats daarvan 'set gfxpayload=%s' vóór de 'linux'-opdracht.\n"
 
 #. TRANSLATORS: "x" has to be entered in, like an identifier,
 #. so please don't use better Unicode codepoints.
 #: grub-core/loader/i386/linux.c:940
 #, c-format
-msgid ""
-"%s is deprecated. VGA mode %d isn't recognized. Use set "
-"gfxpayload=WIDTHxHEIGHT[xDEPTH] before linux command instead.\n"
-msgstr ""
-"%s wordt afgeraden. VGA-modus %d wordt niet herkend. Gebruik in plaats "
-"daarvan 'set gfxpayload=BREEDTExHOOGTE[xDIEPTE]' vóór de 'linux'-opdracht.\n"
+msgid "%s is deprecated. VGA mode %d isn't recognized. Use set gfxpayload=WIDTHxHEIGHT[xDEPTH] before linux command instead.\n"
+msgstr "%s wordt afgeraden. VGA-modus %d wordt niet herkend. Gebruik in plaats daarvan 'set gfxpayload=BREEDTExHOOGTE[xDIEPTE]' vóór de 'linux'-opdracht.\n"
 
 #: grub-core/loader/i386/pc/chainloader.c:286
 msgid "[--force|--bpb] FILE"
@@ -3645,18 +3491,16 @@ msgid "Load a PXE image."
 msgstr "Een PXE-image laden."
 
 #: grub-core/loader/i386/pc/truecrypt.c:226
-#, fuzzy
 msgid "Load Truecrypt ISO."
-msgstr "De ZFS-versleutelingsleutel laden."
+msgstr "Een Truecrypt-ISO laden."
 
 #: grub-core/loader/i386/xen.c:542 grub-core/loader/i386/xen.c:608
 msgid "initrd already loaded"
-msgstr ""
+msgstr "initrd is al geladen"
 
 #: grub-core/loader/i386/xen.c:702
-#, fuzzy
 msgid "Load module."
-msgstr "Een module verwijderen."
+msgstr "Module laden."
 
 #: grub-core/loader/i386/xnu.c:958
 msgid "Press any key to launch xnu"
@@ -3696,8 +3540,7 @@ msgstr "FPSWA-versie tonen"
 
 #: grub-core/loader/multiboot.c:193
 msgid "WARNING: no console will be available to OS"
-msgstr ""
-"WAARSCHUWING: er zal geen console beschikbaar zijn voor het beheersysteem"
+msgstr "WAARSCHUWING: er zal geen console beschikbaar zijn voor het beheersysteem"
 
 #: grub-core/loader/multiboot.c:389
 msgid "Load a multiboot 2 kernel."
@@ -3841,10 +3684,8 @@ msgid "VAR INTERFACE NUMBER DESCRIPTION"
 msgstr "VAR INTERFACE NUMMER OMSCHRIJVING"
 
 #: grub-core/net/bootp.c:608
-msgid ""
-"retrieve DHCP option and save it into VAR. If VAR is - then print the value."
-msgstr ""
-"een DHCP-optie ophalen en opslaan in VAR; als VAR '-' is, dan de waarde tonen"
+msgid "retrieve DHCP option and save it into VAR. If VAR is - then print the value."
+msgstr "een DHCP-optie ophalen en opslaan in VAR; als VAR '-' is, dan de waarde tonen"
 
 #: grub-core/net/dns.c:450
 msgid "no DNS servers configured"
@@ -3864,32 +3705,32 @@ msgstr "geen DNS-antwoord ontvangen"
 
 #: grub-core/net/dns.c:676
 msgid "only ipv4"
-msgstr ""
+msgstr "alleen IPv4"
 
 #: grub-core/net/dns.c:680
 msgid "only ipv6"
-msgstr ""
+msgstr "alleen IPv6"
 
 #: grub-core/net/dns.c:684
 msgid "prefer ipv4"
-msgstr ""
+msgstr "IPv4 de voorkeur geven"
 
 #: grub-core/net/dns.c:688
 msgid "prefer ipv6"
-msgstr ""
+msgstr "IPv6 de voorkeur geven"
 
 #: grub-core/net/dns.c:721
-#, fuzzy
 msgid "invalid argument"
-msgstr "ongeldige parameter %s"
+msgstr "ongeldig argument"
 
 #: grub-core/net/dns.c:753
 msgid "ADDRESS DNSSERVER"
 msgstr "ADRES DNS-SERVER"
 
+# XXX  add period?
 #: grub-core/net/dns.c:754
 msgid "Perform a DNS lookup"
-msgstr "Een DNS-lookup uitvoeren"
+msgstr "Een DNS-lookup uitvoeren."
 
 #: grub-core/net/dns.c:756 grub-core/net/dns.c:759
 msgid "DNSSERVER"
@@ -3903,6 +3744,7 @@ msgstr "Een DNS-server toevoegen"
 msgid "Remove a DNS server"
 msgstr "Een DNS-server verwijderen"
 
+# XXX  add period?
 #: grub-core/net/dns.c:762
 msgid "List DNS servers"
 msgstr "DNS-servers tonen."
@@ -4166,14 +4008,8 @@ msgstr "ESC annuleert op elk moment."
 
 #: grub-core/normal/main.c:355
 #, c-format
-msgid ""
-"Minimal BASH-like line editing is supported. For the first word, TAB lists "
-"possible command completions. Anywhere else TAB lists possible device or "
-"file completions. %s"
-msgstr ""
-"Minimale Bash-achtige regelbewerking is mogelijk.  Voor het eerste woord "
-"toont TAB de mogelijke opdrachten.  Elders toont TAB de mogelijke apparaten "
-"of bestanden.  %s"
+msgid "Minimal BASH-like line editing is supported. For the first word, TAB lists possible command completions. Anywhere else TAB lists possible device or file completions. %s"
+msgstr "Minimale Bash-achtige regelbewerking is mogelijk.  Voor het eerste woord toont TAB de mogelijke opdrachten.  Elders toont TAB de mogelijke apparaten of bestanden.  %s"
 
 #. TRANSLATORS: it's command line prompt.
 #: grub-core/normal/main.c:387
@@ -4213,22 +4049,15 @@ msgstr "Terugvallend op '%s'"
 
 #: grub-core/normal/menu.c:842
 msgid "Failed to boot both default and fallback entries.\n"
-msgstr ""
-"Het opstarten van zowel het standaard- als het terugvalitem is mislukt.\n"
+msgstr "Het opstarten van zowel het standaard- als het terugvalitem is mislukt.\n"
 
 #: grub-core/normal/menu_entry.c:1160
 msgid "Booting a command list"
 msgstr "Opstarten van een opdrachtenlijst"
 
 #: grub-core/normal/menu_text.c:160
-msgid ""
-"Minimum Emacs-like screen editing is supported. TAB lists completions. Press "
-"Ctrl-x or F10 to boot, Ctrl-c or F2 for a command-line or ESC to discard "
-"edits and return to the GRUB menu."
-msgstr ""
-"Minimale Emacs-achtige tekstbewerking is mogelijk.  TAB toont de mogelijke "
-"completeringen.  Druk op Ctrl-x of F10 om op te starten, Ctrl-c of F2 voor "
-"een opdrachtregel, of ESC voor het vorige menu."
+msgid "Minimum Emacs-like screen editing is supported. TAB lists completions. Press Ctrl-x or F10 to boot, Ctrl-c or F2 for a command-line or ESC to discard edits and return to the GRUB menu."
+msgstr "Minimale Emacs-achtige tekstbewerking is mogelijk.  TAB toont de mogelijke completeringen.  Druk op Ctrl-x of F10 om op te starten, Ctrl-c of F2 voor een opdrachtregel, of ESC voor het vorige menu."
 
 #: grub-core/normal/menu_text.c:170
 #, c-format
@@ -4364,7 +4193,7 @@ msgstr " - Totale grootte is %llu%sKiB"
 #. your language.
 #: grub-core/normal/misc.c:186
 msgid ".5"
-msgstr ""
+msgstr ",5"
 
 #. TRANSLATORS: This has to fit on one line.  It's ok to include few
 #. words but don't write poems.
@@ -4374,37 +4203,34 @@ msgstr "--Meer--"
 
 #: grub-core/osdep/aros/config.c:92 grub-core/osdep/unix/config.c:137
 #: grub-core/osdep/windows/config.c:55
-#, fuzzy, c-format
+#, c-format
 msgid "cannot open configuration file `%s': %s"
-msgstr "kan bestand '%s' op beheersysteem niet openen: %s"
+msgstr "kan configuratiebestand '%s' niet openen: %s"
 
 #: grub-core/osdep/basic/compress.c:8 grub-core/osdep/basic/compress.c:14
 #: grub-core/osdep/basic/compress.c:20
-#, fuzzy
 msgid "no compression is available for your platform"
-msgstr ""
-"Er zijn geen hints beschikbaar voor uw platform.  Verwacht gereduceerde "
-"prestaties."
+msgstr "er is geen compressie beschikbaar voor uw platform"
 
 #: grub-core/osdep/basic/no_platform.c:30
 #: grub-core/osdep/windows/platform.c:416
 msgid "no IEEE1275 routines are available for your platform"
-msgstr ""
+msgstr "er zijn geen IEEE1275-routines beschikbaar voor uw platform"
 
 #: grub-core/osdep/basic/no_platform.c:38
 msgid "no EFI routines are available for your platform"
-msgstr ""
+msgstr "er zijn geen EFI-routines beschikbaar voor uw platform"
 
 #: grub-core/osdep/basic/no_platform.c:45
 #: grub-core/osdep/windows/platform.c:423
 msgid "no SGI routines are available for your platform"
-msgstr ""
+msgstr "er zijn geen SGI-routines beschikbaar voor uw platform"
 
 #. TRANSLATORS: The OS itself may very well have a random
 #. number generator but GRUB doesn't know how to access it.
 #: grub-core/osdep/basic/random.c:42
 msgid "no random number generator is available for your OS"
-msgstr ""
+msgstr "er is geen willekeuriggetalgenerator beschikbaar voor uw beheersysteem"
 
 #: grub-core/osdep/devmapper/getroot.c:75
 msgid "Failed to create `device-mapper' tree"
@@ -4459,9 +4285,8 @@ msgid "cannot read `%s' correctly"
 msgstr "kan '%s' niet foutloos lezen"
 
 #: grub-core/osdep/generic/blocklist.c:128
-#, fuzzy
 msgid "failed to read the sectors of the core image"
-msgstr "lezen van de overige sectoren van de core-image is mislukt"
+msgstr "lezen van de sectoren van de core-image is mislukt"
 
 #. TRANSLATORS: On GNU/Hurd, a "translator" is similar to a filesystem
 #. mount, but handled by a userland daemon, whose invocation command line
@@ -4484,39 +4309,31 @@ msgstr "de translator-opdrachtregel is leeg voor pad '%s'"
 #.
 #: grub-core/osdep/hurd/getroot.c:98
 #, c-format
-msgid ""
-"translator `%s' for path `%s' has several non-option words, at least `%s' "
-"and `%s'"
-msgstr ""
-"translator '%s' voor pad '%s' bevat meerdere argumenten die geen opties "
-"zijn, in elk geval '%s' en '%s'"
+msgid "translator `%s' for path `%s' has several non-option words, at least `%s' and `%s'"
+msgstr "translator '%s' voor pad '%s' bevat meerdere argumenten die geen opties zijn, in elk geval '%s' en '%s'"
 
 #. TRANSLATORS: we expect to get something like
 #. /hurd/foobar --option1 --option2=baz /dev/something
 #.
 #: grub-core/osdep/hurd/getroot.c:109
 #, c-format
-msgid ""
-"translator `%s' for path `%s' is given only options, cannot find device part"
-msgstr ""
-"translator '%s' voor pad '%s' bevat alleen opties, geen apparaatcomponent"
+msgid "translator `%s' for path `%s' is given only options, cannot find device part"
+msgstr "translator '%s' voor pad '%s' bevat alleen opties, geen apparaatcomponent"
 
 #: grub-core/osdep/hurd/hostdisk.c:73
-#, fuzzy, c-format
+#, c-format
 msgid "Storage information for `%s' does not include type"
-msgstr "Opslaginfo voor '%s' bevat niet het type"
+msgstr "Opslaginformatie voor '%s' bevat niet het type"
 
 #: grub-core/osdep/hurd/hostdisk.c:75
-#, fuzzy, c-format
+#, c-format
 msgid "`%s' is not a local disk"
-msgstr "Bestandssysteem van '%s' is niet opgeslagen op een lokale schijf"
+msgstr "'%s' is geen lokale schijf"
 
 #: grub-core/osdep/hurd/hostdisk.c:78
 #, c-format
-msgid ""
-"Storage information for `%s' indicates neither a plain partition nor a plain "
-"disk"
-msgstr ""
+msgid "Storage information for `%s' indicates neither a plain partition nor a plain disk"
+msgstr "Opslaginformatie voor '%s' geeft noch een gewone partitie noch een gewone schijf aan"
 
 #: grub-core/osdep/linux/blocklist.c:81 grub-core/osdep/linux/blocklist.c:94
 #: grub-core/osdep/linux/blocklist.c:120
@@ -4568,9 +4385,7 @@ msgstr "onbekend soort RAID-apparaat '%s'"
 #: grub-core/osdep/linux/ofpath.c:134
 #, c-format
 msgid "`obppath' not found in parent dirs of `%s', no IEEE1275 name discovery"
-msgstr ""
-"'obppath' is niet gevonden in de omvattende mappen van '%s'; geen IEEE1275-"
-"naamsherleiding"
+msgstr "'obppath' is niet gevonden in de omvattende mappen van '%s'; geen IEEE1275-naamsherleiding"
 
 #: grub-core/osdep/linux/ofpath.c:172 grub-core/osdep/unix/getroot.c:497
 #: grub-core/osdep/unix/getroot.c:521 grub-core/osdep/unix/relpath.c:49
@@ -4615,41 +4430,39 @@ msgid "cannot stat `%s': %s"
 msgstr "kan status van '%s' niet opvragen: %s"
 
 #: grub-core/osdep/unix/hostdisk.c:307
-#, fuzzy, c-format
+#, c-format
 msgid "cannot make temporary file: %s"
-msgstr "kan bestand %s niet naar %s hernoemen"
+msgstr "kan geen tijdelijk bestand aanmaken: %s"
 
 #: grub-core/osdep/unix/hostdisk.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "cannot make temporary directory: %s"
-msgstr "kan de originele map niet herstellen"
+msgstr "kan geen tijdelijke map aanmaken: %s"
 
 #: grub-core/osdep/unix/platform.c:77
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "couldn't find IEEE1275 device path for %s.\n"
 "You will have to set `boot-device' variable manually"
 msgstr ""
-"Kan geen IEEE1275-apparatenboompad vinden voor %s.\\nU zult de variabele "
-"'boot-device' met de hand moeten instellen.\\n"
+"Kan geen IEEE1275-apparatenboompad vinden voor %s.\n"
+"U zult de variabele 'boot-device' met de hand moeten instellen."
 
 #. TRANSLATORS: This message is shown when required executable `%s'
 #. isn't found.
 #: grub-core/osdep/unix/platform.c:146 grub-core/osdep/unix/platform.c:183
-#, fuzzy, c-format
+#, c-format
 msgid "%s: not found"
-msgstr "%s: Niet gevonden.\\n"
+msgstr "%s: niet gevonden"
 
+# XXX  please revert to previous strings
 #: grub-core/osdep/unix/platform.c:219
 #, fuzzy, c-format
 msgid ""
 "`nvsetenv' failed. \n"
-"You will have to set `boot-device' variable manually.  At the IEEE1275 "
-"prompt, type:\n"
+"You will have to set `boot-device' variable manually.  At the IEEE1275 prompt, type:\n"
 "  %s\n"
-msgstr ""
-"U zult de variabele 'boot-device' met de hand moeten instellen.  Typ het "
-"volgende na de IEEE1275-prompt:"
+msgstr "U zult de variabele 'boot-device' met de hand moeten instellen.  Typ het volgende na de IEEE1275-prompt:"
 
 #: grub-core/osdep/unix/platform.c:234
 msgid "You will have to set `SystemPartition' and `OSLoader' manually."
@@ -4668,34 +4481,28 @@ msgid "cygwin_conv_path() failed"
 msgstr "cygwin_conv_path() is mislukt"
 
 #: grub-core/osdep/windows/hostdisk.c:489 util/grub-install.c:555
-#, fuzzy
 msgid "couldn't retrieve random data"
-msgstr "kan geen willekeurige gegevens verkrijgen voor startwaarde ('salt')"
+msgstr "kan geen willekeurige gegevens verkrijgen"
 
 #: grub-core/osdep/windows/platform.c:97
 msgid "Insufficient privileges to access firmware, assuming BIOS"
-msgstr ""
+msgstr "onvoldoende rechten voor toegang tot firmware;  BIOS wordt aangenomen"
 
 #: grub-core/osdep/windows/platform.c:225
 msgid "no EFI routines are available when running in BIOS mode"
-msgstr ""
+msgstr "EFI-routines zijn niet beschikbaar in BIOS-modus"
 
 #: grub-core/osdep/windows/platform.c:240
-#, fuzzy
 msgid "unexpected EFI error"
-msgstr "onverwacht einde van bestand"
+msgstr "onverwachte EFI-fout"
 
 #: grub-core/osdep/windows/platform.c:315
 msgid "Couldn't find a free BootNNNN slot"
-msgstr ""
+msgstr "Kan geen vrije BootNNNN-plek vinden"
 
 #: grub-core/partmap/gpt.c:191
-msgid ""
-"this GPT partition label contains no BIOS Boot Partition; embedding won't be "
-"possible"
-msgstr ""
-"dit GPT-partitielabel bevat geen BIOS-opstartpartitie; inbedding is niet "
-"mogelijk"
+msgid "this GPT partition label contains no BIOS Boot Partition; embedding won't be possible"
+msgstr "dit GPT-partitielabel bevat geen BIOS-opstartpartitie; inbedding is niet mogelijk"
 
 #: grub-core/partmap/gpt.c:196
 msgid "your BIOS Boot Partition is too small; embedding won't be possible"
@@ -4709,49 +4516,25 @@ msgstr "uw BIOS-opstartpartitie is te klein; inbedding is niet mogelijk"
 #. suboptimal behaviour.
 #: grub-core/partmap/msdos.c:51
 #, c-format
-msgid ""
-"Sector %llu is already in use by raid controller `%s'; avoiding it.  Please "
-"ask the manufacturer not to store data in MBR gap"
-msgstr ""
-"Sector %llu wordt reeds gebruikt door de RAID-controller '%s'; de sector "
-"wordt ontweken.  Vraag de fabrikant om geen gegevens in het MBR-gat op te "
-"slaan."
+msgid "Sector %llu is already in use by raid controller `%s'; avoiding it.  Please ask the manufacturer not to store data in MBR gap"
+msgstr "Sector %llu wordt reeds gebruikt door de RAID-controller '%s'; de sector wordt ontweken.  Vraag de fabrikant om geen gegevens in het MBR-gat op te slaan."
 
 #: grub-core/partmap/msdos.c:54
 #, c-format
-msgid ""
-"Sector %llu is already in use by the program `%s'; avoiding it.  This "
-"software may cause boot or other problems in future.  Please ask its authors "
-"not to store data in the boot track"
-msgstr ""
-"Sector %llu wordt reeds gebruikt door het programma '%s'; de sector wordt "
-"ontweken.  Deze software kan in de toekomst (opstart-)problemen "
-"veroorzaken.  Vraag de auteurs om geen gegevens in het opstartspoor op te "
-"slaan."
+msgid "Sector %llu is already in use by the program `%s'; avoiding it.  This software may cause boot or other problems in future.  Please ask its authors not to store data in the boot track"
+msgstr "Sector %llu wordt reeds gebruikt door het programma '%s'; de sector wordt ontweken.  Deze software kan in de toekomst (opstart-)problemen veroorzaken.  Vraag de auteurs om geen gegevens in het opstartspoor op te slaan."
 
 #: grub-core/partmap/msdos.c:384
-msgid ""
-"other software is using the embedding area, and there is not enough room for "
-"core.img.  Such software is often trying to store data in a way that avoids "
-"detection.  We recommend you investigate"
-msgstr ""
-"Andere software gebruikt het inbeddingsgebied en er is niet genoeg ruimte "
-"voor 'core.img'.  Zulke software probeert meestal om gegevens op te slaan op "
-"een manier die niet gedetecteerd wordt.  We raden u aan om dit nader te "
-"onderzoeken."
+msgid "other software is using the embedding area, and there is not enough room for core.img.  Such software is often trying to store data in a way that avoids detection.  We recommend you investigate"
+msgstr "Andere software gebruikt het inbeddingsgebied en er is niet genoeg ruimte voor 'core.img'.  Zulke software probeert meestal om gegevens op te slaan op een manier die niet gedetecteerd wordt.  We raden u aan om dit nader te onderzoeken."
 
 #: grub-core/partmap/msdos.c:395
-msgid ""
-"this msdos-style partition label has no post-MBR gap; embedding won't be "
-"possible"
-msgstr ""
-"dit MSDOS-achtige partitielabel heeft geen ruimte na de MBR; inbedding is "
-"niet mogelijk"
+msgid "this msdos-style partition label has no post-MBR gap; embedding won't be possible"
+msgstr "dit MSDOS-achtige partitielabel heeft geen ruimte na de MBR; inbedding is niet mogelijk"
 
 #: grub-core/partmap/msdos.c:404
 msgid "your embedding area is unusually small.  core.img won't fit in it."
-msgstr ""
-"Uw inbeddingsgebied is ongebruikelijk klein; core.img zal er niet in passen."
+msgstr "Uw inbeddingsgebied is ongebruikelijk klein; core.img zal er niet in passen."
 
 #: grub-core/parttool/msdospart.c:39
 msgid "Make partition active"
@@ -4898,13 +4681,12 @@ msgid "Set the serial port stop bits."
 msgstr "De stopbits van de seriële poort instellen."
 
 #: grub-core/term/serial.c:63
-#, fuzzy
 msgid "Set the base frequency."
-msgstr "De seriële eenheid instellen."
+msgstr "De basisfrequentie instellen."
 
 #: grub-core/term/serial.c:64
 msgid "Enable/disable RTS/CTS."
-msgstr ""
+msgstr "RTS/CTS inschakelen/uitschakelen."
 
 #: grub-core/term/serial.c:218
 #, c-format
@@ -4912,9 +4694,8 @@ msgid "serial port `%s' isn't found"
 msgstr "seriële poort '%s' is niet gevonden"
 
 #: grub-core/term/serial.c:250
-#, fuzzy
 msgid "unsupported serial port flow control"
-msgstr "niet-ondersteunde woordlengte van seriële poort"
+msgstr "niet-ondersteunde flow-control van seriële poort"
 
 #: grub-core/term/serial.c:422
 msgid "[OPTIONS...]"
@@ -4955,7 +4736,7 @@ msgstr "Huidige 'terminfo'-types:"
 
 #: grub-core/term/terminfo.c:685
 msgid "Terminal is ASCII-only [default]."
-msgstr "De terminal is alleen-ASCII [standaard]."
+msgstr "De terminal is alleen-ASCII  [standaard]."
 
 #: grub-core/term/terminfo.c:686
 msgid "Terminal is logical-ordered UTF-8."
@@ -5033,37 +4814,37 @@ msgstr "de gegeven MODULES vooraf laden"
 
 #: include/grub/util/install.h:34
 msgid "install only MODULES and their dependencies [default=all]"
-msgstr ""
+msgstr "alleen deze MODULES en hun benodigdheden installeren  [standaard allemaal]"
 
 #: include/grub/util/install.h:35
 msgid "THEMES"
-msgstr ""
+msgstr "THEMA'S"
 
 #: include/grub/util/install.h:36
 #, c-format
 msgid "install THEMES [default=%s]"
-msgstr ""
+msgstr "deze THEMA'S installeren  [standaard %s]"
 
 #: include/grub/util/install.h:37
 msgid "FONTS"
-msgstr ""
+msgstr "LETTERTYPES"
 
 #: include/grub/util/install.h:38
 #, c-format
 msgid "install FONTS [default=%s]"
-msgstr ""
+msgstr "deze LETTERTYPES installeren  [standaard %s]"
 
 #: include/grub/util/install.h:39
 msgid "LOCALES"
-msgstr ""
+msgstr "TAALREGIO'S"
 
 #: include/grub/util/install.h:40
 msgid "install only LOCALES [default=all]"
-msgstr ""
+msgstr "alleen deze TAALREGIO'S installeren  [standaard is allemaal]"
 
 #: include/grub/util/install.h:43
 msgid "compress GRUB files [optional]"
-msgstr ""
+msgstr "GRUB-bestanden comprimeren  [optioneel]"
 
 #: include/grub/util/install.h:46 util/grub-mkimage.c:82
 msgid "choose the compression to use for core image"
@@ -5074,17 +4855,17 @@ msgstr "te gebruiken soort compressie voor core-image"
 #: util/grub-mkimage.c:66
 #, c-format
 msgid "use images and modules under DIR [default=%s/<platform>]"
-msgstr "images en modules onder MAP gebruiken [standaard %s/<platform>]"
+msgstr "images en modules onder MAP gebruiken  [standaard %s/<platform>]"
 
 #: include/grub/util/install.h:55
-#, fuzzy, c-format
+#, c-format
 msgid "use translations under DIR [default=%s]"
-msgstr "images en modules onder MAP gebruiken [standaard %s/<platform>]"
+msgstr "vertalingen onder MAP gebruiken  [standaard %s]"
 
 #: include/grub/util/install.h:58
-#, fuzzy, c-format
+#, c-format
 msgid "use themes under DIR [default=%s]"
-msgstr "images en modules onder MAP gebruiken [standaard %s/<platform>]"
+msgstr "thema's onder MAP gebruiken  [standaard %s]"
 
 #: include/grub/util/install.h:63 util/grub-mkimage.c:77
 msgid "embed FILE as public key for signature checking"
@@ -5136,7 +4917,7 @@ msgstr "Opties:"
 
 #: util/grub-editenv.c:84
 msgid "You need to specify at least one command.\n"
-msgstr "U dient ten minste één opdracht te geven.\n"
+msgstr "U dient minstens één opdracht te geven.\n"
 
 #: util/grub-editenv.c:113
 msgid "FILENAME COMMAND"
@@ -5154,6 +4935,10 @@ msgid ""
 "There is no `delete' command; if you want to delete the whole environment\n"
 "block, use `rm %s'."
 msgstr ""
+"Als BESTANDSNAAM '-' is, dan wordt de standaardwaarde %s gebruikt.\n"
+"\n"
+"Er is geen 'delete'-opdracht; als u het gehele omgevingsblok\n"
+"wilt verwijderen, gebruik dan 'rm %s'."
 
 #: util/grub-editenv.c:162
 msgid "invalid environment block"
@@ -5169,9 +4954,9 @@ msgid "environment block too small"
 msgstr "omgevingsblok is te klein"
 
 #: util/grub-fstest.c:107
-#, fuzzy, c-format
+#, c-format
 msgid "disk read fails at offset %lld, length %lld"
-msgstr "lezen van schijf is mislukt op positie %lld, lengte %d"
+msgstr "lezen van schijf is mislukt op positie %lld, lengte %lld"
 
 #: util/grub-fstest.c:138
 #, c-format
@@ -5206,12 +4991,12 @@ msgstr "beheersysteemfout bij openen van bestand %s: %s"
 #: util/grub-fstest.c:402 util/grub-mount.c:393
 #, c-format
 msgid "`loopback' command fails: %s"
-msgstr "het 'loopback'-commando is mislukt: %s"
+msgstr "de 'loopback'-opdracht is mislukt: %s"
 
 #: util/grub-fstest.c:413 util/grub-mount.c:403
 #, c-format
 msgid "`cryptomount' command fails: %s"
-msgstr "het 'cryptomount'-commando is mislukt: %s"
+msgstr "de 'cryptomount'-opdracht is mislukt: %s"
 
 #: util/grub-fstest.c:474 util/grub-fstest.c:478
 msgid "couldn't retrieve UUID"
@@ -5372,35 +5157,33 @@ msgid "[OPTIONS]"
 msgstr "[OPTIE...]"
 
 #: util/grub-glue-efi.c:95
-#, fuzzy
 msgid "Glue 32-bit and 64-bit binary into Apple universal one."
-msgstr ""
-"Een 32-bit en een 64-bit programma samenplakken tot een Apple \"fat one\"."
+msgstr "Een 32-bit en een 64-bit programma samenplakken tot een Apple «universele»."
 
 #: util/grub-glue-efi.c:116
 msgid "Missing input file\n"
 msgstr "Invoerbestand ontbreekt\n"
 
 #: util/grub-install-common.c:121 util/grub-install-common.c:145
-#, fuzzy, c-format
+#, c-format
 msgid "cannot copy `%s' to `%s': %s"
-msgstr "kan '%s' niet openen: %s"
+msgstr "kan '%s' niet kopiëren naar '%s': %s"
 
 #: util/grub-install-common.c:141
-#, fuzzy, c-format
+#, c-format
 msgid "can't compress `%s' to `%s'"
-msgstr "kan '%s' niet openen: %s"
+msgstr "kan '%s' niet comprimeren naar '%s'"
 
 #: util/grub-install-common.c:190 util/grub-install-common.c:538
 #: util/grub-install-common.c:565 util/grub-install-common.c:606
-#, fuzzy, c-format
+#, c-format
 msgid "cannot open directory `%s': %s"
-msgstr "kan '%s' niet openen: %s"
+msgstr "kan map '%s' niet openen: %s"
 
 #: util/grub-install-common.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "cannot delete `%s': %s"
-msgstr "kan niet springen in '%s': %s"
+msgstr "kan '%s' niet verwijderen: %s"
 
 #: util/grub-install-common.c:318 util/grub-mkimage.c:202
 msgid "grub-mkimage is compiled without XZ support"
@@ -5412,9 +5195,9 @@ msgid "Unknown compression format %s"
 msgstr "Onbekende compressiespecificatie %s"
 
 #: util/grub-install-common.c:389
-#, fuzzy, c-format
+#, c-format
 msgid "Unrecognized compression `%s'"
-msgstr "Onbekende optie '%s'\\n"
+msgstr "Onbekende compressie '%s'"
 
 #: util/grub-install-common.c:496 util/grub-mkimage.c:152
 #: util/grub-mkstandalone.c:96
@@ -5423,24 +5206,24 @@ msgid "unknown target format %s\n"
 msgstr "onbekende doelindeling %s\n"
 
 #: util/grub-install-common.c:798
-#, fuzzy, c-format
+#, c-format
 msgid "cannot find locale `%s'"
-msgstr "kan opdracht '%s' niet vinden"
+msgstr "kan taalregio '%s' niet vinden"
 
 #: util/grub-install-common.c:881
-#, fuzzy, c-format
+#, c-format
 msgid "%s doesn't exist. Please specify --target or --directory"
-msgstr "%s bestaat niet.  Gebruik optie '--target' of '--directory'\\n"
+msgstr "%s bestaat niet;  gebruik optie '--target' of '--directory'"
 
 #: util/grub-install-common.c:888 util/grub-install-common.c:891
-#, fuzzy, c-format
+#, c-format
 msgid "invalid modinfo file `%s'"
-msgstr "ongeldige bestandsnaam '%s'"
+msgstr "ongeldig 'modinfo'-bestand '%s'"
 
 #: util/grub-install-common.c:906
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown platform `%s-%s'"
-msgstr "onbekend argument '%s'"
+msgstr "onbekend platform '%s-%s'"
 
 #: util/grub-install.c:239
 msgid "More than one install device?"
@@ -5448,8 +5231,7 @@ msgstr "Meer dan één installatie-apparaat?"
 
 #: util/grub-install.c:252
 #, c-format
-msgid ""
-"install GRUB images under the directory DIR/%s instead of the %s directory"
+msgid "install GRUB images under the directory DIR/%s instead of the %s directory"
 msgstr "GRUB-images installeren onder MAP/%s in plaats van de map %s"
 
 #: util/grub-install.c:257 util/grub-probe.c:712
@@ -5458,21 +5240,17 @@ msgstr "DOEL"
 
 #. TRANSLATORS: "TARGET" as in "target platform".
 #: util/grub-install.c:259
-#, fuzzy, c-format
+#, c-format
 msgid "install GRUB for TARGET platform [default=%s]"
-msgstr "GRUB installeren voor het platform DOEL [standaard het huidige]"
+msgstr "GRUB installeren voor het platform DOEL  [standaard=%s]"
 
 #. TRANSLATORS: "may break" doesn't just mean that option wouldn't have any
 #. effect but that it will make the resulting install unbootable from HDD.
 #. TRANSLATORS: The potential breakage isn't limited to floppies but it's
 #. likely to make the install unbootable from HDD.
 #: util/grub-install.c:268 util/grub-setup.c:94
-msgid ""
-"make the drive also bootable as floppy (default for fdX devices). May break "
-"on some BIOSes."
-msgstr ""
-"de schijf ook opstartbaar maken als floppy (standaard voor fdX-apparaten); "
-"kan falen op sommige BIOS'en"
+msgid "make the drive also bootable as floppy (default for fdX devices). May break on some BIOSes."
+msgstr "de schijf ook opstartbaar maken als floppy (standaard voor fdX-apparaten); kan falen op sommige BIOS'en"
 
 #: util/grub-install.c:271
 msgid "delete device map if it already exists"
@@ -5487,21 +5265,12 @@ msgid "use identifier file even if UUID is available"
 msgstr "ID-bestand gebruiken zelfs als UUID beschikbaar is"
 
 #: util/grub-install.c:277
-msgid ""
-"disk module to use (biosdisk or native). This option is only available on "
-"BIOS target."
-msgstr ""
-"te gebruiken schijfmodule ('biosdisk' of 'native'); deze optie is alleen "
-"beschikbaar op een BIOS-doel"
+msgid "disk module to use (biosdisk or native). This option is only available on BIOS target."
+msgstr "te gebruiken schijfmodule ('biosdisk' of 'native'); deze optie is alleen beschikbaar op een BIOS-doel"
 
 #: util/grub-install.c:280
-#, fuzzy
-msgid ""
-"don't update the `boot-device'/`Boot*' NVRAM variables. This option is only "
-"available on EFI and IEEE1275 targets."
-msgstr ""
-"de variabele 'boot-device' in NVRAM niet bijwerken; deze optie is alleen "
-"beschikbaar op IEEE1275"
+msgid "don't update the `boot-device'/`Boot*' NVRAM variables. This option is only available on EFI and IEEE1275 targets."
+msgstr "de variabelen 'boot-device' en 'Boot*' in NVRAM niet bijwerken; deze optie is alleen beschikbaar op EFI en IEEE1275"
 
 #: util/grub-install.c:283 util/grub-setup.c:89
 msgid "do not probe for filesystems in DEVICE"
@@ -5509,40 +5278,35 @@ msgstr "niet naar bestandssystemen zoeken op APPARAAT"
 
 #: util/grub-install.c:285
 msgid "do not install bootsector"
-msgstr ""
+msgstr "geen bootsector installeren"
 
+# XXX  capitalize Reed-Solomon
 #: util/grub-install.c:287 util/grub-setup.c:96
-#, fuzzy
-msgid ""
-"Do not apply any reed-solomon codes when embedding core.img. This option is "
-"only available on x86 BIOS targets."
-msgstr ""
-"te gebruiken schijfmodule ('biosdisk' of 'native'); deze optie is alleen "
-"beschikbaar op een BIOS-doel"
+msgid "Do not apply any reed-solomon codes when embedding core.img. This option is only available on x86 BIOS targets."
+msgstr "geen Reed-Solomoncodes toepassen bij inbedden van core.img; deze optie is alleen beschikbaar op x86 BIOS-doelen"
 
+# XXX  use semicolon
 #: util/grub-install.c:294
-msgid ""
-"the installation device is removable. This option is only available on EFI."
-msgstr ""
-"het installatie-apparaat is verwijderbaar; deze optie is alleen beschikbaar "
-"op EFI"
+msgid "the installation device is removable. This option is only available on EFI."
+msgstr "het installatie-apparaat is verwijderbaar; deze optie is alleen beschikbaar op EFI"
 
 #: util/grub-install.c:296
 msgid "ID"
 msgstr "ID"
 
 #: util/grub-install.c:297
-#, fuzzy
 msgid "the ID of bootloader. This option is only available on EFI and Macs."
-msgstr "het ID van de opstartlader; deze optie is alleen beschikbaar op EFI"
+msgstr "het ID van de opstartlader; deze optie is alleen beschikbaar op EFI en Macs"
 
+# XXX  no period
 #: util/grub-install.c:299
 msgid "use DIR as the EFI System Partition root."
 msgstr "deze MAP gebruiken als hoofdmap van EFI-systeempartitie"
 
+# XXX  s/MAC/Mac/; no period
 #: util/grub-install.c:301
 msgid "use DIR for PPC MAC install."
-msgstr ""
+msgstr "deze MAP gebruiken voor PPC Mac-installatie"
 
 #: util/grub-install.c:302 util/grub-mkrescue.c:105
 msgid "use FILE as font for label"
@@ -5561,29 +5325,27 @@ msgid "use STRING as product version"
 msgstr "TEKENREEKS gebruiken voor productversie"
 
 #: util/grub-install.c:356
-#, fuzzy
 msgid "[OPTION] [INSTALL_DEVICE]"
-msgstr "Gebruik:  %s [OPTIE] [INSTALLATIE-APPARAAT]"
+msgstr "[OPTIE] [INSTALLATIE-APPARAAT]"
 
 #: util/grub-install.c:357
 msgid "Install GRUB on your drive."
 msgstr "GRUB installeren op uw schijf."
 
 #: util/grub-install.c:358
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "INSTALL_DEVICE must be system device filename.\n"
-"%s copies GRUB images into %s.  On some platforms, it may also install GRUB "
-"into the boot sector."
+"%s copies GRUB images into %s.  On some platforms, it may also install GRUB into the boot sector."
 msgstr ""
+"INSTALLATIE-APPARAAT dient de naam van een systeemapparaat te zijn.\n"
 "%s kopieert GRUB-images naar %s.  Op sommige platformen\n"
 "installeert het ook GRUB in de opstartsector.\\n"
 
 #: util/grub-install.c:657
-#, fuzzy, c-format
+#, c-format
 msgid "the drive %s is defined multiple times in the device map %s"
-msgstr ""
-"Schijf %s is meerdere keren gedefinieerd in apparaattoewijzingstabel %s\\n"
+msgstr "schijf %s is meerdere keren gedefinieerd in apparaattoewijzingstabel %s"
 
 #: util/grub-install.c:862
 msgid "Unable to determine your platform. Use --target."
@@ -5592,17 +5354,15 @@ msgstr "Kan uw platform niet achterhalen.  Gebruik optie '--target'."
 #: util/grub-install.c:875
 #, c-format
 msgid "Installing for %s platform.\n"
-msgstr ""
+msgstr "Installeren voor %s-platform.\n"
 
 #: util/grub-install.c:919
-#, fuzzy
 msgid "install device isn't specified"
-msgstr "Geen installatie-apparaat opgegeven."
+msgstr "geen installatie-apparaat opgegeven"
 
 #: util/grub-install.c:1031
-#, fuzzy
 msgid "cannot find EFI directory"
-msgstr "is geen map"
+msgstr "kan EFI-map niet vinden"
 
 #: util/grub-install.c:1034 util/grub-install.c:1171 util/grub-install.c:1216
 #: util/grub-macbless.c:76 util/grub-probe.c:272
@@ -5617,67 +5377,56 @@ msgid "cannot find a GRUB drive for %s.  Check your device.map"
 msgstr "Kan geen GRUB-schijf vinden voor %s.  Controleer uw 'device.map'."
 
 #: util/grub-install.c:1061
-#, fuzzy, c-format
+#, c-format
 msgid "%s doesn't look like an EFI partition.\n"
-msgstr "%s ziet er niet uit als een EFI-partitie.\\n"
+msgstr "%s ziet er niet uit als een EFI-partitie.\n"
 
 #: util/grub-install.c:1097 util/grub-install.c:1566
 msgid "You've found a bug"
-msgstr ""
+msgstr "U hebt een programmafout gevonden."
 
 #: util/grub-install.c:1193
 #, c-format
 msgid "filesystem on %s is neither HFS nor HFS+"
-msgstr ""
+msgstr "bestandssysteem op %s is noch HFS noch HFS+"
 
+# XXX  start with capital?
 #: util/grub-install.c:1261
 #, c-format
-msgid ""
-"attempt to install to encrypted disk without cryptodisk enabled. Set `%s' in "
-"file `%s'."
-msgstr ""
+msgid "attempt to install to encrypted disk without cryptodisk enabled. Set `%s' in file `%s'."
+msgstr "Poging tot installeren op een versleutelde schijf zonder ingeschakelde 'cryptodisk'.  Zet '%s' in bestand '%s'."
 
 #: util/grub-install.c:1371 util/grub-install.c:1720 util/grub-install.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "Can't create file: %s"
-msgstr "Kan geen pijp aanmaken: %s"
+msgstr "Kan geen bestand aanmaken: %s"
 
 #: util/grub-install.c:1448
-#, fuzzy
 msgid "no hints available for your platform. Expect reduced performance"
-msgstr ""
-"Er zijn geen hints beschikbaar voor uw platform.  Verwacht gereduceerde "
-"prestaties."
+msgstr "Er zijn geen hints beschikbaar voor uw platform.  Verwacht gereduceerde prestaties."
 
 #. TRANSLATORS: This is a prefix in the log to indicate that usually
 #. a command would be executed but due to an option was skipped.
 #: util/grub-install.c:1650
 msgid "NOT RUNNING: "
-msgstr ""
+msgstr "DRAAIT NIET: "
 
 #: util/grub-install.c:1754
-#, fuzzy
 msgid "the chosen partition is not a PReP partition"
-msgstr "De gekozen partitie is geen PReP-partitie."
+msgstr "de gekozen partitie is geen PReP-partitie"
 
 #: util/grub-install.c:1759
-#, fuzzy
 msgid "failed to copy Grub to the PReP partition"
-msgstr "Het kopiëren van GRUB naar de PReP-partitie is mislukt."
+msgstr "het kopiëren van GRUB naar de PReP-partitie is mislukt"
 
 #: util/grub-install.c:1764
-#, fuzzy, c-format
-msgid ""
-"the PReP partition is not empty. If you are sure you want to use it, run dd "
-"to clear it: `%s'"
-msgstr ""
-"De PReP-partitie is niet leeg.  Als u zeker weet dat u deze wilt gebruiken, "
-"wis deze dan met 'dd':"
+#, c-format
+msgid "the PReP partition is not empty. If you are sure you want to use it, run dd to clear it: `%s'"
+msgstr "De PReP-partitie is niet leeg.  Als u zeker weet dat u deze wilt gebruiken, wis deze dan met 'dd': '%s'"
 
 #: util/grub-install.c:1856
-#, fuzzy
 msgid "EFI bootloader id isn't specified."
-msgstr "Geen EFI-distributeurs-ID opgegeven."
+msgstr "Geen EFI-opstartlader-ID opgegeven."
 
 #: util/grub-install.c:1885
 msgid "WARNING: no platform-specific install was performed"
@@ -5701,7 +5450,7 @@ msgstr "Geen pad of apparaat gegeven.\n"
 
 #: util/grub-macbless.c:155
 msgid "--ppc PATH|--x86 FILE"
-msgstr ""
+msgstr "--ppc PAD|--x86 BESTAND"
 
 #: util/grub-macbless.c:156
 msgid "Mac-style bless on HFS or HFS+"
@@ -5786,7 +5535,7 @@ msgstr "Onbekende 'gsub'-lettertypefunctie 0x%x (%s)\n"
 #: util/grub-mkfont.c:933 util/grub-mkrescue.c:97 util/grub-mkstandalone.c:48
 #: util/grub-kbdcomp.in:29
 msgid "save output in FILE [required]"
-msgstr "uitvoer opslaan in BESTAND [vereist]"
+msgstr "uitvoer opslaan in BESTAND  [vereist]"
 
 #. TRANSLATORS: some font files may have multiple faces (fonts).
 #. This option is used to chose among them, the first face being '0'.
@@ -5874,27 +5623,25 @@ msgid "can't open file %s, index %d: error %d"
 msgstr "kan bestand %s niet openen, index %d: fout %d"
 
 #: util/grub-mkfont.c:1226
-#, fuzzy, c-format
+#, c-format
 msgid "can't set %dx%d font size: Freetype error %d: %s"
-msgstr "kan lettertypegrootte %dx%d niet instellen"
+msgstr "kan lettertypegrootte %dx%d niet instellen: Freetype-fout %d: %s"
 
 #: util/grub-mkimage.c:67
 #, c-format
 msgid "set prefix directory [default=%s]"
-msgstr "de voorvoegmap instellen [standaard %s]"
+msgstr "de voorvoegmap instellen  [standaard %s]"
 
 #. TRANSLATORS: "memdisk" here isn't an identifier, it can be translated.
 #. "embed" is a verb (command description).  "
 #: util/grub-mkimage.c:71
-#, fuzzy
 msgid ""
 "embed FILE as a memdisk image\n"
-"Implies `-p (memdisk)/boot/grub' and overrides any prefix supplied "
-"previously, but the prefix itself can be overridden by later options"
+"Implies `-p (memdisk)/boot/grub' and overrides any prefix supplied previously, but the prefix itself can be overridden by later options"
 msgstr ""
 "BESTAND inbedden als een geheugenschijf-image;\n"
-"impliceert '-p (geheugenschijf)/boot/grub', maar\n"
-"voorvoegsel kan gewijzigd worden door latere opties"
+"dit impliceert '-p (geheugenschijf)/boot/grub' en overstijgt een eerder gegeven\n"
+"voorvoegsel, maar het voorvoegsel zelf kan gewijzigd worden door latere opties"
 
 #: util/grub-mkimage.c:75
 msgid "embed FILE as an early config"
@@ -5907,8 +5654,7 @@ msgstr "een 'NOTE'-segment toevoegen voor CHRP IEEE1275"
 
 #: util/grub-mkimage.c:80
 msgid "output a generated image to FILE [default=stdout]"
-msgstr ""
-"een gegenereerde image uitvoeren naar BESTAND [standaard is standaarduitvoer]"
+msgstr "een gegenereerde image uitvoeren naar BESTAND  [standaard is standaarduitvoer]"
 
 #: util/grub-mkimage.c:81
 msgid "FORMAT"
@@ -5936,14 +5682,12 @@ msgstr "Doelindeling is niet gegeven (gebruik optie '-O')."
 
 #: util/grub-mkimagexx.c:1382
 #, c-format
-msgid ""
-"`%s' is miscompiled: its start address is 0x%llx instead of 0x%llx: ld.gold "
-"bug?"
-msgstr ""
+msgid "`%s' is miscompiled: its start address is 0x%llx instead of 0x%llx: ld.gold bug?"
+msgstr "miscompilatie van '%s': diens startadres is 0x%llx in plaats van 0x%llx: een programmafout in ld.gold?"
 
 #: util/grub-mklayout.c:53
 msgid "set input filename. Default is STDIN"
-msgstr "invoerbestandsnaam instellen [standaard is standaardinvoer]"
+msgstr "invoerbestandsnaam instellen  [standaard is standaardinvoer]"
 
 #. TRANSLATORS: scan identifier is keyboard key symbolic name.
 #: util/grub-mklayout.c:307
@@ -5961,8 +5705,7 @@ msgstr "Onbekende scancode 0x%02x\n"
 #. key descriptions.
 #: util/grub-mklayout.c:431
 msgid "ERROR: no valid keyboard layout found. Check the input.\n"
-msgstr ""
-"FOUT: Geen geldige toetsenbordindeling gevonden.  Controleer de invoer.\n"
+msgstr "FOUT: Geen geldige toetsenbordindeling gevonden.  Controleer de invoer.\n"
 
 #. TRANSLATORS: "one" is a shortcut for "keyboard layout".
 #: util/grub-mklayout.c:471
@@ -5978,23 +5721,19 @@ msgid "relative subdirectory on network server"
 msgstr "relatieve submap op netwerkserver"
 
 #: util/grub-mknetdir.c:88
-msgid ""
-"Prepares GRUB network boot images at net_directory/subdir assuming "
-"net_directory being TFTP root."
-msgstr ""
+msgid "Prepares GRUB network boot images at net_directory/subdir assuming net_directory being TFTP root."
+msgstr "Maakt GRUB-netwerkopstart-images in 'netwerkmap/submap/', aannemend dat 'netwerkmap' de TFTP-hoofdmap is."
 
 #: util/grub-mknetdir.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "unsupported platform %s\n"
-msgstr "Niet-ondersteund platform %s\\n"
+msgstr "niet-ondersteund platform %s\n"
 
 #. TRANSLATORS: First %s is replaced by platform name. Second one by filename.
 #: util/grub-mknetdir.c:162
-#, fuzzy, c-format
-msgid ""
-"Netboot directory for %s created. Configure your DHCP server to point to %s\n"
-msgstr ""
-"Een Netboot-map voor %s is aangemaakt. Laat uw DHCP-server naar %s wijzen.\\n"
+#, c-format
+msgid "Netboot directory for %s created. Configure your DHCP server to point to %s\n"
+msgstr "Een Netboot-map voor %s is aangemaakt.  Laat uw DHCP-server naar %s wijzen.\n"
 
 #: util/grub-mkpasswd-pbkdf2.c:46
 msgid "Number of PBKDF2 iterations"
@@ -6052,100 +5791,77 @@ msgstr "Een bestandsnaam uit het systeem omzetten naar eentje voor GRUB."
 
 #: util/grub-mkrescue.c:99
 msgid "save ROM images in DIR [optional]"
-msgstr "ROM-images opslaan in MAP [optioneel]"
+msgstr "ROM-images opslaan in MAP  [optioneel]"
 
 #. TRANSLATORS: xorriso is a program for creating ISOs and burning CDs.
 #: util/grub-mkrescue.c:102
 msgid "use FILE as xorriso [optional]"
-msgstr "dit BESTAND gebruiken als 'xorriso' [optioneel]"
+msgstr "dit BESTAND gebruiken als 'xorriso'  [optioneel]"
 
 #: util/grub-mkrescue.c:108
 msgid "use STRING as product name"
 msgstr "TEKENREEKS gebruiken voor productnaam"
 
 #: util/grub-mkrescue.c:110
-msgid ""
-"enable sparc boot. Disables HFS+, APM, ARCS and boot as disk image for i386-"
-"pc"
-msgstr ""
-"SPARC-opstart inschakelen -- schakelt HFS+, APM, ARCS en opstarten als "
-"schijf-image voor i386-pc uit"
+msgid "enable sparc boot. Disables HFS+, APM, ARCS and boot as disk image for i386-pc"
+msgstr "SPARC-opstart inschakelen -- schakelt HFS+, APM, ARCS en opstarten als schijf-image voor i386-pc uit"
 
 #: util/grub-mkrescue.c:111
-msgid ""
-"enable ARCS (big-endian mips machines, mostly SGI) boot. Disables HFS+, APM, "
-"sparc64 and boot as disk image for i386-pc"
-msgstr ""
-"ARCS-opstart inschakelen (big-endian MIPS-machines, meest SGI) -- schakelt "
-"HFS+, APM, sparc64 en opstarten als schijf-image voor i386-pc uit"
+msgid "enable ARCS (big-endian mips machines, mostly SGI) boot. Disables HFS+, APM, sparc64 and boot as disk image for i386-pc"
+msgstr "ARCS-opstart inschakelen (big-endian MIPS-machines, meest SGI) -- schakelt HFS+, APM, sparc64 en opstarten als schijf-image voor i386-pc uit"
 
 #. TRANSLATORS: it generates one single image which is bootable through any method.
 #: util/grub-mkrescue.c:124
 msgid "Make GRUB CD-ROM, disk, pendrive and floppy bootable image."
-msgstr ""
-"Een opstartbare GRUB-image maken voor CD-rom, USB-stick, harde schijf, en "
-"floppy."
+msgstr "Een opstartbare GRUB-image maken voor CD-rom, USB-stick, harde schijf, en floppy."
 
 #: util/grub-mkrescue.c:129
-#, fuzzy, c-format
-msgid ""
-"Generates a bootable CD/USB/floppy image.  Arguments other than options to "
-"this program are passed to xorriso, and indicate source files, source "
-"directories, or any of the mkisofs options listed by the output of `%s'."
+#, c-format
+msgid "Generates a bootable CD/USB/floppy image.  Arguments other than options to this program are passed to xorriso, and indicate source files, source directories, or any of the mkisofs options listed by the output of `%s'."
 msgstr ""
-"%s genereert een opstartbare noodhulp-image met de gegeven bronbestanden, "
-"bronmappen, of opties van 'mkisofs' die getoond worden door de uitvoer van "
-"'%s'\\n"
+"Genereert een opstartbare image voor CD of USB of floppy.\n"
+"Argumenten die geen opties van dit programma zijn worden doorgegeven aan\n"
+"'xorriso'; het zijn bronbestanden, bronmappen, of opties van 'mkisofs'\n"
+"(zoals getoond door de uitvoer van '%s')."
 
 #: util/grub-mkrescue.c:133
 msgid "Option -- switches to native xorriso command mode."
-msgstr ""
-"Optie '--' schakelt over naar de standaard opdrachtenmodus van 'xorriso'."
+msgstr "Optie '--' schakelt over naar de standaard opdrachtenmodus van 'xorriso'."
 
 #: util/grub-mkrescue.c:134
 msgid "Mail xorriso support requests to <bug-xorriso@gnu.org>."
 msgstr "Stuur hulpvragen over 'xorriso' aan <bug-xorriso@gnu.org>."
 
 #: util/grub-mkrescue.c:230 util/grub-mkstandalone.c:114
-#, fuzzy
 msgid "[OPTION] SOURCE..."
-msgstr "Gebruik:  %s [OPTIE] BRON...\\n"
+msgstr "[OPTIE] BRON..."
 
 #: util/grub-mkrescue.c:266 util/grub-mkrescue.c:309 util/grub-mkrescue.c:492
-#, fuzzy, c-format
+#, c-format
 msgid "enabling %s support ..."
-msgstr "Inschakelen van ondersteuning voor %s...\\n"
+msgstr "inschakelen van ondersteuning voor %s..."
 
 #: util/grub-mkrescue.c:527
-msgid ""
-"Your xorriso doesn't support `--grub2-boot-info'. Some features are "
-"disabled. Please use xorriso 1.2.9 or later."
-msgstr ""
-"Uw 'xorriso' ondersteunt '--grub2-boot-info' niet. Sommige functies zijn "
-"uitgeschakeld. Gebruik xorriso-1.2.9 of nieuwer."
+msgid "Your xorriso doesn't support `--grub2-boot-info'. Some features are disabled. Please use xorriso 1.2.9 or later."
+msgstr "Uw 'xorriso' ondersteunt '--grub2-boot-info' niet.  Sommige functies zijn uitgeschakeld.  Gebruik xorriso-1.2.9 of nieuwer."
 
 #: util/grub-mkrescue.c:554
-msgid ""
-"Your xorriso doesn't support `--grub2-boot-info'. Your core image is too "
-"big. Boot as disk is disabled. Please use xorriso 1.2.9 or later."
-msgstr ""
-"Uw 'xorriso' ondersteunt '--grub2-boot-info' niet. Uw core-image is te "
-"groot. Opstarten als schijf is uitgeschakeld. Gebruik xorriso-1.2.9 of "
-"nieuwer."
+msgid "Your xorriso doesn't support `--grub2-boot-info'. Your core image is too big. Boot as disk is disabled. Please use xorriso 1.2.9 or later."
+msgstr "Uw 'xorriso' ondersteunt '--grub2-boot-info' niet. Uw core-image is te groot.  Opstarten als schijf is uitgeschakeld.  Gebruik xorriso-1.2.9 of nieuwer."
 
 #: util/grub-mkstandalone.c:115
-msgid ""
-"Generate a standalone image (containing all modules) in the selected format"
-msgstr ""
-"Een complete image (inclusief alle modules) genereren in de gekozen indeling."
+msgid "Generate a standalone image (containing all modules) in the selected format"
+msgstr "Een complete image (inclusief alle modules) genereren in de gekozen indeling."
 
+# XXX  lowercase "e.g.", plus period
 #: util/grub-mkstandalone.c:115
 msgid "Graft point syntax (E.g. /boot/grub/grub.cfg=./grub.cfg) is accepted"
-msgstr ""
+msgstr "Entpunt-syntax (bijvoorbeeld '/boot/grub/grub.cfg=./grub.cfg') wordt geaccepteerd."
 
+# XXX  transform to IMAGE...
 #: util/grub-mount.c:551
 msgid "IMAGE1 [IMAGE2 ...] MOUNTPOINT"
-msgstr "IMAGE1 [IMAGE2 ...] AANKOPPELINGSPUNT"
+msgstr "IMAGE... AANKOPPELINGSPUNT"
 
 #: util/grub-mount.c:574
 msgid "need an image and mountpoint"
@@ -6156,27 +5872,22 @@ msgid "given argument is a system device, not a path"
 msgstr "gegeven argument is een systeemapparaat, niet een pad"
 
 #: util/grub-probe.c:731
-#, fuzzy
 msgid "print TARGET"
-msgstr "DOEL"
+msgstr "DOEL printen"
 
 #: util/grub-probe.c:732
-#, fuzzy
 msgid "available targets:"
-msgstr "Beschikbare indelingen zijn:"
+msgstr "beschikbare doelen zijn:"
 
 #: util/grub-probe.c:813
 msgid "[OPTION]... [PATH|DEVICE]"
 msgstr "[OPTIE...] [PAD|APPARAAT]"
 
 #: util/grub-probe.c:814
-msgid ""
-"Probe device information for a given path (or device, if the -d option is "
-"given)."
-msgstr ""
-"Naar apparaatinformatie zoeken voor een gegeven pad (of apparaat met optie '-"
-"d')"
+msgid "Probe device information for a given path (or device, if the -d option is given)."
+msgstr "Zoekt naar apparaatinformatie voor een gegeven pad (of apparaat met optie '-d')."
 
+# XXX  no period
 #: util/grub-render-label.c:60
 msgid "read text from FILE."
 msgstr "tekst lezen uit BESTAND"
@@ -6193,9 +5904,8 @@ msgstr "KLEUR gebruiken voor achtergrond"
 #. never shown directly, so don't use "show" as synonym for render. Use "create" if
 #. "render" doesn't translate directly.
 #: util/grub-render-label.c:69
-#, fuzzy
 msgid "set the label to render"
-msgstr "het weer te geven label"
+msgstr "het te gebruiken label"
 
 #: util/grub-render-label.c:73
 msgid "use FILE as font (PF2)."
@@ -6229,17 +5939,17 @@ msgstr "Syntaxfout in regelnummer %u\n"
 #: util/grub-script-check.c:212
 #, c-format
 msgid "Script `%s' contains no commands and will do nothing\n"
-msgstr ""
+msgstr "Script '%s' bevat geen opdrachten en zal dus niets doen\n"
 
 #: util/grub-setup.c:79
 #, c-format
 msgid "use FILE as the boot image [default=%s]"
-msgstr "BESTAND als opstart-image gebruiken [standaard %s]"
+msgstr "BESTAND als opstart-image gebruiken  [standaard %s]"
 
 #: util/grub-setup.c:81
 #, c-format
 msgid "use FILE as the core image [default=%s]"
-msgstr "BESTAND als core-image gebruiken [standaard %s]"
+msgstr "BESTAND als core-image gebruiken  [standaard %s]"
 
 #: util/grub-setup.c:210
 msgid "No device is specified.\n"
@@ -6257,8 +5967,7 @@ msgstr ""
 
 #: util/grub-setup.c:228
 msgid "DEVICE must be an OS device (e.g. /dev/sda)."
-msgstr ""
-"APPARAAT moet een besturingssyssteemnaam hebben (bijvoorbeeld /dev/sda)."
+msgstr "APPARAAT moet een besturingssyssteemnaam hebben (bijvoorbeeld /dev/sda)."
 
 #: util/grub-setup.c:297
 #, c-format
@@ -6267,30 +5976,25 @@ msgstr "Ongeldig apparaat '%s'.\n"
 
 #: util/grub-syslinux2cfg.c:64
 msgid "root directory as it will be seen on runtime [default=/]."
-msgstr ""
+msgstr "hoofdmap tijdens draaien  [standaard=/]."
 
+# XXX  *at* runtime; single space; no period
 #: util/grub-syslinux2cfg.c:69
-msgid ""
-"current directory of the syslinux as it will be seen on runtime  [default is "
-"parent directory of input file]."
-msgstr ""
+msgid "current directory of the syslinux as it will be seen on runtime  [default is parent directory of input file]."
+msgstr "huidige map van syslinux tijdens draaien  [standaard is de oudermap van het invoerbestand]"
 
 #: util/grub-syslinux2cfg.c:74
-#, fuzzy
 msgid "write output to FILE [default=stdout]."
-msgstr ""
-"gegenereerd configuratiebestand uitvoeren naar BESTAND [standaard is "
-"standaarduitvoer]"
+msgstr "uitvoer schrijven naar BESTAND  [standaard is standaarduitvoer]"
 
 #: util/grub-syslinux2cfg.c:148
-#, fuzzy
 msgid "Transform syslinux config into GRUB one."
-msgstr "Een bestandsnaam uit het systeem omzetten naar eentje voor GRUB."
+msgstr "Een syslinux-configuratiebestand omzetten naar eentje voor GRUB."
 
 #: util/misc.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "file `%s' is too big"
-msgstr "de firmware-image is te groot"
+msgstr "bestand '%s' is te groot"
 
 #: util/mkimage.c:745 util/mkimage.c:774 util/mkimage.c:791
 msgid "cannot compress the kernel image"
@@ -6321,10 +6025,8 @@ msgid "diskboot.img size must be %u bytes"
 msgstr "de grootte van diskboot.img moet %u bytes zijn"
 
 #: util/mkimage.c:1726
-msgid ""
-"fwstart.img doesn't match the known good version. proceed at your own risk"
-msgstr ""
-"fwstart.img is niet de bekend-goede versie; doorgaan is op eigen risico"
+msgid "fwstart.img doesn't match the known good version. proceed at your own risk"
+msgstr "fwstart.img is niet de bekend-goede versie; doorgaan is op eigen risico"
 
 #: util/mkimage.c:1730 util/mkimage.c:1754
 msgid "firmware image is too big"
@@ -6358,80 +6060,38 @@ msgid "the size of `%s' is too small"
 msgstr "de grootte van '%s' is te klein"
 
 #: util/setup.c:415
-msgid ""
-"Attempting to install GRUB to a disk with multiple partition labels or both "
-"partition label and filesystem.  This is not supported yet."
-msgstr ""
-"Poging om GRUB op een schijf te installeren met meerdere partitielabels of "
-"met zowel partitielabel als een bestandssysteem.  Dit wordt nog niet "
-"ondersteund."
+msgid "Attempting to install GRUB to a disk with multiple partition labels or both partition label and filesystem.  This is not supported yet."
+msgstr "Poging om GRUB op een schijf te installeren met meerdere partitielabels of met zowel partitielabel als een bestandssysteem.  Dit wordt nog niet ondersteund."
 
 #: util/setup.c:428
 #, c-format
 msgid "unable to identify a filesystem in %s; safety check can't be performed"
-msgstr ""
-"bestandssysteem in %s wordt niet herkend; veiligheidscontrole kan niet "
-"worden uitgevoerd"
+msgstr "bestandssysteem in %s wordt niet herkend; veiligheidscontrole kan niet worden uitgevoerd"
 
 #. TRANSLATORS: Filesystem may reserve the space just GRUB isn't sure about it.
 #: util/setup.c:432
 #, c-format
-msgid ""
-"%s appears to contain a %s filesystem which isn't known to reserve space for "
-"DOS-style boot.  Installing GRUB there could result in FILESYSTEM "
-"DESTRUCTION if valuable data is overwritten by grub-setup (--skip-fs-probe "
-"disables this check, use at your own risk)"
-msgstr ""
-"%s blijkt een %s-bestandssysteem te bevatten waarvan bekend is dat er geen "
-"ruimte voor DOS-achtig opstarten wordt gereserveerd.  Installeren van GRUB "
-"daarin kan VERNIELING VAN HET BESTANDSSYSTEEM tot gevolg hebben als "
-"waardevolle gegevens worden overschreven door grub-setup.  (Optie '--skip-fs-"
-"probe' schakelt deze controle uit, op uw eigen risico.)"
+msgid "%s appears to contain a %s filesystem which isn't known to reserve space for DOS-style boot.  Installing GRUB there could result in FILESYSTEM DESTRUCTION if valuable data is overwritten by grub-setup (--skip-fs-probe disables this check, use at your own risk)"
+msgstr "%s blijkt een %s-bestandssysteem te bevatten waarvan bekend is dat er geen ruimte voor DOS-achtig opstarten wordt gereserveerd.  Installeren van GRUB daarin kan VERNIELING VAN HET BESTANDSSYSTEEM tot gevolg hebben als waardevolle gegevens worden overschreven door grub-setup.  (Optie '--skip-fs-probe' schakelt deze controle uit, op uw eigen risico.)"
 
 #. TRANSLATORS: Partition map may reserve the space just GRUB isn't sure about it.
 #: util/setup.c:445
 #, c-format
-msgid ""
-"%s appears to contain a %s partition map which isn't known to reserve space "
-"for DOS-style boot.  Installing GRUB there could result in FILESYSTEM "
-"DESTRUCTION if valuable data is overwritten by grub-setup (--skip-fs-probe "
-"disables this check, use at your own risk)"
-msgstr ""
-"%s blijkt een %s-partitietabel te bevatten waarvan bekend is dat er geen "
-"ruimte voor DOS-achtig opstarten wordt gereserveerd.  Installeren van GRUB "
-"daarin kan VERNIELING VAN HET BESTANDSSYSTEEM tot gevolg hebben als "
-"waardevolle gegevens worden overschreven door grub-setup.  (Optie '--skip-fs-"
-"probe' schakelt deze controle uit, op uw eigen risico.)"
+msgid "%s appears to contain a %s partition map which isn't known to reserve space for DOS-style boot.  Installing GRUB there could result in FILESYSTEM DESTRUCTION if valuable data is overwritten by grub-setup (--skip-fs-probe disables this check, use at your own risk)"
+msgstr "%s blijkt een %s-partitietabel te bevatten waarvan bekend is dat er geen ruimte voor DOS-achtig opstarten wordt gereserveerd.  Installeren van GRUB daarin kan VERNIELING VAN HET BESTANDSSYSTEEM tot gevolg hebben als waardevolle gegevens worden overschreven door grub-setup.  (Optie '--skip-fs-probe' schakelt deze controle uit, op uw eigen risico.)"
 
 #: util/setup.c:452
 #, c-format
-msgid ""
-"%s appears to contain a %s partition map and LDM which isn't known to be a "
-"safe combination.  Installing GRUB there could result in FILESYSTEM "
-"DESTRUCTION if valuable data is overwritten by grub-setup (--skip-fs-probe "
-"disables this check, use at your own risk)"
-msgstr ""
-"%s blijkt een %s-partitietabel én een LDM te bevatten; dit is geen veilige "
-"combinatie.  Installeren van GRUB daarin kan VERNIELING VAN HET "
-"BESTANDSSYSTEEM tot gevolg hebben als waardevolle gegevens overschreven "
-"worden door 'grub-setup'.  (Optie '--skip-fs-probe' schakelt deze controle "
-"uit, op uw eigen risico.)"
+msgid "%s appears to contain a %s partition map and LDM which isn't known to be a safe combination.  Installing GRUB there could result in FILESYSTEM DESTRUCTION if valuable data is overwritten by grub-setup (--skip-fs-probe disables this check, use at your own risk)"
+msgstr "%s blijkt een %s-partitietabel én een LDM te bevatten; dit is geen veilige combinatie.  Installeren van GRUB daarin kan VERNIELING VAN HET BESTANDSSYSTEEM tot gevolg hebben als waardevolle gegevens overschreven worden door 'grub-setup'.  (Optie '--skip-fs-probe' schakelt deze controle uit, op uw eigen risico.)"
 
 #: util/setup.c:465
-msgid ""
-"Attempting to install GRUB to a partitionless disk or to a partition.  This "
-"is a BAD idea."
-msgstr ""
-"Poging om GRUB op een schijf zonder partities te installeren, of op een "
-"partitie.  Dit is een SLECHT idee."
+msgid "Attempting to install GRUB to a partitionless disk or to a partition.  This is a BAD idea."
+msgstr "Poging om GRUB op een schijf zonder partities te installeren, of op een partitie.  Dit is een SLECHT idee."
 
 #: util/setup.c:470
-msgid ""
-"Attempting to install GRUB to a disk with multiple partition labels.  This "
-"is not supported yet."
-msgstr ""
-"Poging om GRUB op een schijf te installeren met meerdere partitielabels.  "
-"Dit wordt nog niet ondersteund."
+msgid "Attempting to install GRUB to a disk with multiple partition labels.  This is not supported yet."
+msgstr "Poging om GRUB op een schijf te installeren met meerdere partitielabels.  Dit wordt nog niet ondersteund."
 
 #: util/setup.c:476
 #, c-format
@@ -6445,8 +6105,7 @@ msgstr "Bestandssysteem '%s' kent geen inbedding"
 
 #: util/setup.c:512
 msgid "Your embedding area is unusually small.  core.img won't fit in it."
-msgstr ""
-"Uw inbeddingsruimte is ongebruikelijk klein; core.img zal er niet in passen."
+msgstr "Uw inbeddingsruimte is ongebruikelijk klein; core.img zal er niet in passen."
 
 #: util/setup.c:534 util/setup.c:650 util/setup.c:752
 msgid "no terminator in the core image"
@@ -6457,11 +6116,8 @@ msgid "core.img version mismatch"
 msgstr "Versie van core.img komt niet overeen"
 
 #: util/setup.c:600
-msgid ""
-"embedding is not possible, but this is required for RAID and LVM install"
-msgstr ""
-"inbedding is niet mogelijk, maar dit is wel vereist bij RAID- en LVM-"
-"installatie"
+msgid "embedding is not possible, but this is required for RAID and LVM install"
+msgstr "inbedding is niet mogelijk, maar dit is wel vereist bij RAID- en LVM-installatie"
 
 #: util/setup.c:607
 #, c-format
@@ -6477,19 +6133,11 @@ msgstr "bestandssysteem '%s' ondersteunt geen bloklijsten"
 #. but MBR on another.
 #: util/setup.c:619
 msgid "embedding is not possible, but this is required for cross-disk install"
-msgstr ""
-"inbedding is niet mogelijk, maar dit is wel vereist bij installatie over "
-"meerdere schijven"
+msgstr "inbedding is niet mogelijk, maar dit is wel vereist bij installatie over meerdere schijven"
 
 #: util/setup.c:625
-msgid ""
-"Embedding is not possible.  GRUB can only be installed in this setup by "
-"using blocklists.  However, blocklists are UNRELIABLE and their use is "
-"discouraged."
-msgstr ""
-"Inbedden is niet mogelijk.  GRUB kan in deze configuratie alleen worden "
-"geïnstalleerd met bloklijsten.  Bloklijsten zijn echter ONBETROUWBAAR en het "
-"gebruik ervan wordt ontraden."
+msgid "Embedding is not possible.  GRUB can only be installed in this setup by using blocklists.  However, blocklists are UNRELIABLE and their use is discouraged."
+msgstr "Inbedden is niet mogelijk.  GRUB kan in deze configuratie alleen worden geïnstalleerd met bloklijsten.  Bloklijsten zijn echter ONBETROUWBAAR en het gebruik ervan wordt ontraden."
 
 #. TRANSLATORS: Here GRUB refuses to continue with blocklist install.
 #: util/setup.c:630
@@ -6501,9 +6149,8 @@ msgid "blocklists are invalid"
 msgstr "bloklijsten zijn ongeldig"
 
 #: util/setup.c:755
-#, fuzzy
 msgid "blocklists are incomplete"
-msgstr "bloklijsten zijn ongeldig"
+msgstr "bloklijsten zijn incompleet"
 
 #: util/grub-kbdcomp.in:24
 msgid "Usage: %s -o OUTPUT CKBMAP_ARGUMENTS...\\n"
@@ -6525,8 +6172,7 @@ msgstr "programmaversie tonen en stoppen"
 
 #: util/grub-kbdcomp.in:31
 msgid "%s generates a keyboard layout for GRUB using ckbcomp\\n"
-msgstr ""
-"%s genereert een toetsenbordindeling voor GRUB met behulp van 'ckbcomp'\\n"
+msgstr "%s genereert een toetsenbordindeling voor GRUB met behulp van 'ckbcomp'\\n"
 
 #: util/grub-kbdcomp.in:33 util/grub-mkconfig.in:61 util/grub-reboot.in:60
 #: util/grub-set-default.in:58
@@ -6544,15 +6190,14 @@ msgstr "%s: optie vereist een argument -- '%s'\\n"
 msgid "Usage: %s [OPTION]\\n"
 msgstr "Gebruik:  %s [OPTIE]\\n"
 
+# XXX  add period?
 #: util/grub-mkconfig.in:55
 msgid "Generate a grub config file"
-msgstr "Een GRUB-configuratiebestand aanmaken"
+msgstr "Een GRUB-configuratiebestand aanmaken."
 
 #: util/grub-mkconfig.in:57
 msgid "output generated config to FILE [default=stdout]"
-msgstr ""
-"gegenereerd configuratiebestand uitvoeren naar BESTAND [standaard is "
-"standaarduitvoer]"
+msgstr "gegenereerd configuratiebestand uitvoeren naar BESTAND  [standaard is standaarduitvoer]"
 
 #: util/grub-mkconfig.in:94 util/grub-reboot.in:100
 #: util/grub-set-default.in:98
@@ -6564,9 +6209,8 @@ msgid "%s: You must run this as root\\n"
 msgstr "%s: U moet dit uitvoeren als root\\n"
 
 #: util/grub-mkconfig.in:235
-#, fuzzy
 msgid "Generating grub configuration file ..."
-msgstr "Een GRUB-configuratiebestand aanmaken"
+msgstr "Aanmaken van GRUB-configuratiebestand..."
 
 #. TRANSLATORS: %s is replaced by filename
 #: util/grub-mkconfig.in:268
@@ -6595,23 +6239,19 @@ msgstr "Gebruik:  %s [OPTIE] MENU-ITEM\\n"
 
 #: util/grub-reboot.in:48
 msgid "Set the default boot menu entry for GRUB, for the next boot only."
-msgstr ""
-"Het standaardmenu-item voor GRUB instellen, alleen voor de volgende start."
+msgstr "Het standaardmenu-item voor GRUB instellen, alleen voor de volgende start."
 
 #: util/grub-reboot.in:51 util/grub-set-default.in:53
-msgid ""
-"expect GRUB images under the directory DIR/%s instead of the %s directory"
+msgid "expect GRUB images under the directory DIR/%s instead of the %s directory"
 msgstr "GRUB-images zoeken onder MAP/%s in plaats van de map %s"
 
+# XXX  why such overlong lines?  wrap at before eighty colums?
 #: util/grub-reboot.in:54
 msgid ""
-"MENU_ENTRY is a number, a menu item title or a menu item identifier. Please "
-"note that menu items in\n"
-"submenus or sub-submenus require specifying the submenu components and then "
-"the\n"
+"MENU_ENTRY is a number, a menu item title or a menu item identifier. Please note that menu items in\n"
+"submenus or sub-submenus require specifying the submenu components and then the\n"
 "menu item component. The titles should be separated using the greater-than\n"
-"character (>) with no extra spaces. Depending on your shell some characters "
-"including > may need escaping. More information about this is available\n"
+"character (>) with no extra spaces. Depending on your shell some characters including > may need escaping. More information about this is available\n"
 "in the GRUB Manual in the section about the 'default' command. "
 msgstr ""
 
@@ -6629,20 +6269,15 @@ msgstr "Het standaardmenu-item voor GRUB instellen."
 
 #: util/grub-set-default.in:49
 msgid "This requires setting GRUB_DEFAULT=saved in %s/default/grub.\\n"
-msgstr ""
-"Dit vereist het instellen van GRUB_DEFAULT=saved in %s/default/grub.\\n"
+msgstr "Dit vereist het instellen van GRUB_DEFAULT=saved in %s/default/grub.\\n"
 
 #: util/grub-set-default.in:56
 msgid "MENU_ENTRY is a number, a menu item title or a menu item identifier."
 msgstr "MENU-ITEM is het nummer, de titel, of het ID van een menu-item."
 
 #: util/grub.d/00_header.in:141
-msgid ""
-"Requested serial terminal but GRUB_SERIAL_COMMAND is unspecified. Default "
-"parameters will be used."
-msgstr ""
-"Een seriële terminal werd verzocht maar GRUB_SERIAL_COMMAND is niet "
-"gegeven.  Standaard parameters worden gebruikt."
+msgid "Requested serial terminal but GRUB_SERIAL_COMMAND is unspecified. Default parameters will be used."
+msgstr "Een seriële terminal werd verzocht maar GRUB_SERIAL_COMMAND is niet gegeven.  Standaard parameters worden gebruikt."
 
 #: util/grub.d/00_header.in:232
 msgid "Found theme: %s\\n"
@@ -6657,10 +6292,8 @@ msgid "Unsupported image format"
 msgstr "Niet-ondersteunde image-indeling"
 
 #: util/grub.d/00_header.in:292
-msgid ""
-"Setting GRUB_TIMEOUT to a non-zero value when GRUB_HIDDEN_TIMEOUT is set is "
-"no longer supported."
-msgstr ""
+msgid "Setting GRUB_TIMEOUT to a non-zero value when GRUB_HIDDEN_TIMEOUT is set is no longer supported."
+msgstr "Het instellen van GRUB_TIMEOUT ongelijk aan nul terwijl GRUB_HIDDEN_TIMEOUT ingesteld is, wordt niet langer ondersteund."
 
 #: util/grub.d/10_hurd.in:48
 msgid "Found GNU Mach: %s"
@@ -6672,8 +6305,7 @@ msgstr "Hurd-module gevonden: %s"
 
 #: util/grub.d/10_hurd.in:77
 msgid "Some Hurd stuff found, but not enough to boot."
-msgstr ""
-"Enige Hurd-dingen zijn gevonden, maar niet genoeg om te kunnen starten."
+msgstr "Enige Hurd-dingen zijn gevonden, maar niet genoeg om te kunnen starten."
 
 #: util/grub.d/10_hurd.in:91
 msgid "%s, with Hurd %s (recovery mode)"
@@ -6686,12 +6318,8 @@ msgstr "%s, met Hurd %s"
 #: util/grub.d/10_hurd.in:100 util/grub.d/10_kfreebsd.in:87
 #: util/grub.d/10_linux.in:91 util/grub.d/10_netbsd.in:113
 #: util/grub.d/20_linux_xen.in:99 util/grub.d/30_os-prober.in:271
-msgid ""
-"Please don't use old title `%s' for GRUB_DEFAULT, use `%s' (for versions "
-"before 2.00) or `%s' (for 2.00 or later)"
-msgstr ""
-"Gebruik niet de oude titel '%s' voor GRUB_DEFAULT; gebruik of '%s' (voor "
-"versies vóór 2.00) of '%s' (voor 2.00 of later)."
+msgid "Please don't use old title `%s' for GRUB_DEFAULT, use `%s' (for versions before 2.00) or `%s' (for 2.00 or later)"
+msgstr "Gebruik niet de oude titel '%s' voor GRUB_DEFAULT; gebruik of '%s' (voor versies vóór 2.00) of '%s' (voor 2.00 of later)."
 
 #: util/grub.d/10_hurd.in:112
 msgid "Loading GNU Mach ..."
@@ -6832,17 +6460,29 @@ msgstr "%s gevonden op %s\\n"
 msgid "%s is not yet supported by grub-mkconfig.\\n"
 msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 
-#~ msgid ""
-#~ "print filesystem module, GRUB drive, system device, partition map module, "
-#~ "abstraction module or cryptographic container UUID [default=fs]"
-#~ msgstr ""
-#~ "tonen van bestandssysteemmodule, GRUB-schijf, systeemapparaat, "
-#~ "partitietabelmodule, abstractiemodule, of UUID van "
-#~ "versleutelingscontainer [standaard is 'fs' (bestandssysteem)]"
+#~ msgid "assume isolinux."
+#~ msgstr "isolinux aannemen"
 
-#, fuzzy
+#~ msgid "assume pxelinux."
+#~ msgstr "pxelinux aannemen"
+
+#~ msgid "assume syslinux."
+#~ msgstr "syslinux aannemen"
+
+#~ msgid "memory allocation failed"
+#~ msgstr "onvoldoende geheugen beschikbaar"
+
+#~ msgid "%s is neither hfs nor hfsplus"
+#~ msgstr "%s is noch 'hfs' noch 'hfsplus'"
+
+#~ msgid "copies GRUB images into net_directory/subdir/target_cpu-platform."
+#~ msgstr "Kopieert GRUB-images naar netwerkmap/submap/doelcpu-platform."
+
+#~ msgid "print filesystem module, GRUB drive, system device, partition map module, abstraction module or cryptographic container UUID [default=fs]"
+#~ msgstr "tonen van bestandssysteemmodule, GRUB-schijf, systeemapparaat, partitietabelmodule, abstractiemodule, of UUID van versleutelingscontainer  [standaard is 'fs' (bestandssysteem)]"
+
 #~ msgid "use DIR as root directory [default=/]"
-#~ msgstr "de voorvoegmap instellen [standaard %s]"
+#~ msgstr "MAP gebruiken als hoofdmap  [standaard=/]"
 
 #~ msgid "Address range not associated with RAM"
 #~ msgstr "Adresbereik waar geen RAM aanwezig is"
@@ -6863,14 +6503,10 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgstr "een breedtesamenvattingsbestand aanmaken"
 
 #~ msgid "Option --ascii-bitmaps doesn't accept ranges (it always uses ASCII)."
-#~ msgstr ""
-#~ "Optie '--ascii-bitmaps' accepteert geen bereiken (het gebruikt altijd "
-#~ "ASCII)."
+#~ msgstr "Optie '--ascii-bitmaps' accepteert geen bereiken (het gebruikt altijd ASCII)."
 
 #~ msgid "WARNING: your random generator isn't known to be secure\n"
-#~ msgstr ""
-#~ "WAARSCHUWING: het is niet zeker dat uw generator van willekeurige "
-#~ "gegevens veilig is\n"
+#~ msgstr "WAARSCHUWING: het is niet zeker dat uw generator van willekeurige gegevens veilig is\n"
 
 #~ msgid "failed to read the first sector of the core image"
 #~ msgstr "lezen van de eerste sector van de core-image is mislukt"
@@ -6887,12 +6523,8 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgid "INSTALL_DEVICE must be system device filename."
 #~ msgstr "INSTALLATIE-APPARAAT moet een systeemapparaat-bestandsnaam zijn"
 
-#~ msgid ""
-#~ "Path `%s' is not readable by GRUB on boot. Installation is impossible. "
-#~ "Aborting.\\n"
-#~ msgstr ""
-#~ "Pad '%s' is bij opstarten niet leesbaar voor GRUB.  Installatie is "
-#~ "onmogelijk.  Gestopt.\\n"
+#~ msgid "Path `%s' is not readable by GRUB on boot. Installation is impossible. Aborting.\\n"
+#~ msgstr "Pad '%s' is bij opstarten niet leesbaar voor GRUB.  Installatie is onmogelijk.  Gestopt.\\n"
 
 #~ msgid "Auto-detection of a filesystem of %s failed.\\n"
 #~ msgstr "Automatische detectie van bestandssysteem van %s is mislukt.\\n"
@@ -6900,28 +6532,17 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgid "Try with --recheck."
 #~ msgstr "Probeer het met optie '--recheck'."
 
-#~ msgid ""
-#~ "If the problem persists please report this together with the output of %s "
-#~ "to <%s>"
-#~ msgstr ""
-#~ "Als de fout blijft optreden, rapporteer dit dan aan <%2$s> samen met de "
-#~ "uitvoer van '%$1s'."
+#~ msgid "If the problem persists please report this together with the output of %s to <%s>"
+#~ msgstr "Als de fout blijft optreden, rapporteer dit dan aan <%2$s> samen met de uitvoer van '%$1s'."
 
 #~ msgid "`%s' failed.\\n"
 #~ msgstr "'%s' is mislukt.\\n"
 
-#~ msgid ""
-#~ "Can't find GRUB drive for %s; unable to create EFI Boot Manager entry.\\n"
-#~ msgstr ""
-#~ "Kan geen GRUB-schijf vinden voor %s; kan geen EFI-opstartmanager-item "
-#~ "aanmaken.\\n"
+#~ msgid "Can't find GRUB drive for %s; unable to create EFI Boot Manager entry.\\n"
+#~ msgstr "Kan geen GRUB-schijf vinden voor %s; kan geen EFI-opstartmanager-item aanmaken.\\n"
 
 #~ msgid "Generating grub.cfg ..."
 #~ msgstr "Aanmaken van 'grub.cfg'..."
-
-#~ msgid ""
-#~ "%s copies GRUB images into net_directory/subdir/target_cpu-platform\\n"
-#~ msgstr "%s kopieert GRUB-images naar netwerkmap/submap/doelcpu-platform\\n"
 
 #~ msgid "use FILE as grub-glue-efi"
 #~ msgstr "dit BESTAND gebruiken als 'grub-glue-efi'"
@@ -6962,11 +6583,6 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgid "%s: option requires an argument -- `%s'"
 #~ msgstr "%s: optie vereist een argument -- '%s'"
 
-#, fuzzy
-#~ msgid "Legend: P=Packed pixel, D=Direct color, mask/pos=R/G/B/reserved"
-#~ msgstr ""
-#~ "Legenda: P=Packed pixel, D=Direct color, masker/positie=R/G/B/gereserveerd"
-
 #~ msgid "FIXME: no / in buf. (make_system_path_relative_to_its_root)"
 #~ msgstr "FOUTJE: geen '/' in padnaam"
 
@@ -6982,57 +6598,11 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgid "Try `%s --help' for more information.\n"
 #~ msgstr "Typ '%s --help' voor meer informatie.\n"
 
-#, fuzzy
-#~ msgid ""
-#~ "Usage: %s [OPTION]...\n"
-#~ "\n"
-#~ "GRUB emulator.\n"
-#~ "\n"
-#~ "  -r, --root-device=DEV     use DEV as the root device [default=host]\n"
-#~ "  -m, --device-map=FILE     use FILE as the device map [default=%s]\n"
-#~ "  -d, --directory=DIR       use GRUB files in the directory DIR [default="
-#~ "%s]\n"
-#~ "  -v, --verbose             print verbose messages\n"
-#~ "  -H, --hold[=SECONDS]      wait until a debugger will attach\n"
-#~ "  -h, --help                display this message and exit\n"
-#~ "  -V, --version             print version information and exit\n"
-#~ "\n"
-#~ "Report bugs to <%s>.\n"
-#~ msgstr ""
-#~ "Gebruik: %s [OPTIE]... APPARAAT\n"
-#~ "\n"
-#~ "Stelt afbeeldingen in om op te kunnen starten vanaf APPARAAT.\n"
-#~ "APPARAAT moet een GRUB-apparaat zijn (bijvoorbeeld '(hd0,1)').\n"
-#~ "\n"
-#~ "  -b, --boot-image=BESTAND  BESTAND gebruiken als de opstartafbeelding "
-#~ "[standaard=%s]\n"
-#~ "  -c, --core-image=BESTAND  BESTAND gebruiken als de core-afbeelding "
-#~ "[standaard=%s]\n"
-#~ "  -d, --directory=MAP       GRUB-bestanden gebruiken in de map MAP "
-#~ "[standaard=%s]\n"
-#~ "  -m, --device-map=BESTAND  BESTAND gebruiken als de apparaatmap "
-#~ "[standaard=%s]\n"
-#~ "  -r, --root-device=APP     APP gebruiken als het root-apparaat "
-#~ "[standaard=guessed]\n"
-#~ "  -f, --force               installeren, zelfs bij het optreden van "
-#~ "fouten\n"
-#~ "  -s, --skip-fs-probe       niet testen op bestandssystemen in APPARAAT\n"
-#~ "  -h, --help                deze hulptekst tonen en stoppen\n"
-#~ "  -V, --version             versie-informatie tonen en stoppen\n"
-#~ "  -v, --verbose             uitgebreide informatie tonen\n"
-#~ "\n"
-#~ "Rapporteer programmafouten aan <%s>;\n"
-#~ "meld vertaalfouten aan <vertaling@vrijschrift.org>.\n"
-
 #~ msgid "Usage: %s [OPTION] install_device"
 #~ msgstr "Gebruik:  %s [OPTIE] INSTALLATIE-APPARAAT"
 
 #~ msgid "Usage: %s [OPTION] [install_device]"
 #~ msgstr "Gebruik:  %s [OPTIE] [INSTALLATIE-APPARAAT]"
-
-#, fuzzy
-#~ msgid "the ID of bootloader."
-#~ msgstr "Een andere boot-loader laden."
 
 #~ msgid "Usage: %s [OPTION] install_device\\n"
 #~ msgstr "Gebruik:  %s [OPTIE] INSTALLATIE-APPARAAT\\n"
@@ -7123,14 +6693,12 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ "\n"
 #~ "Make a bootable image of GRUB.\n"
 #~ "\n"
-#~ "  -d, --directory=DIR     use images and modules under DIR [default=%s/"
-#~ "@platform@]\n"
+#~ "  -d, --directory=DIR     use images and modules under DIR [default=%s/@platform@]\n"
 #~ "  -p, --prefix=DIR        set grub_prefix directory [default=%s]\n"
 #~ "  -m, --memdisk=FILE      embed FILE as a memdisk image\n"
 #~ "  -c, --config=FILE       embed FILE as boot config\n"
 #~ "  -n, --note              add NOTE segment for CHRP Open Firmware\n"
-#~ "  -o, --output=FILE       output a generated image to FILE "
-#~ "[default=stdout]\n"
+#~ "  -o, --output=FILE       output a generated image to FILE [default=stdout]\n"
 #~ "  -O, --format=FORMAT     generate an image in format\n"
 #~ "                          available formats: %s\n"
 #~ "  -C, --compression=(xz|none|auto)  choose the compression to use\n"
@@ -7140,7 +6708,7 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ "\n"
 #~ "Report bugs to <%s>.\n"
 #~ msgstr ""
-#~ "Gebruik: %s [OPTIE...] [MODULES]\n"
+#~ "Gebruik:  %s [OPTIE...] [MODULES]\n"
 #~ "\n"
 #~ "Maakt een opstartbare afbeelding van GRUB.\n"
 #~ "\n"
@@ -7149,10 +6717,8 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ "  -p, --prefix=MAP        de grub_prefix-MAP instellen [standaard=%s]\n"
 #~ "  -m, --memdisk=BESTAND   BESTAND als een memdisk-afbeelding inbedden\n"
 #~ "  -c, --config=BESTAND    BESTAND als boot-configuratie inbedden\n"
-#~ "  -n, --note              een NOTE-segment toevoegen voor CHRP Open "
-#~ "Firmware\n"
-#~ "  -o, --output=BESTAND    een aangemaakte afbeelding naar BESTAND "
-#~ "schrijven;\n"
+#~ "  -n, --note              een NOTE-segment toevoegen voor CHRP Open Firmware\n"
+#~ "  -o, --output=BESTAND    een aangemaakte afbeelding naar BESTAND schrijven;\n"
 #~ "                          [standaard=standaarduitvoer]\n"
 #~ "  -O, --format=INDELING   een afbeelding in INDELING aanmaken;\n"
 #~ "                          mogelijk zijn: %s\n"
@@ -7166,12 +6732,8 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgid "cannot open %s"
 #~ msgstr "kan %s niet openen"
 
-#~ msgid ""
-#~ "embedding is not possible, but this is required when the root device is "
-#~ "on a RAID array or LVM volume"
-#~ msgstr ""
-#~ "inbedding is niet mogelijk, maar dit is wel vereist als het root-device "
-#~ "op een RAID-array of LVM-volumen staat"
+#~ msgid "embedding is not possible, but this is required when the root device is on a RAID array or LVM volume"
+#~ msgstr "inbedding is niet mogelijk, maar dit is wel vereist als het root-device op een RAID-array of LVM-volumen staat"
 
 #~ msgid "DEV"
 #~ msgstr "APP"
@@ -7194,12 +6756,8 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgid "Simulate a hard drive with partitions."
 #~ msgstr "Een harde schijf met partities nabootsen."
 
-#~ msgid ""
-#~ "Attempting to install GRUB to a partition instead of the MBR.  This is a "
-#~ "BAD idea."
-#~ msgstr ""
-#~ "Poging om GRUB in een partitie te installeren in plaats van de MBR. Dit "
-#~ "is een SLECHT idee."
+#~ msgid "Attempting to install GRUB to a partition instead of the MBR.  This is a BAD idea."
+#~ msgstr "Poging om GRUB in een partitie te installeren in plaats van de MBR. Dit is een SLECHT idee."
 
 #~ msgid "No DOS-style partitions found"
 #~ msgstr "Geen DOS-achtige partities gevonden"
@@ -7214,9 +6772,7 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgstr "Controleer het volgende bestand: %s.\n"
 
 #~ msgid "This file must be removed before a bootable CD can be done.\n"
-#~ msgstr ""
-#~ "Dit bestand moet worden verwijderd voordat een opstartbare CD gemaakt kan "
-#~ "worden.\n"
+#~ msgstr "Dit bestand moet worden verwijderd voordat een opstartbare CD gemaakt kan worden.\n"
 
 #~ msgid "Error creating boot catalog (%s)"
 #~ msgstr "Aanmaken van boot-catalogus is mislukt (%s)"
@@ -7266,8 +6822,7 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgstr "Openen van boot-afbeeldingsbestand `%s' voor bijwerken is mislukt"
 
 #~ msgid "Odd alignment at non-end-of-file in boot image '%s'"
-#~ msgstr ""
-#~ "Vreemde uitlijning bij niet-einde-van-bestand in boot-afbeelding `%s'"
+#~ msgstr "Vreemde uitlijning bij niet-einde-van-bestand in boot-afbeelding `%s'"
 
 #~ msgid "Boot image file '%s' changed unexpectedly"
 #~ msgstr "Boot-afbeeldingsbestand `%s' is onverwacht gewijzigd"
@@ -7276,8 +6831,7 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgstr "Schrijven naar boot-afbeelding (%s) is mislukt"
 
 #~ msgid "Unable to generate sane path tables - too many directories (%d)\n"
-#~ msgstr ""
-#~ "Genereren van degelijke padtabellen is mislukt - te veel mappen (%d)\n"
+#~ msgstr "Genereren van degelijke padtabellen is mislukt - te veel mappen (%d)\n"
 
 #~ msgid "Entry %d not in path tables\n"
 #~ msgstr "Invoer %d niet in padtabellen\n"
@@ -7310,7 +6864,7 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgstr "%s:%d: veldnaam \"%s\" is onbekend\n"
 
 #~ msgid "Usage: %s [options] file...\n"
-#~ msgstr "Gebruik: %s [opties] bestand...\n"
+#~ msgstr "Gebruik:  %s [opties] bestand...\n"
 
 #~ msgid "Required boot image pathname missing\n"
 #~ msgstr "Vereiste padnaam van boot-afbeelding ontbreekt\n"
@@ -7352,15 +6906,10 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgstr "datumtekenreeks dient 16 tekens te bedragen.\n"
 
 #~ msgid "Multisession usage bug: Must specify -C if -M is used.\n"
-#~ msgstr ""
-#~ "Fout in gebruik multisessie: -C moet worden opgegeven bij gebruik van -"
-#~ "M.\n"
+#~ msgstr "Fout in gebruik multisessie: -C moet worden opgegeven bij gebruik van -M.\n"
 
-#~ msgid ""
-#~ "Warning: -C specified without -M: old session data will not be merged.\n"
-#~ msgstr ""
-#~ "Waarschuwing: -C opgegeven zonder -M: oude sessiegegevens worden niet "
-#~ "samengevoegd.\n"
+#~ msgid "Warning: -C specified without -M: old session data will not be merged.\n"
+#~ msgstr "Waarschuwing: -C opgegeven zonder -M: oude sessiegegevens worden niet samengevoegd.\n"
 
 #~ msgid "re-directing all messages to %s\n"
 #~ msgstr "alle meldingen worden doorgestuurd naar %s\n"
@@ -7392,14 +6941,8 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgid "**Bad RR version attribute"
 #~ msgstr "**Slecht RR-versieattribuut"
 
-#~ msgid ""
-#~ "Warning: Neither Rock Ridge (-R) nor TRANS.TBL (-T) name translations "
-#~ "were found on previous session. ISO (8.3) file names have been used "
-#~ "instead.\n"
-#~ msgstr ""
-#~ "Waarschuwing: noch Rock Ridge (-R), noch TRANS.TBL (-T) naamvertalingen "
-#~ "zijn gevonden bij de vorige sessie. In plaats daarvan zijn ISO (8.3) "
-#~ "bestandsnamen gebruikt.\n"
+#~ msgid "Warning: Neither Rock Ridge (-R) nor TRANS.TBL (-T) name translations were found on previous session. ISO (8.3) file names have been used instead.\n"
+#~ msgstr "Waarschuwing: noch Rock Ridge (-R), noch TRANS.TBL (-T) naamvertalingen zijn gevonden bij de vorige sessie. In plaats daarvan zijn ISO (8.3) bestandsnamen gebruikt.\n"
 
 #~ msgid "Read error on old image %s\n"
 #~ msgstr "Leesfout op oude afbeelding %s\n"
@@ -7411,13 +6954,10 @@ msgstr "%s wordt nog niet ondersteund door 'grub-mkconfig'.\\n"
 #~ msgstr "Misvormde cdwrite-parameters\n"
 
 #~ msgid "symbolic link ``%s'' to long for one SL System Use Field, splitting"
-#~ msgstr ""
-#~ "symbolische koppeling ``%s'' te lang voor een SL System Use Field, wordt "
-#~ "opgesplitst"
+#~ msgstr "symbolische koppeling ``%s'' te lang voor een SL System Use Field, wordt opgesplitst"
 
 #~ msgid "Unable to insert transparent compressed file - name conflict\n"
-#~ msgstr ""
-#~ "Kan transparant gecomprimeerd bestand niet invoegen - naamconflict\n"
+#~ msgstr "Kan transparant gecomprimeerd bestand niet invoegen - naamconflict\n"
 
 #~ msgid "Extension record too long\n"
 #~ msgstr "Extensie-record is te lang\n"

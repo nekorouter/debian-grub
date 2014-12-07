@@ -6,6 +6,7 @@ grub2 (2.02~beta2-18) UNRELEASED; urgency=medium
 
   [ Ian Campbell ]
   * Update git-dpm baseline to include upstream po files.
+  * Updated translations from translationproject.org (Closes: #771249).
 
  -- Steve McIntyre <93sam@debian.org>  Wed, 03 Dec 2014 01:23:18 +0000
 
