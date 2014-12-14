@@ -5,7 +5,7 @@ SUBDIRS = grub-core/gnulib .
 if COND_real_platform
 SUBDIRS += grub-core
 endif
-SUBDIRS += po docs util/bash-completion.d
+SUBDIRS += po-tp.org docs util/bash-completion.d
 
 include $(top_srcdir)/conf/Makefile.common
 include $(top_srcdir)/conf/Makefile.extra-dist
