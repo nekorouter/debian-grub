@@ -2,6 +2,7 @@ grub2 (2.02~beta2-19) UNRELEASED; urgency=medium
 
   [ Ian Campbell ]
   * Improvements to English wording of new debconf template from Justin B Rye.
+  * Updated translations from translationproject.org (Closes: #771249).
 
   [ Debconf translations ]
   * Basque (Iñaki Larrañaga Murgoitio, Closes: #772946)

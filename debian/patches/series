@@ -63,3 +63,6 @@ grub-install-pvxen-paths.patch
 gettext-print-typo.patch
 insmod-xzio-and-lzopio-on-xen.patch
 grub-install-extra-removable.patch
+po-tp.org--create.patch
+po-tp.org--orig.patch
+po-tp.org--use.patch
