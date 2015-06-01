@@ -1,4 +1,4 @@
-From 1f7a967fdb2402b74258d7675f92ba5f99a05e7c Mon Sep 17 00:00:00 2001
+From ff8fb273084723d892e11a706a84fd56da55b83b Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Mon, 13 Jan 2014 12:13:12 +0000
 Subject: Output a menu entry for firmware setup on UEFI FastBoot systems
@@ -32,7 +32,7 @@ index f659fb4..e1f6089 100644
    installdir = grubconf;
 diff --git a/util/grub.d/30_uefi-firmware.in b/util/grub.d/30_uefi-firmware.in
 new file mode 100644
-index 0000000..0f49bfc
+index 0000000..3c9f533
 --- /dev/null
 +++ b/util/grub.d/30_uefi-firmware.in
 @@ -0,0 +1,46 @@
@@ -69,7 +69,7 @@ index 0000000..0f49bfc
 +OsIndications="$efi_vars_dir/OsIndicationsSupported-$EFI_GLOBAL_VARIABLE/data"
 +
 +if [ -e "$OsIndications" ] && \
-+   [ "$(( $(printf %x \'"$(cat $OsIndications | cut -b1)") & 1 ))" = 1 ]; then
++   [ "$(( $(printf 0x%x \'"$(cat $OsIndications | cut -b1)") & 1 ))" = 1 ]; then
 +  LABEL="System setup"
 +
 +  gettext_printf "Adding boot menu entry for EFI firmware configuration\n" >&2

@@ -1,4 +1,4 @@
-From c90efcccb8356158468126e72ae053ec414cef4e Mon Sep 17 00:00:00 2001
+From 871663224500f2bd29ab668a33cb4eec2c74af91 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 23 Sep 2014 12:11:58 +0100
 Subject: Add a new "none" platform that only builds utilities

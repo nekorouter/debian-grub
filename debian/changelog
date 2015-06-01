@@ -5,6 +5,9 @@ grub2 (2.02~beta2-24) UNRELEASED; urgency=medium
     (Closes: #746596, LP: #1309735)
   * Fix double-free of LV names for mdraid (cherry-pick from fc535b32).
     (LP: #1330963)
+  * debian/patches/uefi_firmware_setup.patch: take into account that the UEFI
+    variable OsIndicationsSupported is a bit field, and as such should be
+    compared as hex values in 30_uefi-firmware.in. (LP: #1456911)
 
   [ dann frazier ]
   * Build image tarball on arm64
