@@ -77,7 +77,7 @@ case "$1" in
           esac
 
           for tgt in $targets ; do
-              rmdir --ignore-fail-on-non-empty /boot/grub/$tgt/
+              rmdir --ignore-fail-on-non-empty /boot/grub/$tgt/ || true
           done
 
         fi
