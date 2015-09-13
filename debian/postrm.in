@@ -42,7 +42,8 @@ case "$1" in
           for tgt in $targets ; do
               rm -f /boot/grub/$tgt/*.mod \
                     /boot/grub/$tgt/*.lst \
-                    /boot/grub/$tgt/*.img || true
+                    /boot/grub/$tgt/*.img \
+                    /boot/grub/$tgt/modinfo.sh || true
           done
 
           case @PACKAGE@ in
@@ -74,6 +75,9 @@ case "$1" in
               grub-efi-ia32|grub-efi-amd64)
                   rm -f /boot/grub/unicode.pf2 || true
                   ;;
+	      grub-xen)
+		  rmdir --ignore-fail-on-non-empty /boot/xen || true
+		  ;;
           esac
 
           for tgt in $targets ; do
