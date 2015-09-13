@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: grub2@packages.debian.org\n"
-"POT-Creation-Date: 2014-12-13 20:23+0000\n"
+"POT-Creation-Date: 2015-08-22 10:50+0100\n"
 "PO-Revision-Date: 2014-12-24 20:56+0530\n"
 "Last-Translator: localuser <sampada.n@rediffmail.com>\n"
 "Language-Team: C-DAC/Sampada\n"
@@ -228,31 +228,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../grub-pc.templates.in:10001
-msgid "Remove GRUB 2 from /boot/grub?"
-msgstr "/boot/grub मधून ग्रब 2 काढून टाकायचा?"
-
-#. Type: boolean
-#. Description
-#: ../grub-pc.templates.in:10001
-msgid "Do you want to have all GRUB 2 files removed from /boot/grub?"
-msgstr "/boot/grub मधून ग्रब 2 च्या सर्व फायली तुम्ही काढून टाकू इच्छिता?"
-
-#. Type: boolean
-#. Description
-#: ../grub-pc.templates.in:10001
-msgid ""
-"This will make the system unbootable unless another boot loader is installed."
-msgstr "अन्य आरंभ सूचक अधिष्ठापित न केल्यास यामुळे तुमची प्रणाली आरंभ न होण्याजोगी होईल."
-
-#. Type: boolean
-#. Description
-#: ../grub-pc.templates.in:11001
 msgid "Finish conversion to GRUB 2 now?"
 msgstr "ग्रब 2 मध्ये परिवर्तन आता थांबवायचे?"
 
 #. Type: boolean
 #. Description
-#: ../grub-pc.templates.in:11001
+#: ../grub-pc.templates.in:10001
 msgid ""
 "This system still has files from the GRUB Legacy boot loader installed, but "
 "it now also has GRUB 2 boot records installed on these disks:"
@@ -262,7 +243,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../grub-pc.templates.in:11001
+#: ../grub-pc.templates.in:10001
 msgid ""
 "It seems likely that GRUB Legacy is no longer in use, and that you should "
 "instead upgrade the GRUB 2 images on these disks and finish the conversion "
@@ -277,7 +258,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../grub-pc.templates.in:11001
+#: ../grub-pc.templates.in:10001
 msgid ""
 "You should generally finish the conversion to GRUB 2 unless these boot "
 "records were created by a GRUB 2 installation on some other operating system."
@@ -322,12 +303,31 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates.in:3001
+msgid "Remove GRUB 2 from /boot/grub?"
+msgstr "/boot/grub मधून ग्रब 2 काढून टाकायचा?"
+
+#. Type: boolean
+#. Description
+#: ../templates.in:3001
+msgid "Do you want to have all GRUB 2 files removed from /boot/grub?"
+msgstr "/boot/grub मधून ग्रब 2 च्या सर्व फायली तुम्ही काढून टाकू इच्छिता?"
+
+#. Type: boolean
+#. Description
+#: ../templates.in:3001
+msgid ""
+"This will make the system unbootable unless another boot loader is installed."
+msgstr "अन्य आरंभ सूचक अधिष्ठापित न केल्यास यामुळे तुमची प्रणाली आरंभ न होण्याजोगी होईल."
+
+#. Type: boolean
+#. Description
+#: ../templates.in:4001
 msgid "Force extra installation to the EFI removable media path?"
 msgstr "ईएफआय काढण्याजोग्या मिडीया मार्गात अतिरिक्त अधिष्ठापना जबरदस्ती करायची?"
 
 #. Type: boolean
 #. Description
-#: ../templates.in:3001
+#: ../templates.in:4001
 msgid ""
 "Some EFI-based systems are buggy and do not handle new bootloaders "
 "correctly. If you force an extra installation of GRUB to the EFI removable "
@@ -346,13 +346,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates.in:4001
+#: ../templates.in:5001
 msgid "kFreeBSD command line:"
 msgstr "केफ्रीबीएसडी आदेश ओळ:"
 
 #. Type: string
 #. Description
-#: ../templates.in:4001
+#: ../templates.in:5001
 msgid ""
 "The following kFreeBSD command line was extracted from /etc/default/grub or "
 "the `kopt' parameter in GRUB Legacy's menu.lst. Please verify that it is "
@@ -364,13 +364,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates.in:5001
+#: ../templates.in:6001
 msgid "kFreeBSD default command line:"
 msgstr "केफ्रीबीएसडी मूलनिर्धारीत आदेश ओळ:"
 
 #. Type: string
 #. Description
-#: ../templates.in:5001
+#: ../templates.in:6001
 msgid ""
 "The following string will be used as kFreeBSD parameters for the default "
 "menu entry but not for the recovery mode."
@@ -380,13 +380,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.in:6001
+#: ../templates.in:7001
 msgid "/boot/grub/device.map has been regenerated"
 msgstr "/boot/grub/device.map पुनर्निर्मिला गेला आहे"
 
 #. Type: note
 #. Description
-#: ../templates.in:6001
+#: ../templates.in:7001
 msgid ""
 "The file /boot/grub/device.map has been rewritten to use stable device "
 "names. In most cases, this should significantly reduce the need to change it "
@@ -398,7 +398,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.in:6001
+#: ../templates.in:7001
 msgid ""
 "However, since more than one disk is present in the system, it is possible "
 "that the system is depending on the old device map. Please check whether "
@@ -411,7 +411,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.in:6001
+#: ../templates.in:7001
 msgid ""
 "If you do not understand this message, or if there are no custom boot menu "
 "entries, you can ignore this message."

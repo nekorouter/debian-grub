@@ -112,15 +112,6 @@ _Description: Continue without installing GRUB?
  loader, then you should continue anyway. Otherwise, you should install
  GRUB somewhere.
 
-Template: grub-pc/postrm_purge_boot_grub
-Type: boolean
-Default: false
-_Description: Remove GRUB 2 from /boot/grub?
- Do you want to have all GRUB 2 files removed from /boot/grub?
- .
- This will make the system unbootable unless another boot loader is
- installed.
-
 Template: grub-pc/mixed_legacy_and_grub2
 Type: boolean
 Default: true

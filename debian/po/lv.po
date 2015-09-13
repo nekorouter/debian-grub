@@ -235,32 +235,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../grub-pc.templates.in:10001
-msgid "Remove GRUB 2 from /boot/grub?"
-msgstr "Izņemt GRUB 2 no /boot/grub?"
-
-#. Type: boolean
-#. Description
-#: ../grub-pc.templates.in:10001
-msgid "Do you want to have all GRUB 2 files removed from /boot/grub?"
-msgstr "Vai vēlaties, lai visi GRUB 2 faili tiktu izņemti no /boot/grub?"
-
-#. Type: boolean
-#. Description
-#: ../grub-pc.templates.in:10001
-msgid ""
-"This will make the system unbootable unless another boot loader is installed."
-msgstr ""
-"Tas padarīs sistēmu nepalaižamu, ja vien nav uzinstalēts kāds cits palaidējs."
-
-#. Type: boolean
-#. Description
-#: ../grub-pc.templates.in:11001
 msgid "Finish conversion to GRUB 2 now?"
 msgstr "Pabeigt pārveidošanu uz GRUB 2 tagad?"
 
 #. Type: boolean
 #. Description
-#: ../grub-pc.templates.in:11001
+#: ../grub-pc.templates.in:10001
 msgid ""
 "This system still has files from the GRUB Legacy boot loader installed, but "
 "it now also has GRUB 2 boot records installed on these disks:"
@@ -271,7 +251,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../grub-pc.templates.in:11001
+#: ../grub-pc.templates.in:10001
 msgid ""
 "It seems likely that GRUB Legacy is no longer in use, and that you should "
 "instead upgrade the GRUB 2 images on these disks and finish the conversion "
@@ -287,7 +267,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../grub-pc.templates.in:11001
+#: ../grub-pc.templates.in:10001
 msgid ""
 "You should generally finish the conversion to GRUB 2 unless these boot "
 "records were created by a GRUB 2 installation on some other operating system."
@@ -332,12 +312,32 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates.in:3001
+msgid "Remove GRUB 2 from /boot/grub?"
+msgstr "Izņemt GRUB 2 no /boot/grub?"
+
+#. Type: boolean
+#. Description
+#: ../templates.in:3001
+msgid "Do you want to have all GRUB 2 files removed from /boot/grub?"
+msgstr "Vai vēlaties, lai visi GRUB 2 faili tiktu izņemti no /boot/grub?"
+
+#. Type: boolean
+#. Description
+#: ../templates.in:3001
+msgid ""
+"This will make the system unbootable unless another boot loader is installed."
+msgstr ""
+"Tas padarīs sistēmu nepalaižamu, ja vien nav uzinstalēts kāds cits palaidējs."
+
+#. Type: boolean
+#. Description
+#: ../templates.in:4001
 msgid "Force extra installation to the EFI removable media path?"
 msgstr "Forsēt papildu instalāciju uz EFI noņemamā datu nesēja ceļa?"
 
 #. Type: boolean
 #. Description
-#: ../templates.in:3001
+#: ../templates.in:4001
 msgid ""
 "Some EFI-based systems are buggy and do not handle new bootloaders "
 "correctly. If you force an extra installation of GRUB to the EFI removable "
@@ -357,13 +357,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates.in:4001
+#: ../templates.in:5001
 msgid "kFreeBSD command line:"
 msgstr "kFreeBSD komandrinda:"
 
 #. Type: string
 #. Description
-#: ../templates.in:4001
+#: ../templates.in:5001
 msgid ""
 "The following kFreeBSD command line was extracted from /etc/default/grub or "
 "the `kopt' parameter in GRUB Legacy's menu.lst. Please verify that it is "
@@ -375,13 +375,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates.in:5001
+#: ../templates.in:6001
 msgid "kFreeBSD default command line:"
 msgstr "kFreeBSD noklusējuma komandrinda:"
 
 #. Type: string
 #. Description
-#: ../templates.in:5001
+#: ../templates.in:6001
 msgid ""
 "The following string will be used as kFreeBSD parameters for the default "
 "menu entry but not for the recovery mode."
@@ -391,13 +391,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.in:6001
+#: ../templates.in:7001
 msgid "/boot/grub/device.map has been regenerated"
 msgstr "/boot/grub/device.map tika reģistrēts"
 
 #. Type: note
 #. Description
-#: ../templates.in:6001
+#: ../templates.in:7001
 msgid ""
 "The file /boot/grub/device.map has been rewritten to use stable device "
 "names. In most cases, this should significantly reduce the need to change it "
@@ -410,7 +410,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.in:6001
+#: ../templates.in:7001
 msgid ""
 "However, since more than one disk is present in the system, it is possible "
 "that the system is depending on the old device map. Please check whether "
@@ -424,7 +424,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.in:6001
+#: ../templates.in:7001
 msgid ""
 "If you do not understand this message, or if there are no custom boot menu "
 "entries, you can ignore this message."
