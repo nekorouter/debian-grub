@@ -13,38 +13,76 @@ case "$1" in
     fi
 
     case @PACKAGE@ in
-      grub-pc)
+      grub-coreboot|grub-emu|grub-uboot)
+        : # Nothing special?
+        ;;
+      grub-pc|grub-efi-ia32|grub-efi-amd64|grub-efi-ia64|grub-efi-arm|\
+      grub-efi-arm64|grub-ieee1275|grub-xen|grub-yeeloong)
         # debconf could have been purged
         if [ -e /usr/share/debconf/confmodule ] ; then
           . /usr/share/debconf/confmodule
         fi
 
-        db_input high grub-pc/postrm_purge_boot_grub || true
+        db_input high @PACKAGE@/postrm_purge_boot_grub || true
         db_go || true
-        db_get grub-pc/postrm_purge_boot_grub || true
+        db_get @PACKAGE@/postrm_purge_boot_grub || true
         if [ "$RET" = "true" ] ; then
-          rm -f /boot/grub/grub.cfg \
-                /boot/grub/ascii.pf2 \
-                /boot/grub/unicode.pf2 \
-                /boot/grub/moreblue-orbit-grub.png \
-                /boot/grub/*.mod \
-                /boot/grub/*.lst \
-                /boot/grub/*.img \
-                /boot/grub/efiemu32.o \
-                /boot/grub/efiemu64.o \
-                /boot/grub/device.map \
-                /boot/grub/grubenv \
-                /boot/grub/installed-version \
-                /boot/grub/.background_cache.jpeg \
-                /boot/grub/.background_cache.png \
-                /boot/grub/.background_cache.tga || true
-          rm -rf /boot/grub/locale
-          rmdir --ignore-fail-on-non-empty /boot/grub || true
-        fi
-      ;;
+          case @PACKAGE@ in
+            grub-pc)        targets=i386-pc ;;
+            grub-efi-ia32)  targets=i386-efi ;;
+            grub-efi-amd64) targets=x86_64-efi ;;
+            grub-efi-ia64)  targets=ia64-efi ;;
+            grub-efi-arm)   targets=arm-efi ;;
+            grub-efi-arm64) targets=arm64-efi ;;
+            grub-ieee1275)  targets=powerpc-ieee1275 ;;
+            grub-xen)       targets="x86_64-xen i386-xen" ;;
+            grub-yeeloong)  targets=mipsel-loongson ;;
+          esac
 
-      grub-efi-ia32|grub-efi-amd64)
-        rm -f /boot/grub/unicode.pf2
+          for tgt in $targets ; do
+              rm -f /boot/grub/$tgt/*.mod \
+                    /boot/grub/$tgt/*.lst \
+                    /boot/grub/$tgt/*.img || true
+          done
+
+          case @PACKAGE@ in
+              grub-pc)
+		  # Some of this was historically only purged by
+		  # grub-pc but is actually common to any of the grub
+		  # packages which run grub-install, for now they are
+		  # still only removed by grub-pc, with time they
+		  # might switch to being removed elsewhere too.
+                  rm -f /boot/grub/grub.cfg \
+                        /boot/grub/ascii.pf2 \
+                        /boot/grub/unicode.pf2 \
+                        /boot/grub/moreblue-orbit-grub.png \
+                        /boot/grub/*.mod \
+                        /boot/grub/*.lst \
+                        /boot/grub/*.img \
+                        /boot/grub/efiemu32.o \
+                        /boot/grub/efiemu64.o \
+                        /boot/grub/i386-pc/efiemu32.o \
+                        /boot/grub/i386-pc/efiemu64.o \
+                        /boot/grub/device.map \
+                        /boot/grub/grubenv \
+                        /boot/grub/installed-version \
+                        /boot/grub/.background_cache.jpeg \
+                        /boot/grub/.background_cache.png \
+                        /boot/grub/.background_cache.tga || true
+                  rm -rf /boot/grub/locale
+                  ;;
+              grub-efi-ia32|grub-efi-amd64)
+                  rm -f /boot/grub/unicode.pf2 || true
+                  ;;
+          esac
+
+          for tgt in $targets ; do
+              rmdir --ignore-fail-on-non-empty /boot/grub/$tgt/
+          done
+
+        fi
+
+        rmdir --ignore-fail-on-non-empty /boot/grub || true
       ;;
     esac
 
