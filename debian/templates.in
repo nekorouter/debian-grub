@@ -12,7 +12,7 @@ _Description: Linux default command line:
  The following string will be used as Linux parameters for the default menu
  entry but not for the recovery mode.
 
-Template: @PACKAGE@/postrm_purge_boot_grub
+Template: grub2/postrm_purge_boot_grub
 Type: boolean
 Default: false
 _Description: Remove GRUB 2 from /boot/grub?

@@ -23,9 +23,9 @@ case "$1" in
           . /usr/share/debconf/confmodule
         fi
 
-        db_input high @PACKAGE@/postrm_purge_boot_grub || true
+        db_input high grub2/postrm_purge_boot_grub || true
         db_go || true
-        db_get @PACKAGE@/postrm_purge_boot_grub || true
+        db_get grub2/postrm_purge_boot_grub || true
         if [ "$RET" = "true" ] ; then
           case @PACKAGE@ in
             grub-pc)        targets=i386-pc ;;

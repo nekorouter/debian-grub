@@ -1,7 +1,8 @@
 grub2 (2.02~beta2-29) UNRELEASED; urgency=medium
 
   [ Ian Campbell ]
-  * Support postrm_purge_boot_grub debconf question for grub-* not just grub-pc
+  * Support postrm_purge_boot_grub debconf question for grub-* not just
+    grub-pc. The debconf question is now grub2/postrm_purge_boot_grub.
     (Closes: #782156)
 
  -- Ian Campbell <ijc@debian.org>  Sun, 06 Sep 2015 10:48:13 +0100
