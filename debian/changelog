@@ -1,3 +1,10 @@
+grub2 (2.02~beta2-31ubuntu1) UNRELEASED; urgency=medium
+
+  * debian/patches/linuxefi_enforce_sig.patch: enforce valid kernel
+    signatures unless MokUnsignedKernels is set.
+
+ -- Mathieu Trudel-Lapierre <mathieu-tl@ubuntu.com>  Fri, 06 Nov 2015 13:26:30 -0500
+
 grub2 (2.02~beta2-31) unstable; urgency=medium
 
   * Cherry-pick upstream patch to fix XFS alignment treatment.

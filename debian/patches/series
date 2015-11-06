@@ -81,3 +81,4 @@ xfs-add-inode-size-helpers.patch
 xfs-v5.patch
 xfs-fix-alignment.patch
 xfs-crc-fix-symlink.patch
+linuxefi_enforce_sig.patch

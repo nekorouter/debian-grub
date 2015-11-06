@@ -1,0 +1,169 @@
+From: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
+Subject: Enforce valid kernel signatures unless MokUnsignedKernels
+
+For more security, we might want to not failback to loading a kernel even
+if it's unsigned, as this would mean not all of ring0 would be trusted.
+
+Signed-off-by: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
+Patch-name: linuxefi-enforce-sig.patch
+---
+ grub-core/kern/efi/efi.c      |   78 ++++++++++++++++++++++++++++++++++++++++++
+ grub-core/loader/i386/linux.c |    2 +
+ include/grub/efi/efi.h        |    4 ++
+ 3 files changed, 84 insertions(+)
+
+Index: grub2-2.02~beta2/grub-core/kern/efi/efi.c
+===================================================================
+--- grub2-2.02~beta2.orig/grub-core/kern/efi/efi.c
++++ grub2-2.02~beta2/grub-core/kern/efi/efi.c
+@@ -212,6 +212,57 @@ grub_efi_set_variable(const char *var, c
+ }
+ 
+ void *
++grub_efi_get_boot_variable (const char *var, const grub_efi_guid_t *guid,
++		            grub_size_t *datasize_out)
++{
++  grub_efi_status_t status;
++  grub_efi_uintn_t datasize = 0;
++  grub_efi_runtime_services_t *r;
++  grub_efi_char16_t *var16;
++  grub_efi_uint32_t attributes;
++  void *data;
++  grub_size_t len, len16;
++
++  *datasize_out = 0;
++
++  len = grub_strlen (var);
++  len16 = len * GRUB_MAX_UTF16_PER_UTF8;
++  var16 = grub_malloc ((len16 + 1) * sizeof (var16[0]));
++  if (!var16)
++    return NULL;
++  len16 = grub_utf8_to_utf16 (var16, len16, (grub_uint8_t *) var, len, NULL);
++  var16[len16] = 0;
++
++  r = grub_efi_system_table->runtime_services;
++
++  status = efi_call_5 (r->get_variable, var16, guid, &attributes, &datasize, NULL);
++
++  if (!datasize)
++    return NULL;
++
++  data = grub_malloc (datasize);
++  if (!data)
++    {
++      grub_free (var16);
++      return NULL;
++    }
++
++  status = efi_call_5 (r->get_variable, var16, guid, &attributes, &datasize, data);
++  grub_free (var16);
++
++  if (status == GRUB_EFI_SUCCESS)
++    {
++      *datasize_out = datasize;
++      if (attributes & ~GRUB_EFI_VARIABLE_RUNTIME_ACCESS)
++	return data;
++      grub_printf ("Found variable, but was not secure.");
++    }
++
++  grub_free (data);
++  return NULL;
++}
++
++void *
+ grub_efi_get_variable (const char *var, const grub_efi_guid_t *guid,
+ 		       grub_size_t *datasize_out)
+ {
+@@ -287,6 +338,27 @@ grub_efi_secure_boot (void)
+   return ret;
+ }
+ 
++grub_efi_boolean_t
++grub_efi_unsigned_kernels (void)
++{
++  grub_efi_guid_t efi_var_guid = SHIM_LOCK_GUID;
++  grub_size_t datasize;
++  char *unsigned_kernels = NULL;
++  grub_efi_boolean_t ret = 0;
++
++  unsigned_kernels = grub_efi_get_boot_variable ("MokUnsignedKernels", &efi_var_guid, &datasize);
++
++  if (datasize != 1 || !unsigned_kernels)
++    goto out;
++
++  if (*unsigned_kernels)
++    ret = 1;
++
++ out:
++  grub_free (unsigned_kernels);
++  return ret;
++}
++
+ #pragma GCC diagnostic ignored "-Wcast-align"
+ 
+ /* Search the mods section from the PE32/PE32+ image. This code uses
+Index: grub2-2.02~beta2/grub-core/loader/i386/linux.c
+===================================================================
+--- grub2-2.02~beta2.orig/grub-core/loader/i386/linux.c
++++ grub2-2.02~beta2/grub-core/loader/i386/linux.c
+@@ -721,6 +721,8 @@ grub_cmd_linux (grub_command_t cmd __att
+ 		  return GRUB_ERR_NONE;
+ 		}
+ 	      grub_dprintf ("linux", "linuxefi failed (%d)\n", grub_errno);
++	      if (!grub_efi_unsigned_kernels ())
++		goto fail;
+ 	      grub_errno = GRUB_ERR_NONE;
+ 	    }
+ 	}
+Index: grub2-2.02~beta2/include/grub/efi/efi.h
+===================================================================
+--- grub2-2.02~beta2.orig/include/grub/efi/efi.h
++++ grub2-2.02~beta2/include/grub/efi/efi.h
+@@ -64,6 +64,9 @@ grub_err_t EXPORT_FUNC (grub_efi_set_vir
+ 							   grub_efi_uintn_t descriptor_size,
+ 							   grub_efi_uint32_t descriptor_version,
+ 							   grub_efi_memory_descriptor_t *virtual_map);
++void *EXPORT_FUNC (grub_efi_get_boot_variable) (const char *variable,
++						const grub_efi_guid_t *guid,
++						grub_size_t *datasize_out);
+ void *EXPORT_FUNC (grub_efi_get_variable) (const char *variable,
+ 					   const grub_efi_guid_t *guid,
+ 					   grub_size_t *datasize_out);
+@@ -73,6 +76,7 @@ EXPORT_FUNC (grub_efi_set_variable) (con
+ 				     void *data,
+ 				     grub_size_t datasize);
+ grub_efi_boolean_t EXPORT_FUNC (grub_efi_secure_boot) (void);
++grub_efi_boolean_t EXPORT_FUNC (grub_efi_unsigned_kernels) (void);
+ int
+ EXPORT_FUNC (grub_efi_compare_device_paths) (const grub_efi_device_path_t *dp1,
+ 					     const grub_efi_device_path_t *dp2);
+Index: grub2-2.02~beta2/grub-core/loader/i386/efi/linux.c
+===================================================================
+--- grub2-2.02~beta2.orig/grub-core/loader/i386/efi/linux.c
++++ grub2-2.02~beta2/grub-core/loader/i386/efi/linux.c
+@@ -41,9 +41,6 @@ static char *linux_cmdline;
+ 
+ #define BYTES_TO_PAGES(bytes)   (((bytes) + 0xfff) >> 12)
+ 
+-#define SHIM_LOCK_GUID \
+-  { 0x605dab50, 0xe046, 0x4300, {0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x8b, 0x23} }
+-
+ struct grub_efi_shim_lock
+ {
+   grub_efi_status_t (*verify) (void *buffer, grub_uint32_t size);
+Index: grub2-2.02~beta2/include/grub/efi/api.h
+===================================================================
+--- grub2-2.02~beta2.orig/include/grub/efi/api.h
++++ grub2-2.02~beta2/include/grub/efi/api.h
+@@ -286,6 +286,11 @@
+       { 0x8B, 0x8C, 0xE2, 0x1B, 0x01, 0xAE, 0xF2, 0xB7 } \
+   }
+ 
++#define SHIM_LOCK_GUID \
++  { 0x605dab50, 0xe046, 0x4300, \
++      { 0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x8b, 0x23 } \
++  }
++
+ struct grub_efi_sal_system_table
+ {
+   grub_uint32_t signature;
