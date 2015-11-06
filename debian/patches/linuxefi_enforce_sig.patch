@@ -1,11 +1,3 @@
-From: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
-Subject: Enforce valid kernel signatures unless MokUnsignedKernels
-
-For more security, we might want to not failback to loading a kernel even
-if it's unsigned, as this would mean not all of ring0 would be trusted.
-
-Signed-off-by: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
-Patch-name: linuxefi-enforce-sig.patch
 ---
  grub-core/kern/efi/efi.c      |   78 ++++++++++++++++++++++++++++++++++++++++++
  grub-core/loader/i386/linux.c |    2 +
@@ -16,65 +8,85 @@ Index: grub2-2.02~beta2/grub-core/kern/efi/efi.c
 ===================================================================
 --- grub2-2.02~beta2.orig/grub-core/kern/efi/efi.c
 +++ grub2-2.02~beta2/grub-core/kern/efi/efi.c
-@@ -212,6 +212,57 @@ grub_efi_set_variable(const char *var, c
+@@ -211,14 +211,16 @@ grub_efi_set_variable(const char *var, c
+   return grub_error (GRUB_ERR_IO, "could not set EFI variable `%s'", var);
  }
  
- void *
+-void *
+-grub_efi_get_variable (const char *var, const grub_efi_guid_t *guid,
+-		       grub_size_t *datasize_out)
++static void *
++get_variable (const char *var, const grub_efi_guid_t *guid,
++	      grub_efi_uint32_t *attributes_out,
++	      grub_size_t *datasize_out)
+ {
+   grub_efi_status_t status;
+   grub_efi_uintn_t datasize = 0;
+   grub_efi_runtime_services_t *r;
+   grub_efi_char16_t *var16;
++  grub_efi_uint32_t attributes;
+   void *data;
+   grub_size_t len, len16;
+ 
+@@ -234,7 +236,7 @@ grub_efi_get_variable (const char *var,
+ 
+   r = grub_efi_system_table->runtime_services;
+ 
+-  status = efi_call_5 (r->get_variable, var16, guid, NULL, &datasize, NULL);
++  status = efi_call_5 (r->get_variable, var16, guid, &attributes, &datasize, NULL);
+ 
+   if (!datasize)
+     return NULL;
+@@ -246,7 +248,7 @@ grub_efi_get_variable (const char *var,
+       return NULL;
+     }
+ 
+-  status = efi_call_5 (r->get_variable, var16, guid, NULL, &datasize, data);
++  status = efi_call_5 (r->get_variable, var16, guid, &attributes, &datasize, data);
+   grub_free (var16);
+ 
+   if (status == GRUB_EFI_SUCCESS)
+@@ -259,6 +261,39 @@ grub_efi_get_variable (const char *var,
+   return NULL;
+ }
+ 
++void *
 +grub_efi_get_boot_variable (const char *var, const grub_efi_guid_t *guid,
 +		            grub_size_t *datasize_out)
 +{
-+  grub_efi_status_t status;
-+  grub_efi_uintn_t datasize = 0;
-+  grub_efi_runtime_services_t *r;
-+  grub_efi_char16_t *var16;
 +  grub_efi_uint32_t attributes;
 +  void *data;
-+  grub_size_t len, len16;
 +
-+  *datasize_out = 0;
-+
-+  len = grub_strlen (var);
-+  len16 = len * GRUB_MAX_UTF16_PER_UTF8;
-+  var16 = grub_malloc ((len16 + 1) * sizeof (var16[0]));
-+  if (!var16)
-+    return NULL;
-+  len16 = grub_utf8_to_utf16 (var16, len16, (grub_uint8_t *) var, len, NULL);
-+  var16[len16] = 0;
-+
-+  r = grub_efi_system_table->runtime_services;
-+
-+  status = efi_call_5 (r->get_variable, var16, guid, &attributes, &datasize, NULL);
-+
-+  if (!datasize)
-+    return NULL;
-+
-+  data = grub_malloc (datasize);
-+  if (!data)
++  data = get_variable (var, guid, &attributes, datasize_out);
++  if (data)
 +    {
-+      grub_free (var16);
-+      return NULL;
-+    }
-+
-+  status = efi_call_5 (r->get_variable, var16, guid, &attributes, &datasize, data);
-+  grub_free (var16);
-+
-+  if (status == GRUB_EFI_SUCCESS)
-+    {
-+      *datasize_out = datasize;
++      /* Try to ensure the variable we are retrieving has not been written
++       * from a running system by the user, it should be done by MokManager.
++       */
 +      if (attributes & ~GRUB_EFI_VARIABLE_RUNTIME_ACCESS)
 +	return data;
-+      grub_printf ("Found variable, but was not secure.");
++
++      grub_printf ("Found insecure variable.");
++      *datasize_out = 0;
++      grub_free (data);
 +    }
 +
-+  grub_free (data);
 +  return NULL;
 +}
 +
 +void *
- grub_efi_get_variable (const char *var, const grub_efi_guid_t *guid,
- 		       grub_size_t *datasize_out)
++grub_efi_get_variable (const char *var, const grub_efi_guid_t *guid,
++		       grub_size_t *datasize_out)
++{
++  grub_efi_uint32_t attributes;
++
++  return get_variable (var, guid, &attributes, datasize_out);
++}
++
+ grub_efi_boolean_t
+ grub_efi_secure_boot (void)
  {
-@@ -287,6 +338,27 @@ grub_efi_secure_boot (void)
+@@ -287,6 +322,27 @@ grub_efi_secure_boot (void)
    return ret;
  }
  
