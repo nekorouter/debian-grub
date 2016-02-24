@@ -3,6 +3,11 @@ grub2 (2.02~beta2-37) UNRELEASED; urgency=medium
   [ Debconf translations ]
   * [ja] Japanese (Takuma Yamada; closes: #815203).
 
+  [ Mathieu Trudel-Lapierre ]
+  * debian/postinst.in: add --no-nvram when running grub-install on ppc64el:
+    we should not change nvram unless during installation, in which case it
+    is handled by grub-installer.
+
  -- Colin Watson <cjwatson@debian.org>  Sat, 20 Feb 2016 02:10:39 +0000
 
 grub2 (2.02~beta2-36) unstable; urgency=medium
