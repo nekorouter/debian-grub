@@ -3,6 +3,9 @@ grub2 (2.02~beta2-37) UNRELEASED; urgency=medium
   [ Debconf translations ]
   * [ja] Japanese (Takuma Yamada; closes: #815203).
 
+  [ dann frazier ]
+  * Cherry-pick fix for slow timer events on ARM/UEFI (LP: #1553390).
+
  -- Colin Watson <cjwatson@debian.org>  Sat, 20 Feb 2016 02:10:39 +0000
 
 grub2 (2.02~beta2-36) unstable; urgency=medium
