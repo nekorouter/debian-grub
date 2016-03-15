@@ -3,6 +3,13 @@ grub2 (2.02~beta2-37) UNRELEASED; urgency=medium
   [ Debconf translations ]
   * [ja] Japanese (Takuma Yamada; closes: #815203, #817084).
 
+  [ Mathieu Trudel-Lapierre ]
+  * debian/postinst.in: add MOK validation support; so that it's possible on
+    upgrade to disable validation in shim if the user has dkms packages
+    installed.
+  * debian/control: add mokutil to grub-efi-$arch packages to deal with
+    toggling MOK validation.
+
  -- Colin Watson <cjwatson@debian.org>  Sat, 20 Feb 2016 02:10:39 +0000
 
 grub2 (2.02~beta2-36) unstable; urgency=medium
