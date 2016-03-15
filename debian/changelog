@@ -1,4 +1,4 @@
-grub2 (2.02~beta2-37) UNRELEASED; urgency=medium
+grub2 (2.02~beta2-36ubuntu1) xenial; urgency=medium
 
   [ Debconf translations ]
   * [ja] Japanese (Takuma Yamada; closes: #815203, #817084).
@@ -13,7 +13,7 @@ grub2 (2.02~beta2-37) UNRELEASED; urgency=medium
   [ dann frazier ]
   * Cherry-pick fix for slow timer events on ARM/UEFI (LP: #1553390).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 20 Feb 2016 02:10:39 +0000
+ -- Mathieu Trudel-Lapierre <mathieu-tl@ubuntu.com>  Tue, 15 Mar 2016 12:57:08 -0400
 
 grub2 (2.02~beta2-36) unstable; urgency=medium
 
