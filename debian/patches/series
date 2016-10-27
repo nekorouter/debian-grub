@@ -46,3 +46,4 @@ grub-install-extra-removable.patch
 mkconfig_other_inits.patch
 syslinux-test-out-of-tree.patch
 accept-empty-module.patch
+0049-zfs-initramfs-currently-provides-extraneous-undesire.patch
