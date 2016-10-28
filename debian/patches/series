@@ -47,3 +47,10 @@ mkconfig_other_inits.patch
 syslinux-test-out-of-tree.patch
 accept-empty-module.patch
 0049-zfs-initramfs-currently-provides-extraneous-undesire.patch
+misc-fix-invalid-char-strtol.patch
+net_read_bracketed_ipv6_addr.patch
+bootp_new_net_bootp6_command.patch
+efinet_uefi_ipv6_pxe_support.patch
+bootp_process_dhcpack_http_boot.patch
+efinet_set_network_from_uefi_devpath.patch
+efinet_set_dns_from_uefi_proto.patch

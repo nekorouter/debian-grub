@@ -7,6 +7,16 @@ grub2 (2.02~beta3-2) UNRELEASED; urgency=medium
   * Merge from Debian unstable; remaining changes:
     - debian/patches/zpool_full_device_name.patch: Signal to zpool that it
       should emit full names of constituent devices.
+    - Fix support for IPv6 PXE booting under UEFI:
+      - misc-fix-invalid-char-strtol.patch: fix strto*l methods invalid chars.
+      - net_read_bracketed_ipv6_addr.patch: read bracketed IPv6 addresses.
+      - bootp_new_net_bootp6_command.patch: add new bootp6 commands.
+      - efinet_uefi_ipv6_pxe_support.patch: teach efinet to allow bootp6.
+      - bootp_process_dhcpack_http_boot.patch: process DHCPACK, support HTTP.
+      - efinet_set_network_from_uefi_devpath.patch: configure network from the
+        devpath provided by the UEFI firmware.
+      - efinet_set_dns_from_uefi_proto.patch: set DNS nameservers and search
+        domains from the UEFI protocol.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 18 Oct 2016 10:18:00 +0100
 
