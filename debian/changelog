@@ -19,6 +19,8 @@ grub2 (2.02~beta3-2) UNRELEASED; urgency=medium
         domains from the UEFI protocol.
     - debian/patches/install_signed.patch: update patch for the new names of
       the EFI binaries from shim.
+    - debian/control: Breaks shim (<< 0.9+1474479173.6c180c6-0ubuntu1~) due to
+      the renamed binaries in the new shim.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 18 Oct 2016 10:18:00 +0100
 
