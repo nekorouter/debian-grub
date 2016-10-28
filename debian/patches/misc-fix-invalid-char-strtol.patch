@@ -1,4 +1,4 @@
-From 5e4865b58b1cbcc8839146b09165dc1c8d84128c Mon Sep 17 00:00:00 2001
+From 95f3b40455e033f95c11e35f0d02aef23dee7f8a Mon Sep 17 00:00:00 2001
 From: Aaron Miller <aaronmiller@fb.com>
 Date: Thu, 27 Oct 2016 17:33:07 -0400
 Subject: misc: fix invalid character recongition in strto*l

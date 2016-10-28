@@ -17,6 +17,8 @@ grub2 (2.02~beta3-2) UNRELEASED; urgency=medium
         devpath provided by the UEFI firmware.
       - efinet_set_dns_from_uefi_proto.patch: set DNS nameservers and search
         domains from the UEFI protocol.
+    - debian/patches/install_signed.patch: update patch for the new names of
+      the EFI binaries from shim.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 18 Oct 2016 10:18:00 +0100
 

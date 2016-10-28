@@ -1,4 +1,4 @@
-From b629e4d99cb802188e1a9c95376aea882639b35d Mon Sep 17 00:00:00 2001
+From 513434f213f5f1128bcb3863806dd55fbb8d3a7e Mon Sep 17 00:00:00 2001
 From: Chad MILLER <chad.miller@canonical.com>
 Date: Thu, 27 Oct 2016 17:15:07 -0400
 Subject: zfs-initramfs currently provides extraneous, undesired
