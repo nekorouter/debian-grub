@@ -551,6 +551,45 @@ static const struct grub_install_image_target_desc image_targets[] =
       .mod_align = GRUB_KERNEL_ARM_UBOOT_MOD_ALIGN,
       .link_align = 4
     },
+    /* For coreboot versions that don't support self-relocating images. */
+    {
+      .dirname = "arm-coreboot-vexpress",
+      .names = { "arm-coreboot-vexpress", NULL },
+      .voidp_sizeof = 4,
+      .bigendian = 0,
+      .id = IMAGE_COREBOOT,
+      .flags = PLATFORM_FLAGS_NONE,
+      .total_module_size = GRUB_KERNEL_ARM_COREBOOT_TOTAL_MODULE_SIZE,
+      .decompressor_compressed_size = TARGET_NO_FIELD,
+      .decompressor_uncompressed_size = TARGET_NO_FIELD,
+      .decompressor_uncompressed_addr = TARGET_NO_FIELD,
+      .section_align = GRUB_KERNEL_ARM_COREBOOT_MOD_ALIGN,
+      .vaddr_offset = 0,
+      .elf_target = EM_ARM,
+      .mod_gap = GRUB_KERNEL_ARM_COREBOOT_MOD_GAP,
+      .mod_align = GRUB_KERNEL_ARM_COREBOOT_MOD_ALIGN,
+      .link_align = 4,
+      .link_addr = 0x62000000,
+    },
+    {
+      .dirname = "arm-coreboot-veyron",
+      .names = { "arm-coreboot-veyron", NULL },
+      .voidp_sizeof = 4,
+      .bigendian = 0,
+      .id = IMAGE_COREBOOT,
+      .flags = PLATFORM_FLAGS_NONE,
+      .total_module_size = GRUB_KERNEL_ARM_COREBOOT_TOTAL_MODULE_SIZE,
+      .decompressor_compressed_size = TARGET_NO_FIELD,
+      .decompressor_uncompressed_size = TARGET_NO_FIELD,
+      .decompressor_uncompressed_addr = TARGET_NO_FIELD,
+      .section_align = GRUB_KERNEL_ARM_COREBOOT_MOD_ALIGN,
+      .vaddr_offset = 0,
+      .elf_target = EM_ARM,
+      .mod_gap = GRUB_KERNEL_ARM_COREBOOT_MOD_GAP,
+      .mod_align = GRUB_KERNEL_ARM_COREBOOT_MOD_ALIGN,
+      .link_align = 4,
+      .link_addr = 0x43000000,
+    },
     {
       .dirname = "arm-efi",
       .names = { "arm-efi", NULL },
@@ -582,6 +621,38 @@ static const struct grub_install_image_target_desc image_targets[] =
       .vaddr_offset = EFI64_HEADER_SIZE,
       .pe_target = GRUB_PE32_MACHINE_ARM64,
       .elf_target = EM_AARCH64,
+    },
+    {
+      .dirname = "riscv32-efi",
+      .names = { "riscv32-efi", NULL },
+      .voidp_sizeof = 4,
+      .bigendian = 0,
+      .id = IMAGE_EFI,
+      .flags = PLATFORM_FLAGS_NONE,
+      .total_module_size = TARGET_NO_FIELD,
+      .decompressor_compressed_size = TARGET_NO_FIELD,
+      .decompressor_uncompressed_size = TARGET_NO_FIELD,
+      .decompressor_uncompressed_addr = TARGET_NO_FIELD,
+      .section_align = GRUB_PE32_SECTION_ALIGNMENT,
+      .vaddr_offset = EFI32_HEADER_SIZE,
+      .pe_target = GRUB_PE32_MACHINE_RISCV32,
+      .elf_target = EM_RISCV,
+    },
+    {
+      .dirname = "riscv64-efi",
+      .names = { "riscv64-efi", NULL },
+      .voidp_sizeof = 8,
+      .bigendian = 0,
+      .id = IMAGE_EFI,
+      .flags = PLATFORM_FLAGS_NONE,
+      .total_module_size = TARGET_NO_FIELD,
+      .decompressor_compressed_size = TARGET_NO_FIELD,
+      .decompressor_uncompressed_size = TARGET_NO_FIELD,
+      .decompressor_uncompressed_addr = TARGET_NO_FIELD,
+      .section_align = GRUB_PE32_SECTION_ALIGNMENT,
+      .vaddr_offset = EFI64_HEADER_SIZE,
+      .pe_target = GRUB_PE32_MACHINE_RISCV64,
+      .elf_target = EM_RISCV,
     },
   };
 
@@ -770,7 +841,7 @@ init_pe_section(const struct grub_install_image_target_desc *image_target,
 
   section->raw_data_offset = grub_host_to_target32 (*rda);
   section->raw_data_size = grub_host_to_target32 (rsz);
-  (*rda) = ALIGN_UP (*rda + rsz, GRUB_PE32_FILE_ALIGNMENT);
+  (*rda) = *rda + rsz;
 
   section->characteristics = grub_host_to_target32 (characteristics);
 
@@ -798,13 +869,13 @@ grub_install_generate_image (const char *dir, const char *prefix,
 			     char *memdisk_path, char **pubkey_paths,
 			     size_t npubkeys, char *config_path,
 			     const struct grub_install_image_target_desc *image_target,
-			     int note, grub_compression_t comp,
-			     const char *sbat_path)
+			     int note, grub_compression_t comp, const char *dtb_path,
+			     const char *sbat_path, int disable_shim_lock)
 {
   char *kernel_img, *core_img;
   size_t total_module_size, core_size;
   size_t memdisk_size = 0, config_size = 0;
-  size_t prefix_size = 0, sbat_size = 0;
+  size_t prefix_size = 0, dtb_size = 0, sbat_size = 0;
   char *kernel_path;
   size_t offset;
   struct grub_util_path_list *path_list, *p;
@@ -849,8 +920,17 @@ grub_install_generate_image (const char *dir, const char *prefix,
       total_module_size += memdisk_size + sizeof (struct grub_module_header);
     }
 
+  if (dtb_path)
+    {
+      dtb_size = ALIGN_ADDR(grub_util_get_image_size (dtb_path));
+      total_module_size += dtb_size + sizeof (struct grub_module_header);
+    }
+
   if (sbat_path != NULL && image_target->id != IMAGE_EFI)
     grub_util_error (_(".sbat section can be embedded into EFI images only"));
+
+  if (disable_shim_lock)
+    total_module_size += sizeof (struct grub_module_header);
 
   if (config_path)
     {
@@ -975,6 +1055,29 @@ grub_install_generate_image (const char *dir, const char *prefix,
       offset += memdisk_size;
     }
 
+  if (dtb_path)
+    {
+      struct grub_module_header *header;
+
+      header = (struct grub_module_header *) (kernel_img + offset);
+      header->type = grub_host_to_target32 (OBJ_TYPE_DTB);
+      header->size = grub_host_to_target32 (dtb_size + sizeof (*header));
+      offset += sizeof (*header);
+
+      grub_util_load_image (dtb_path, kernel_img + offset);
+      offset += dtb_size;
+    }
+
+  if (disable_shim_lock)
+    {
+      struct grub_module_header *header;
+
+      header = (struct grub_module_header *) (kernel_img + offset);
+      header->type = grub_host_to_target32 (OBJ_TYPE_DISABLE_SHIM_LOCK);
+      header->size = grub_host_to_target32 (sizeof (*header));
+      offset += sizeof (*header);
+    }
+
   if (config_path)
     {
       struct grub_module_header *header;
@@ -1097,7 +1200,7 @@ grub_install_generate_image (const char *dir, const char *prefix,
 	/* fallthrough */
     case IMAGE_COREBOOT:
     case IMAGE_QEMU:
-	if (layout.kernel_size + layout.bss_size + GRUB_KERNEL_I386_PC_LINK_ADDR > 0x68000)
+	if (image_target->elf_target != EM_ARM && layout.kernel_size + layout.bss_size + GRUB_KERNEL_I386_PC_LINK_ADDR > 0x68000)
 	  grub_util_error (_("kernel image is too big (0x%x > 0x%x)"),
 			   (unsigned) layout.kernel_size + (unsigned) layout.bss_size
 			   + GRUB_KERNEL_I386_PC_LINK_ADDR,
@@ -1206,7 +1309,7 @@ grub_install_generate_image (const char *dir, const char *prefix,
 	char *pe_img, *pe_sbat, *header;
 	struct grub_pe32_section_table *section;
 	size_t n_sections = 4;
-	size_t scn_size;
+	size_t scn_size, raw_size;
 	grub_uint32_t vma, raw_data;
 	size_t pe_size, header_size;
 	struct grub_pe32_coff_header *c;
@@ -1307,7 +1410,8 @@ grub_install_generate_image (const char *dir, const char *prefix,
 				   GRUB_PE32_SCN_MEM_EXECUTE |
 				   GRUB_PE32_SCN_MEM_READ);
 
-	scn_size = ALIGN_UP (layout.kernel_size - layout.exec_size, GRUB_PE32_FILE_ALIGNMENT);
+	raw_size = layout.kernel_size - layout.exec_size;
+	scn_size = ALIGN_UP (raw_size, GRUB_PE32_FILE_ALIGNMENT);
 	/* ALIGN_UP (sbat_size, GRUB_PE32_FILE_ALIGNMENT) is done earlier. */
 	PE_OHDR (o32, o64, data_size) = grub_host_to_target32 (scn_size + sbat_size +
 							       ALIGN_UP (total_module_size,
@@ -1315,15 +1419,16 @@ grub_install_generate_image (const char *dir, const char *prefix,
 
 	section = init_pe_section (image_target, section, ".data",
 				   &vma, scn_size, image_target->section_align,
-				   &raw_data, scn_size,
+				   &raw_data, raw_size,
 				   GRUB_PE32_SCN_CNT_INITIALIZED_DATA |
 				   GRUB_PE32_SCN_MEM_READ |
 				   GRUB_PE32_SCN_MEM_WRITE);
 
-	scn_size = pe_size - layout.reloc_size - sbat_size - raw_data;
+	raw_size = pe_size - layout.reloc_size - sbat_size - raw_data;
+	scn_size = ALIGN_UP (raw_size, GRUB_PE32_FILE_ALIGNMENT);
 	section = init_pe_section (image_target, section, "mods",
 				   &vma, scn_size, image_target->section_align,
-				   &raw_data, scn_size,
+				   &raw_data, raw_size,
 				   GRUB_PE32_SCN_CNT_INITIALIZED_DATA |
 				   GRUB_PE32_SCN_MEM_READ |
 				   GRUB_PE32_SCN_MEM_WRITE);
@@ -1333,21 +1438,22 @@ grub_install_generate_image (const char *dir, const char *prefix,
 	    pe_sbat = pe_img + raw_data;
 	    grub_util_load_image (sbat_path, pe_sbat);
 
+	    scn_size = ALIGN_UP (sbat_size, GRUB_PE32_FILE_ALIGNMENT);
 	    section = init_pe_section (image_target, section, ".sbat",
-				       &vma, sbat_size,
+				       &vma, scn_size,
 				       image_target->section_align,
 				       &raw_data, sbat_size,
 				       GRUB_PE32_SCN_CNT_INITIALIZED_DATA |
 				       GRUB_PE32_SCN_MEM_READ);
 	  }
 
-	scn_size = layout.reloc_size;
+	scn_size = ALIGN_UP (layout.reloc_size, GRUB_PE32_FILE_ALIGNMENT);
 	PE_OHDR (o32, o64, base_relocation_table.rva) = grub_host_to_target32 (vma);
 	PE_OHDR (o32, o64, base_relocation_table.size) = grub_host_to_target32 (scn_size);
 	memcpy (pe_img + raw_data, layout.reloc_section, scn_size);
 	init_pe_section (image_target, section, ".reloc",
 			 &vma, scn_size, image_target->section_align,
-			 &raw_data, scn_size,
+			 &raw_data, layout.reloc_size,
 			 GRUB_PE32_SCN_CNT_INITIALIZED_DATA |
 			 GRUB_PE32_SCN_MEM_DISCARDABLE |
 			 GRUB_PE32_SCN_MEM_READ);
@@ -1671,10 +1777,10 @@ grub_install_generate_image (const char *dir, const char *prefix,
 	  target_addr = image_target->link_addr;
 	if (image_target->voidp_sizeof == 4)
 	  grub_mkimage_generate_elf32 (image_target, note, &core_img, &core_size,
-				       target_addr, layout.align, layout.kernel_size, layout.bss_size);
+				       target_addr, &layout);
 	else
 	  grub_mkimage_generate_elf64 (image_target, note, &core_img, &core_size,
-				       target_addr, layout.align, layout.kernel_size, layout.bss_size);
+				       target_addr, &layout);
       }
       break;
     }

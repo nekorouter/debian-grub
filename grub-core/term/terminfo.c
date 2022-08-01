@@ -429,12 +429,12 @@ grub_terminfo_readkey (struct grub_term_input *term, int *keys, int *len, int ma
     }
   *len = 1;
   keys[0] = c;
-  if (c != ANSI_CSI && c != '\e')
+  if (c != ANSI_CSI && c != GRUB_TERM_ESC)
     {
       /* Backspace: Ctrl-h.  */
       if (c == 0x7f)
-	c = '\b'; 
-      if (c < 0x20 && c != '\t' && c!= '\b' && c != '\n' && c != '\r')
+	c = GRUB_TERM_BACKSPACE;
+      if (c < 0x20 && c != GRUB_TERM_TAB && c!= GRUB_TERM_BACKSPACE && c != '\n' && c != '\r')
 	c = GRUB_TERM_CTRL | (c - 1 + 'a');
       *len = 1;
       keys[0] = c;
@@ -490,7 +490,7 @@ grub_terminfo_readkey (struct grub_term_input *term, int *keys, int *len, int ma
 	  GRUB_TERM_KEY_HOME, GRUB_TERM_KEY_END };
     unsigned i;
 
-    if (c == '\e')
+    if (c == GRUB_TERM_ESC)
       {
 	CONTINUE_READ;
 
@@ -609,7 +609,7 @@ grub_terminfo_getkey (struct grub_term_input *termi)
 			 GRUB_TERMINFO_READKEY_MAX_LEN, data->readkey);
 
 #if defined(__powerpc__) && defined(GRUB_MACHINE_IEEE1275)
-  if (data->npending == 1 && data->input_buf[0] == '\e'
+  if (data->npending == 1 && data->input_buf[0] == GRUB_TERM_ESC
       && grub_ieee1275_test_flag (GRUB_IEEE1275_FLAG_BROKEN_REPEAT)
       && grub_get_time_ms () - data->last_key_time < 1000
       && (data->last_key & GRUB_TERM_EXTENDED))
@@ -740,7 +740,7 @@ grub_cmd_terminfo (grub_extcmd_context_t ctxt, int argc, char **args)
 
   if (state[OPTION_GEOMETRY].set)
     {
-      char *ptr = state[OPTION_GEOMETRY].arg;
+      const char *ptr = state[OPTION_GEOMETRY].arg;
       w = grub_strtoul (ptr, &ptr, 0);
       if (grub_errno)
 	return grub_errno;
@@ -785,8 +785,8 @@ static grub_extcmd_t cmd;
 GRUB_MOD_INIT(terminfo)
 {
   cmd = grub_register_extcmd ("terminfo", grub_cmd_terminfo, 0,
-			      N_("[[-a|-u|-v] [-g WxH] TERM [TYPE]]"),
-			      N_("Set terminfo type of TERM  to TYPE.\n"),
+			      N_("[[-a|-u|-v] [-g WxH] [TERM] [TYPE]]"),
+			      N_("Set terminfo type of TERM to TYPE.\n"),
 			      options);
 }
 

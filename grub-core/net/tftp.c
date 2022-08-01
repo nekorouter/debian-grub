@@ -183,11 +183,22 @@ tftp_receive (grub_net_udp_socket_t sock __attribute__ ((unused)),
 	  return GRUB_ERR_NONE;
 	}
 
-      /* Ack old/retransmitted block. */
-      if (grub_be_to_cpu16 (tftph->u.data.block) < data->block + 1)
+      /*
+       * Ack old/retransmitted block.
+       *
+       * The block number is a 16-bit counter, thus the maximum file size that
+       * could be transfered is 65535 * block size. Most TFTP hosts support to
+       * roll-over the block counter to allow unlimited transfer file size.
+       *
+       * This behavior is not defined in the RFC 1350 [0] but is implemented by
+       * most TFTP clients and hosts.
+       *
+       * [0]: https://tools.ietf.org/html/rfc1350
+       */
+      if (grub_be_to_cpu16 (tftph->u.data.block) < ((grub_uint16_t) (data->block + 1)))
 	ack (data, grub_be_to_cpu16 (tftph->u.data.block));
       /* Ignore unexpected block. */
-      else if (grub_be_to_cpu16 (tftph->u.data.block) > data->block + 1)
+      else if (grub_be_to_cpu16 (tftph->u.data.block) > ((grub_uint16_t) (data->block + 1)))
 	grub_dprintf ("tftp", "TFTP unexpected block # %d\n", tftph->u.data.block);
       else
 	{
@@ -240,14 +251,34 @@ tftp_receive (grub_net_udp_socket_t sock __attribute__ ((unused)),
       return GRUB_ERR_NONE;
     case TFTP_ERROR:
       data->have_oack = 1;
-      grub_netbuff_free (nb);
-      grub_error (GRUB_ERR_IO, (char *) tftph->u.err.errmsg);
+      grub_error (GRUB_ERR_IO, "%s", tftph->u.err.errmsg);
       grub_error_save (&data->save_err);
+      grub_netbuff_free (nb);
       return GRUB_ERR_NONE;
     default:
       grub_netbuff_free (nb);
       return GRUB_ERR_NONE;
     }
+}
+
+/*
+ * Create a normalized copy of the filename. Compress any string of consecutive
+ * forward slashes to a single forward slash.
+ */
+static void
+grub_normalize_filename (char *normalized, const char *filename)
+{
+  char *dest = normalized;
+  const char *src = filename;
+
+  while (*src != '\0')
+    {
+      if (src[0] == '/' && src[1] == '/')
+        src++;
+      else
+        *dest++ = *src++;
+    }
+  *dest = '\0';
 }
 
 static grub_err_t
@@ -288,9 +319,14 @@ tftp_open (struct grub_file *file, const char *filename)
   rrqlen = 0;
 
   tftph->opcode = grub_cpu_to_be16_compile_time (TFTP_RRQ);
-  grub_strcpy (rrq, filename);
-  rrqlen += grub_strlen (filename) + 1;
-  rrq += grub_strlen (filename) + 1;
+
+  /*
+   * Copy and normalize the filename to work-around issues on some TFTP
+   * servers when file names are being matched for remapping.
+   */
+  grub_normalize_filename (rrq, filename);
+  rrqlen += grub_strlen (rrq) + 1;
+  rrq += grub_strlen (rrq) + 1;
 
   grub_strcpy (rrq, "octet");
   rrqlen += grub_strlen ("octet") + 1;
@@ -368,6 +404,7 @@ tftp_open (struct grub_file *file, const char *filename)
     {
       grub_net_udp_close (data->sock);
       grub_free (data);
+      file->data = NULL;
       return grub_errno;
     }
 

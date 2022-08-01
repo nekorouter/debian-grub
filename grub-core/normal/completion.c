@@ -284,10 +284,11 @@ complete_file (void)
 
       /* Cut away the filename part.  */
       dirfile = grub_strrchr (dir, '/');
-      dirfile[1] = '\0';
+      if (dirfile)
+	dirfile[1] = '\0';
 
       /* Iterate the directory.  */
-      (fs->dir) (dev, dir, iterate_dir, NULL);
+      (fs->fs_dir) (dev, dir, iterate_dir, NULL);
 
       grub_free (dir);
 

@@ -49,6 +49,70 @@ static grub_efi_uintn_t finish_desc_size;
 static grub_efi_uint32_t finish_desc_version;
 int grub_efi_is_finished = 0;
 
+/*
+ * We need to roll back EFI allocations on exit. Remember allocations that
+ * we'll free on exit.
+ */
+struct efi_allocation;
+struct efi_allocation {
+	grub_efi_physical_address_t address;
+	grub_efi_uint64_t pages;
+	struct efi_allocation *next;
+};
+static struct efi_allocation *efi_allocated_memory;
+
+static void
+grub_efi_store_alloc (grub_efi_physical_address_t address,
+                         grub_efi_uintn_t pages)
+{
+  grub_efi_boot_services_t *b;
+  struct efi_allocation *alloc;
+  grub_efi_status_t status;
+
+  b = grub_efi_system_table->boot_services;
+  status = efi_call_3 (b->allocate_pool, GRUB_EFI_LOADER_DATA,
+                           sizeof(*alloc), (void**)&alloc);
+
+  if (status == GRUB_EFI_SUCCESS)
+    {
+      alloc->next = efi_allocated_memory;
+      alloc->address = address;
+      alloc->pages = pages;
+      efi_allocated_memory = alloc;
+    }
+  else
+      grub_printf ("Could not malloc memory to remember EFI allocation. "
+                   "Exiting GRUB won't free all memory.\n");
+}
+
+static void
+grub_efi_drop_alloc (grub_efi_physical_address_t address,
+                           grub_efi_uintn_t pages)
+{
+  struct efi_allocation *ea, *eap;
+  grub_efi_boot_services_t *b;
+
+  b = grub_efi_system_table->boot_services;
+
+  for (eap = NULL, ea = efi_allocated_memory; ea; eap = ea, ea = ea->next)
+    {
+      if (ea->address != address || ea->pages != pages)
+         continue;
+
+      /* Remove the current entry from the list. */
+      if (eap)
+        eap->next = ea->next;
+      else
+        efi_allocated_memory = ea->next;
+
+      /* Then free the memory backing it. */
+      efi_call_1 (b->free_pool, ea);
+
+      /* And leave, we're done. */
+      break;
+    }
+}
+
 /* Allocate pages below a specified address */
 void *
 grub_efi_allocate_pages_max (grub_efi_physical_address_t max,
@@ -93,12 +157,25 @@ grub_efi_allocate_pages_real (grub_efi_physical_address_t address,
 
   /* Limit the memory access to less than 4GB for 32-bit platforms.  */
   if (address > GRUB_EFI_MAX_USABLE_ADDRESS)
-    return 0;
+    {
+      char inv_addr[17], max_addr[17]; /* log16(2^64) = 16, plus NUL. */
+
+      grub_snprintf (inv_addr, sizeof (inv_addr) - 1, "%" PRIxGRUB_UINT64_T,
+		     address);
+      grub_snprintf (max_addr, sizeof (max_addr) - 1, "%" PRIxGRUB_UINT64_T,
+		     (grub_efi_uint64_t) GRUB_EFI_MAX_USABLE_ADDRESS);
+      grub_error (GRUB_ERR_BAD_ARGUMENT,
+		  N_("invalid memory address (0x%s > 0x%s)"), inv_addr, max_addr);
+      return NULL;
+    }
 
   b = grub_efi_system_table->boot_services;
   status = efi_call_4 (b->allocate_pages, alloctype, memtype, pages, &address);
   if (status != GRUB_EFI_SUCCESS)
-    return 0;
+    {
+      grub_error (GRUB_ERR_OUT_OF_MEMORY, N_("out of memory"));
+      return NULL;
+    }
 
   if (address == 0)
     {
@@ -108,8 +185,13 @@ grub_efi_allocate_pages_real (grub_efi_physical_address_t address,
       status = efi_call_4 (b->allocate_pages, alloctype, memtype, pages, &address);
       grub_efi_free_pages (0, pages);
       if (status != GRUB_EFI_SUCCESS)
-	return 0;
+	{
+	  grub_error (GRUB_ERR_OUT_OF_MEMORY, N_("out of memory"));
+	  return NULL;
+	}
     }
+
+  grub_efi_store_alloc (address, pages);
 
   return (void *) ((grub_addr_t) address);
 }
@@ -140,6 +222,8 @@ grub_efi_free_pages (grub_efi_physical_address_t address,
 
   b = grub_efi_system_table->boot_services;
   efi_call_2 (b->free_pages, address, pages);
+
+  grub_efi_drop_alloc (address, pages);
 }
 
 #if defined (__i386__) || defined (__x86_64__)
@@ -487,6 +571,20 @@ add_memory_regions (grub_efi_memory_descriptor_t *memory_map,
     grub_fatal ("too little memory");
 }
 
+void
+grub_efi_memory_fini (void)
+{
+  /*
+   * Free all stale allocations. grub_efi_free_pages() will remove
+   * the found entry from the list and it will always find the first
+   * list entry (efi_allocated_memory is the list start). Hence we
+   * remove all entries from the list until none is left altogether.
+   */
+  while (efi_allocated_memory)
+      grub_efi_free_pages (efi_allocated_memory->address,
+                           efi_allocated_memory->pages);
+}
+
 #if 0
 /* Print the memory map.  */
 static void
@@ -593,7 +691,7 @@ grub_efi_mm_init (void)
 		       2 * BYTES_TO_PAGES (MEMORY_MAP_SIZE));
 }
 
-#if defined (__aarch64__) || defined (__arm__)
+#if defined (__aarch64__) || defined (__arm__) || defined (__riscv)
 grub_err_t
 grub_efi_get_ram_base(grub_addr_t *base_addr)
 {

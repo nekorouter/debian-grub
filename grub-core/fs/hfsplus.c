@@ -199,7 +199,8 @@ grub_hfsplus_read_block (grub_fshelp_node_t node, grub_disk_addr_t fileblock)
 	  || !nnode)
 	{
 	  grub_error (GRUB_ERR_READ_ERROR,
-		      "no block found for the file id 0x%x and the block offset 0x%x",
+		      "no block found for the file id 0x%x and the block"
+		      " offset 0x%" PRIuGRUB_UINT64_T,
 		      node->fileid, fileblock);
 	  break;
 	}
@@ -684,6 +685,7 @@ list_nodes (void *record, void *hook_arg)
   char *filename;
   int i;
   struct grub_fshelp_node *node;
+  grub_uint16_t *keyname;
   struct grub_hfsplus_catfile *fileinfo;
   enum grub_fshelp_filetype type = GRUB_FSHELP_UNKNOWN;
   struct list_nodes_ctx *ctx = hook_arg;
@@ -742,32 +744,34 @@ list_nodes (void *record, void *hook_arg)
   if (! filename)
     return 0;
 
+  keyname = grub_calloc (grub_be_to_cpu16 (catkey->namelen), sizeof (*keyname));
+  if (!keyname)
+    {
+      grub_free (filename);
+      return 0;
+    }
+
   /* Make sure the byte order of the UTF16 string is correct.  */
   for (i = 0; i < grub_be_to_cpu16 (catkey->namelen); i++)
     {
-      catkey->name[i] = grub_be_to_cpu16 (catkey->name[i]);
+      keyname[i] = grub_be_to_cpu16 (catkey->name[i]);
 
-      if (catkey->name[i] == '/')
-	catkey->name[i] = ':';
+      if (keyname[i] == '/')
+	keyname[i] = ':';
 
       /* If the name is obviously invalid, skip this node.  */
-      if (catkey->name[i] == 0)
+      if (keyname[i] == 0)
 	{
+	  grub_free (keyname);
 	  grub_free (filename);
 	  return 0;
 	}
     }
 
-  *grub_utf16_to_utf8 ((grub_uint8_t *) filename, catkey->name,
+  *grub_utf16_to_utf8 ((grub_uint8_t *) filename, keyname,
 		       grub_be_to_cpu16 (catkey->namelen)) = '\0';
 
-  /* Restore the byte order to what it was previously.  */
-  for (i = 0; i < grub_be_to_cpu16 (catkey->namelen); i++)
-    {
-      if (catkey->name[i] == ':')
-	catkey->name[i] = '/';
-      catkey->name[i] = grub_be_to_cpu16 (catkey->name[i]);
-    }
+  grub_free (keyname);
 
   /* hfs+ is case insensitive.  */
   if (! ctx->dir->data->case_sensitive)
@@ -998,6 +1002,7 @@ grub_hfsplus_label (grub_device_t device, char **label)
   grub_disk_t disk = device->disk;
   struct grub_hfsplus_catkey *catkey;
   int i, label_len;
+  grub_uint16_t *label_name;
   struct grub_hfsplus_key_internal intern;
   struct grub_hfsplus_btnode *node = NULL;
   grub_disk_addr_t ptr = 0;
@@ -1035,22 +1040,41 @@ grub_hfsplus_label (grub_device_t device, char **label)
   if (label_len > 255)
     label_len = 255;
 
+  label_name = grub_calloc (label_len, sizeof (*label_name));
+  if (!label_name)
+    {
+      grub_free (node);
+      grub_free (data);
+      return grub_errno;
+    }
+
   for (i = 0; i < label_len; i++)
     {
-      catkey->name[i] = grub_be_to_cpu16 (catkey->name[i]);
+      label_name[i] = grub_be_to_cpu16 (catkey->name[i]);
 
       /* If the name is obviously invalid, skip this node.  */
-      if (catkey->name[i] == 0)
-	return 0;
+      if (label_name[i] == 0)
+	{
+	  grub_free (label_name);
+	  grub_free (node);
+	  grub_free (data);
+	  return 0;
+	}
     }
 
   *label = grub_calloc (label_len, GRUB_MAX_UTF8_PER_UTF16 + 1);
   if (! *label)
-    return grub_errno;
+    {
+      grub_free (label_name);
+      grub_free (node);
+      grub_free (data);
+      return grub_errno;
+    }
 
-  *grub_utf16_to_utf8 ((grub_uint8_t *) (*label), catkey->name,
+  *grub_utf16_to_utf8 ((grub_uint8_t *) (*label), label_name,
 		       label_len) = '\0';
 
+  grub_free (label_name);
   grub_free (node);
   grub_free (data);
 
@@ -1059,7 +1083,7 @@ grub_hfsplus_label (grub_device_t device, char **label)
 
 /* Get mtime.  */
 static grub_err_t
-grub_hfsplus_mtime (grub_device_t device, grub_int32_t *tm)
+grub_hfsplus_mtime (grub_device_t device, grub_int64_t *tm)
 {
   struct grub_hfsplus_data *data;
   grub_disk_t disk = device->disk;
@@ -1110,13 +1134,13 @@ grub_hfsplus_uuid (grub_device_t device, char **uuid)
 static struct grub_fs grub_hfsplus_fs =
   {
     .name = "hfsplus",
-    .dir = grub_hfsplus_dir,
-    .open = grub_hfsplus_open,
-    .read = grub_hfsplus_read,
-    .close = grub_hfsplus_close,
-    .label = grub_hfsplus_label,
-    .mtime = grub_hfsplus_mtime,
-    .uuid = grub_hfsplus_uuid,
+    .fs_dir = grub_hfsplus_dir,
+    .fs_open = grub_hfsplus_open,
+    .fs_read = grub_hfsplus_read,
+    .fs_close = grub_hfsplus_close,
+    .fs_label = grub_hfsplus_label,
+    .fs_mtime = grub_hfsplus_mtime,
+    .fs_uuid = grub_hfsplus_uuid,
 #ifdef GRUB_UTIL
     .reserved_first_sector = 1,
     .blocklist_install = 1,

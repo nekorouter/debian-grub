@@ -769,7 +769,7 @@ direct_read (struct grub_squash_data *data,
 	     struct grub_squash_cache_inode *ino,
 	     grub_off_t off, char *buf, grub_size_t len)
 {
-  grub_err_t err;
+  grub_err_t err = GRUB_ERR_NONE;
   grub_off_t cumulated_uncompressed_size = 0;
   grub_uint64_t a = 0;
   grub_size_t i;
@@ -1003,7 +1003,7 @@ grub_squash_close (grub_file_t file)
 }
 
 static grub_err_t
-grub_squash_mtime (grub_device_t dev, grub_int32_t *tm)
+grub_squash_mtime (grub_device_t dev, grub_int64_t *tm)
 {
   struct grub_squash_data *data = 0;
 
@@ -1018,11 +1018,11 @@ grub_squash_mtime (grub_device_t dev, grub_int32_t *tm)
 static struct grub_fs grub_squash_fs =
   {
     .name = "squash4",
-    .dir = grub_squash_dir,
-    .open = grub_squash_open,
-    .read = grub_squash_read,
-    .close = grub_squash_close,
-    .mtime = grub_squash_mtime,
+    .fs_dir = grub_squash_dir,
+    .fs_open = grub_squash_open,
+    .fs_read = grub_squash_read,
+    .fs_close = grub_squash_close,
+    .fs_mtime = grub_squash_mtime,
 #ifdef GRUB_UTIL
     .reserved_first_sector = 0,
     .blocklist_install = 0,

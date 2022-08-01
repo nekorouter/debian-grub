@@ -160,8 +160,7 @@ grub_initrd_init (int argc, char *argv[],
   initrd_ctx->nfiles = 0;
   initrd_ctx->components = 0;
 
-  initrd_ctx->components = grub_calloc (argc,
-					sizeof (initrd_ctx->components[0]));
+  initrd_ctx->components = grub_calloc (argc, sizeof (initrd_ctx->components[0]));
   if (!initrd_ctx->components)
     return grub_errno;
 
@@ -184,7 +183,6 @@ grub_initrd_init (int argc, char *argv[],
 	    {
 	      grub_size_t dir_size, name_len;
 
-	      grub_file_filter_disable_compression ();
 	      initrd_ctx->components[i].newc_name = grub_strndup (ptr, eptr - ptr);
 	      if (!initrd_ctx->components[i].newc_name ||
 		  insert_dir (initrd_ctx->components[i].newc_name, &root, 0,
@@ -214,8 +212,9 @@ grub_initrd_init (int argc, char *argv[],
 	  root = 0;
 	  newc = 0;
 	}
-      grub_file_filter_disable_compression ();
-      initrd_ctx->components[i].file = grub_file_open (fname);
+      initrd_ctx->components[i].file = grub_file_open (fname,
+						       GRUB_FILE_TYPE_LINUX_INITRD
+						       | GRUB_FILE_TYPE_NO_DECOMPRESS);
       if (!initrd_ctx->components[i].file)
 	{
 	  grub_initrd_close (initrd_ctx);
@@ -243,7 +242,7 @@ grub_initrd_init (int argc, char *argv[],
   
   return GRUB_ERR_NONE;
 
-overflow:
+ overflow:
   free_dir (root);
   grub_initrd_close (initrd_ctx);
   return grub_error (GRUB_ERR_OUT_OF_RANGE, N_("overflow is detected"));

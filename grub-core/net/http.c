@@ -68,7 +68,15 @@ parse_line (grub_file_t file, http_data_t data, char *ptr, grub_size_t len)
   char *end = ptr + len;
   while (end > ptr && *(end - 1) == '\r')
     end--;
+
+  /* LF without CR. */
+  if (end == ptr + len)
+    {
+      data->errmsg = grub_strdup (_("invalid HTTP header - LF without CR"));
+      return GRUB_ERR_NONE;
+    }
   *end = 0;
+
   /* Trailing CRLF.  */
   if (data->in_chunk_len == 1)
     {
@@ -107,7 +115,7 @@ parse_line (grub_file_t file, http_data_t data, char *ptr, grub_size_t len)
 	  return GRUB_ERR_NONE;
 	}
       ptr += sizeof ("HTTP/1.1 ") - 1;
-      code = grub_strtoul (ptr, &ptr, 10);
+      code = grub_strtoul (ptr, (const char **)&ptr, 10);
       if (grub_errno)
 	return grub_errno;
       switch (code)
@@ -134,7 +142,7 @@ parse_line (grub_file_t file, http_data_t data, char *ptr, grub_size_t len)
       == 0 && !data->size_recv)
     {
       ptr += sizeof ("Content-Length: ") - 1;
-      file->size = grub_strtoull (ptr, &ptr, 10);
+      file->size = grub_strtoull (ptr, (const char **)&ptr, 10);
       data->size_recv = 1;
       return GRUB_ERR_NONE;
     }
@@ -190,9 +198,7 @@ http_receive (grub_net_tcp_socket_t sock __attribute__ ((unused)),
 	  int have_line = 1;
 	  char *t;
 	  ptr = grub_memchr (nb->data, '\n', nb->tail - nb->data);
-	  if (ptr)
-	    ptr++;
-	  else
+	  if (ptr == NULL)
 	    {
 	      have_line = 0;
 	      ptr = (char *) nb->tail;
@@ -405,7 +411,7 @@ http_establish (struct grub_file *file, grub_off_t offset, int initial)
 		data->filename, server, port ? port : HTTP_PORT);
   data->sock = grub_net_tcp_open (server,
 				  port ? port : HTTP_PORT, http_receive,
-				  http_err, http_err,
+				  http_err, NULL,
 				  file);
   if (!data->sock)
     {
@@ -422,7 +428,7 @@ http_establish (struct grub_file *file, grub_off_t offset, int initial)
       return err;
     }
 
-  for (i = 0; !data->headers_recv && i < 100; i++)
+  for (i = 0; data->sock && !data->headers_recv && i < 100; i++)
     {
       grub_net_tcp_retransmit ();
       grub_net_poll_cards (300, &data->headers_recv);
@@ -430,7 +436,8 @@ http_establish (struct grub_file *file, grub_off_t offset, int initial)
 
   if (!data->headers_recv)
     {
-      grub_net_tcp_close (data->sock, GRUB_NET_TCP_ABORT);
+      if (data->sock)
+        grub_net_tcp_close (data->sock, GRUB_NET_TCP_ABORT);
       if (data->err)
 	{
 	  char *str = data->errmsg;

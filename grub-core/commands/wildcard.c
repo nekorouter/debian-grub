@@ -396,7 +396,7 @@ match_files (const char *prefix, const char *suffix, const char *end,
   else
     path = ctx.dir;
 
-  if (fs->dir (dev, path, match_files_iter, &ctx))
+  if (fs->fs_dir (dev, path, match_files_iter, &ctx))
     goto fail;
 
   grub_free (ctx.dir);
@@ -478,7 +478,7 @@ check_file (const char *dir, const char *basename)
   else
     path = dir;
 
-  fs->dir (dev, path[0] ? path : "/", check_file_iter, &ctx);
+  fs->fs_dir (dev, path[0] ? path : "/", check_file_iter, &ctx);
   if (grub_errno == 0 && basename[0] == 0)
     ctx.found = 1;
 

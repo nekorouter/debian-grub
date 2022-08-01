@@ -155,6 +155,16 @@ grub_efi_get_loaded_image (grub_efi_handle_t image_handle)
 }
 
 void
+grub_reboot (void)
+{
+  grub_machine_fini (GRUB_LOADER_FLAG_NORETURN |
+		     GRUB_LOADER_FLAG_EFI_KEEP_ALLOCATED_MEMORY);
+  efi_call_4 (grub_efi_system_table->runtime_services->reset_system,
+              GRUB_EFI_RESET_COLD, GRUB_EFI_SUCCESS, 0, NULL);
+  for (;;) ;
+}
+
+void
 grub_exit (void)
 {
   grub_machine_fini (GRUB_LOADER_FLAG_NORETURN);
@@ -213,9 +223,12 @@ grub_efi_set_variable(const char *var, const grub_efi_guid_t *guid,
   return grub_error (GRUB_ERR_IO, "could not set EFI variable `%s'", var);
 }
 
-void *
-grub_efi_get_variable (const char *var, const grub_efi_guid_t *guid,
-		       grub_size_t *datasize_out)
+grub_efi_status_t
+grub_efi_get_variable_with_attributes (const char *var,
+				       const grub_efi_guid_t *guid,
+				       grub_size_t *datasize_out,
+				       void **data_out,
+				       grub_efi_uint32_t *attributes)
 {
   grub_efi_status_t status;
   grub_efi_uintn_t datasize = 0;
@@ -224,13 +237,14 @@ grub_efi_get_variable (const char *var, const grub_efi_guid_t *guid,
   void *data;
   grub_size_t len, len16;
 
+  *data_out = NULL;
   *datasize_out = 0;
 
   len = grub_strlen (var);
   len16 = len * GRUB_MAX_UTF16_PER_UTF8;
   var16 = grub_calloc (len16 + 1, sizeof (var16[0]));
   if (!var16)
-    return NULL;
+    return GRUB_EFI_OUT_OF_RESOURCES;
   len16 = grub_utf8_to_utf16 (var16, len16, (grub_uint8_t *) var, len, NULL);
   var16[len16] = 0;
 
@@ -241,55 +255,35 @@ grub_efi_get_variable (const char *var, const grub_efi_guid_t *guid,
   if (status != GRUB_EFI_BUFFER_TOO_SMALL || !datasize)
     {
       grub_free (var16);
-      return NULL;
+      return status;
     }
 
   data = grub_malloc (datasize);
   if (!data)
     {
       grub_free (var16);
-      return NULL;
+      return GRUB_EFI_OUT_OF_RESOURCES;
     }
 
-  status = efi_call_5 (r->get_variable, var16, guid, NULL, &datasize, data);
+  status = efi_call_5 (r->get_variable, var16, guid, attributes, &datasize, data);
   grub_free (var16);
 
   if (status == GRUB_EFI_SUCCESS)
     {
+      *data_out = data;
       *datasize_out = datasize;
-      return data;
+      return status;
     }
 
   grub_free (data);
-  return NULL;
+  return status;
 }
 
-grub_efi_boolean_t
-grub_efi_secure_boot (void)
+grub_efi_status_t
+grub_efi_get_variable (const char *var, const grub_efi_guid_t *guid,
+		       grub_size_t *datasize_out, void **data_out)
 {
-  grub_efi_guid_t efi_var_guid = GRUB_EFI_GLOBAL_VARIABLE_GUID;
-  grub_size_t datasize;
-  char *secure_boot = NULL;
-  char *setup_mode = NULL;
-  grub_efi_boolean_t ret = 0;
-
-  secure_boot = grub_efi_get_variable ("SecureBoot", &efi_var_guid, &datasize);
-
-  if (datasize != 1 || !secure_boot)
-    goto out;
-
-  setup_mode = grub_efi_get_variable ("SetupMode", &efi_var_guid, &datasize);
-
-  if (datasize != 1 || !setup_mode)
-    goto out;
-
-  if (*secure_boot && !*setup_mode)
-    ret = 1;
-
- out:
-  grub_free (secure_boot);
-  grub_free (setup_mode);
-  return ret;
+  return grub_efi_get_variable_with_attributes (var, guid, datasize_out, data_out, NULL);
 }
 
 #pragma GCC diagnostic ignored "-Wcast-align"
@@ -327,13 +321,23 @@ grub_efi_modules_addr (void)
     }
 
   if (i == coff_header->num_sections)
-    return 0;
+    {
+      grub_dprintf("sections", "section %d is last section; invalid.\n", i);
+      return 0;
+    }
 
   info = (struct grub_module_info *) ((char *) image->image_base
 				      + section->virtual_address);
-  if (info->magic != GRUB_MODULE_MAGIC)
-    return 0;
+  if (section->name[0] != '.' && info->magic != GRUB_MODULE_MAGIC)
+    {
+      grub_dprintf("sections",
+		   "section %d has bad magic %08x, should be %08x\n",
+		   i, info->magic, GRUB_MODULE_MAGIC);
+      return 0;
+    }
 
+  grub_dprintf("sections", "returning section info for section %d: \"%s\"\n",
+	       i, section->name);
   return (grub_addr_t) info;
 }
 
@@ -345,6 +349,9 @@ grub_efi_get_filename (grub_efi_device_path_t *dp0)
   char *name = 0, *p, *pi;
   grub_size_t filesize = 0;
   grub_efi_device_path_t *dp;
+
+  if (!dp0)
+    return NULL;
 
   dp = dp0;
 
@@ -394,6 +401,7 @@ grub_efi_get_filename (grub_efi_device_path_t *dp0)
 	{
 	  grub_efi_file_path_device_path_t *fp;
 	  grub_efi_uint16_t len;
+	  grub_efi_char16_t *dup_name;
 
 	  *p++ = '/';
 
@@ -412,7 +420,16 @@ grub_efi_get_filename (grub_efi_device_path_t *dp0)
 	  while (len > 0 && fp->path_name[len - 1] == 0)
 	    len--;
 
-	  p = (char *) grub_utf16_to_utf8 ((unsigned char *) p, fp->path_name, len);
+	  dup_name = grub_calloc (len, sizeof (*dup_name));
+	  if (!dup_name)
+	    {
+	      grub_free (name);
+	      return NULL;
+	    }
+	  p = (char *) grub_utf16_to_utf8 ((unsigned char *) p,
+					    grub_memcpy (dup_name, fp->path_name, len * sizeof (*dup_name)),
+					    len);
+	  grub_free (dup_name);
 	}
 
       dp = GRUB_EFI_NEXT_DEVICE_PATH (dp);
@@ -487,7 +504,7 @@ grub_efi_duplicate_device_path (const grub_efi_device_path_t *dp)
       if (len < 4)
 	{
 	  grub_error (GRUB_ERR_OUT_OF_RANGE,
-		      "malformed EFI Device Path node has length=%d", len);
+		      "malformed EFI Device Path node has length=%" PRIuGRUB_SIZE, len);
 	  return NULL;
 	}
 
@@ -861,9 +878,20 @@ grub_efi_print_device_path (grub_efi_device_path_t *dp)
 		fp = (grub_efi_file_path_device_path_t *) dp;
 		buf = grub_malloc ((len - 4) * 2 + 1);
 		if (buf)
-		  *grub_utf16_to_utf8 (buf, fp->path_name,
+		  {
+		    grub_efi_char16_t *dup_name = grub_malloc (len - 4);
+		    if (!dup_name)
+		      {
+			grub_errno = GRUB_ERR_NONE;
+			grub_printf ("/File((null))");
+			grub_free (buf);
+			break;
+		      }
+		    *grub_utf16_to_utf8 (buf, grub_memcpy (dup_name, fp->path_name, len - 4),
 				       (len - 4) / sizeof (grub_efi_char16_t))
-		    = '\0';
+		      = '\0';
+		    grub_free (dup_name);
+		  }
 		else
 		  grub_errno = GRUB_ERR_NONE;
 		grub_printf ("/File(%s)", buf);
@@ -940,8 +968,7 @@ grub_efi_compare_device_paths (const grub_efi_device_path_t *dp1,
   if (dp1 == dp2)
     return 0;
 
-  while (GRUB_EFI_DEVICE_PATH_VALID (dp1)
-	 && GRUB_EFI_DEVICE_PATH_VALID (dp2))
+  while (GRUB_EFI_DEVICE_PATH_VALID (dp1) && GRUB_EFI_DEVICE_PATH_VALID (dp2))
     {
       grub_efi_uint8_t type1, type2;
       grub_efi_uint8_t subtype1, subtype2;
@@ -981,11 +1008,9 @@ grub_efi_compare_device_paths (const grub_efi_device_path_t *dp1,
    * There's no "right" answer here, but we probably don't want to call a valid
    * dp and an invalid dp equal, so pick one way or the other.
    */
-  if (GRUB_EFI_DEVICE_PATH_VALID (dp1) &&
-      !GRUB_EFI_DEVICE_PATH_VALID (dp2))
+  if (GRUB_EFI_DEVICE_PATH_VALID (dp1) && !GRUB_EFI_DEVICE_PATH_VALID (dp2))
     return 1;
-  else if (!GRUB_EFI_DEVICE_PATH_VALID (dp1) &&
-	   GRUB_EFI_DEVICE_PATH_VALID (dp2))
+  else if (!GRUB_EFI_DEVICE_PATH_VALID (dp1) && GRUB_EFI_DEVICE_PATH_VALID (dp2))
     return -1;
 
   return 0;

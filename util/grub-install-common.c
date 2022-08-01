@@ -73,6 +73,7 @@ grub_install_help_filter (int key, const char *text,
 
 static int (*compress_func) (const char *src, const char *dest) = NULL;
 char *grub_install_copy_buffer;
+static char *dtb;
 
 int
 grub_install_copy_file (const char *src,
@@ -189,29 +190,41 @@ strcmp_ext (const char *a, const char *b, const char *ext)
 {
   char *bsuffix = grub_util_path_concat_ext (1, b, ext);
   int r = strcmp (a, bsuffix);
+
   free (bsuffix);
   return r;
 }
 
 enum clean_grub_dir_mode
 {
-  CLEAN = 0,
-  CLEAN_BACKUP = 1,
-  CREATE_BACKUP = 2,
-  RESTORE_BACKUP = 3,
+  CLEAN_NEW,
+  CLEAN_BACKUP,
+  CREATE_BACKUP,
+  RESTORE_BACKUP
 };
+
+#ifdef HAVE_ATEXIT
+static size_t backup_dirs_size = 0;
+static char **backup_dirs = NULL;
+static pid_t backup_process = 0;
+static int grub_install_backup_ponr = 0;
+
+void
+grub_set_install_backup_ponr (void)
+{
+  grub_install_backup_ponr = 1;
+}
+#endif
 
 static void
 clean_grub_dir_real (const char *di, enum clean_grub_dir_mode mode)
 {
   grub_util_fd_dir_t d;
   grub_util_fd_dirent_t de;
-  char suffix[2] = "";
+  const char *suffix = "";
 
   if ((mode == CLEAN_BACKUP) || (mode == RESTORE_BACKUP))
-    {
-      strcpy (suffix, "-");
-    }
+    suffix = "~";
 
   d = grub_util_fd_opendir (di);
   if (!d)
@@ -225,9 +238,11 @@ clean_grub_dir_real (const char *di, enum clean_grub_dir_mode mode)
   while ((de = grub_util_fd_readdir (d)))
     {
       const char *ext = strrchr (de->d_name, '.');
+
       if ((ext && (strcmp_ext (ext, ".mod", suffix) == 0
 		   || strcmp_ext (ext, ".lst", suffix) == 0
 		   || strcmp_ext (ext, ".img", suffix) == 0
+		   || strcmp_ext (ext, ".efi", suffix) == 0
 		   || strcmp_ext (ext, ".mo", suffix) == 0)
 	   && strcmp_ext (de->d_name, "menu.lst", suffix) != 0)
 	  || strcmp_ext (de->d_name, "modinfo.sh", suffix) == 0
@@ -238,7 +253,8 @@ clean_grub_dir_real (const char *di, enum clean_grub_dir_mode mode)
 
 	  if (mode == CREATE_BACKUP)
 	    {
-	      char *dstf = grub_util_path_concat_ext (2, di, de->d_name, "-");
+	      char *dstf = grub_util_path_concat_ext (2, di, de->d_name, "~");
+
 	      if (grub_util_rename (srcf, dstf) < 0)
 		grub_util_error (_("cannot backup `%s': %s"), srcf,
 				 grub_util_fd_strerror ());
@@ -247,7 +263,8 @@ clean_grub_dir_real (const char *di, enum clean_grub_dir_mode mode)
 	  else if (mode == RESTORE_BACKUP)
 	    {
 	      char *dstf = grub_util_path_concat (2, di, de->d_name);
-	      dstf[strlen (dstf) - 1] = 0;
+
+	      dstf[strlen (dstf) - 1] = '\0';
 	      if (grub_util_rename (srcf, dstf) < 0)
 		grub_util_error (_("cannot restore `%s': %s"), dstf,
 				 grub_util_fd_strerror ());
@@ -265,30 +282,65 @@ clean_grub_dir_real (const char *di, enum clean_grub_dir_mode mode)
   grub_util_fd_closedir (d);
 }
 
+#ifdef HAVE_ATEXIT
 static void
-restore_backup_on_exit (int status, void *arg)
+restore_backup_atexit (void)
 {
-  if (status == 0)
+  size_t i;
+
+  /*
+   * Some child inherited atexit() handler, did not clear it, and called it.
+   * Thus skip clean or restore logic.
+   */
+  if (backup_process != getpid ())
+    return;
+
+  for (i = 0; i < backup_dirs_size; i++)
     {
-      clean_grub_dir_real ((char *) arg, CLEAN_BACKUP);
+      /*
+       * If past point of no return simply clean the backups. Otherwise
+       * cleanup newly installed files, and restore the backups.
+       */
+      if (grub_install_backup_ponr)
+	clean_grub_dir_real (backup_dirs[i], CLEAN_BACKUP);
+      else
+	{
+	  clean_grub_dir_real (backup_dirs[i], CLEAN_NEW);
+	  clean_grub_dir_real (backup_dirs[i], RESTORE_BACKUP);
+	}
+      free (backup_dirs[i]);
     }
-  else
-    {
-      clean_grub_dir_real ((char *) arg, CLEAN);
-      clean_grub_dir_real ((char *) arg, RESTORE_BACKUP);
-    }
-  free (arg);
-  arg = NULL;
+
+  backup_dirs_size = 0;
+
+  free (backup_dirs);
 }
+
+static void
+append_to_backup_dirs (const char *dir)
+{
+  backup_dirs = xrealloc (backup_dirs, sizeof (char *) * (backup_dirs_size + 1));
+  backup_dirs[backup_dirs_size] = xstrdup (dir);
+  backup_dirs_size++;
+  if (!backup_process)
+    {
+      atexit (restore_backup_atexit);
+      backup_process = getpid ();
+    }
+}
+#else
+static void
+append_to_backup_dirs (const char *dir __attribute__ ((unused)))
+{
+}
+#endif
 
 static void
 clean_grub_dir (const char *di)
 {
   clean_grub_dir_real (di, CLEAN_BACKUP);
   clean_grub_dir_real (di, CREATE_BACKUP);
-#if defined(HAVE_ON_EXIT)
-  on_exit (restore_backup_on_exit, strdup (di));
-#endif
+  append_to_backup_dirs (di);
 }
 
 struct install_list
@@ -307,6 +359,31 @@ struct install_list install_themes = { 1, 0, 0, 0 };
 char *grub_install_source_directory = NULL;
 char *grub_install_locale_directory = NULL;
 char *grub_install_themes_directory = NULL;
+
+int
+grub_install_is_short_mbrgap_supported (void)
+{
+  int i, j;
+  static const char *whitelist[] =
+    {
+     "part_msdos", "biosdisk", "affs", "afs", "bfs", "archelp",
+     "cpio", "cpio_be", "newc", "odc", "ext2", "fat", "exfat",
+     "f2fs", "fshelp", "hfs", "hfsplus", "iso9660", "jfs", "minix",
+     "minix2", "minix3", "minix_be", "minix2_be", "nilfs2", "ntfs",
+     "ntfscomp", "reiserfs", "romfs", "sfs", "tar", "udf", "ufs1",
+     "ufs1_be", "ufs2", "xfs"
+    };
+
+  for (i = 0; i < modules.n_entries; i++) {
+    for (j = 0; j < ARRAY_SIZE (whitelist); j++)
+      if (strcmp(modules.entries[i], whitelist[j]) == 0)
+	break;
+    if (j == ARRAY_SIZE (whitelist))
+      return 0;
+  }
+
+  return 1;
+}
 
 void
 grub_install_push_module (const char *val)
@@ -382,6 +459,7 @@ handle_install_list (struct install_list *il, const char *val,
 static char **pubkeys;
 static size_t npubkeys;
 static char *sbat;
+static int disable_shim_lock;
 static grub_compression_t compression;
 
 int
@@ -418,6 +496,9 @@ grub_install_parse (int key, char *arg)
 
       sbat = xstrdup (arg);
       return 1;
+    case GRUB_INSTALL_OPTIONS_DISABLE_SHIM_LOCK:
+      disable_shim_lock = 1;
+      return 1;
 
     case GRUB_INSTALL_OPTIONS_VERBOSITY:
       verbosity++;
@@ -450,6 +531,11 @@ grub_install_parse (int key, char *arg)
       return 1;
     case GRUB_INSTALL_OPTIONS_INSTALL_FONTS:
       handle_install_list (&install_fonts, arg, 0);
+      return 1;
+    case GRUB_INSTALL_OPTIONS_DTB:
+      if (dtb)
+	free (dtb);
+      dtb = xstrdup (arg);
       return 1;
     case GRUB_INSTALL_OPTIONS_INSTALL_COMPRESS:
       if (strcmp (arg, "no") == 0
@@ -573,11 +659,13 @@ grub_install_make_image_wrap_file (const char *dir, const char *prefix,
 
   grub_util_info ("grub-mkimage --directory '%s' --prefix '%s'"
 		  " --output '%s' "
+		  " --dtb '%s' "
 		  "--sbat '%s' "
-		  "--format '%s' --compression '%s' %s %s\n",
+		  "--format '%s' --compression '%s' %s %s %s\n",
 		  dir, prefix,
-		  outname, sbat ? : "", mkimage_target,
-		  compnames[compression], note ? "--note" : "", s);
+		  outname, dtb ? : "", sbat ? : "", mkimage_target,
+		  compnames[compression], note ? "--note" : "",
+		  disable_shim_lock ? "--disable-shim-lock" : "", s);
   free (s);
 
   tgt = grub_install_get_image_target (mkimage_target);
@@ -587,7 +675,8 @@ grub_install_make_image_wrap_file (const char *dir, const char *prefix,
   grub_install_generate_image (dir, prefix, fp, outname,
 			       modules.entries, memdisk_path,
 			       pubkeys, npubkeys, config_path, tgt,
-			       note, compression, sbat);
+			       note, compression, dtb, sbat,
+			       disable_shim_lock);
   while (dc--)
     grub_install_pop_module ();
 }
@@ -674,6 +763,7 @@ copy_all (const char *srcd,
   grub_util_fd_closedir (d);
 }
 
+#if (defined (GRUB_UTIL) && defined(ENABLE_NLS) && ENABLE_NLS)
 static const char *
 get_localedir (void)
 {
@@ -737,6 +827,73 @@ copy_locales (const char *dstd, int langpack)
   grub_util_fd_closedir (d);
   free (dir);
 }
+#endif
+
+static void
+grub_install_copy_nls(const char *src __attribute__ ((unused)),
+                      const char *dst __attribute__ ((unused)))
+{
+#if (defined (GRUB_UTIL) && defined(ENABLE_NLS) && ENABLE_NLS)
+  char *dst_locale;
+
+  dst_locale = grub_util_path_concat (2, dst, "locale");
+  grub_install_mkdir_p (dst_locale);
+  clean_grub_dir (dst_locale);
+
+  if (install_locales.is_default)
+    {
+      char *srcd = grub_util_path_concat (2, src, "po");
+      copy_by_ext (srcd, dst_locale, ".mo", 0);
+      copy_locales (dst_locale, 0);
+      copy_locales (dst_locale, 1);
+      free (srcd);
+    }
+  else
+    {
+      size_t i;
+      const char *locale_dir = get_localedir ();
+      char *locale_langpack_dir = xasprintf ("%s-langpack", locale_dir);
+
+      for (i = 0; i < install_locales.n_entries; i++)
+      {
+        char *srcf = grub_util_path_concat_ext (3, src, "po",
+                                                install_locales.entries[i],
+                                                ".mo");
+        char *dstf = grub_util_path_concat_ext (2, dst_locale,
+                                                install_locales.entries[i],
+                                                ".mo");
+        if (grub_install_compress_file (srcf, dstf, 0))
+          {
+            free (srcf);
+            free (dstf);
+            continue;
+          }
+        free (srcf);
+        srcf = grub_util_path_concat_ext (4, locale_langpack_dir,
+                                          install_locales.entries[i],
+                                          "LC_MESSAGES", PACKAGE, ".mo");
+        if (grub_install_compress_file (srcf, dstf, 0))
+          {
+            free (srcf);
+            free (dstf);
+            continue;
+          }
+        free (srcf);
+        srcf = grub_util_path_concat_ext (4, locale_dir,
+                                          install_locales.entries[i],
+                                          "LC_MESSAGES", PACKAGE, ".mo");
+        if (grub_install_compress_file (srcf, dstf, 0) == 0)
+          grub_util_error (_("cannot find locale `%s'"),
+                           install_locales.entries[i]);
+        free (srcf);
+        free (dstf);
+      }
+
+      free (locale_langpack_dir);
+    }
+  free (dst_locale);
+#endif
+}
 
 static struct
 {
@@ -765,6 +922,9 @@ static struct
     [GRUB_INSTALL_PLATFORM_ARM_EFI] =          { "arm",     "efi"       },
     [GRUB_INSTALL_PLATFORM_ARM64_EFI] =        { "arm64",   "efi"       },
     [GRUB_INSTALL_PLATFORM_ARM_UBOOT] =        { "arm",     "uboot"     },
+    [GRUB_INSTALL_PLATFORM_ARM_COREBOOT] =     { "arm",     "coreboot"  },
+    [GRUB_INSTALL_PLATFORM_RISCV32_EFI] =      { "riscv32", "efi"       },
+    [GRUB_INSTALL_PLATFORM_RISCV64_EFI] =      { "riscv64", "efi"       },
   }; 
 
 char *
@@ -822,7 +982,7 @@ grub_install_copy_files (const char *src,
 			 const char *dst,
 			 enum grub_install_plat platid)
 {
-  char *dst_platform, *dst_locale, *dst_fonts;
+  char *dst_platform, *dst_fonts;
   const char *pkgdatadir = grub_util_get_pkgdatadir ();
   char *themes_dir;
 
@@ -833,13 +993,12 @@ grub_install_copy_files (const char *src,
     dst_platform = grub_util_path_concat (2, dst, platform);
     free (platform);
   }
-  dst_locale = grub_util_path_concat (2, dst, "locale");
   dst_fonts = grub_util_path_concat (2, dst, "fonts");
   grub_install_mkdir_p (dst_platform);
-  grub_install_mkdir_p (dst_locale);
   clean_grub_dir (dst);
   clean_grub_dir (dst_platform);
-  clean_grub_dir (dst_locale);
+
+  grub_install_copy_nls(src, dst);
 
   if (install_modules.is_default)
     copy_by_ext (src, dst_platform, ".mod", 1);
@@ -886,67 +1045,6 @@ grub_install_copy_files (const char *src,
 	grub_install_compress_file (srcf, dstf, 1);
       free (srcf);
       free (dstf);
-    }
-
-  if (install_locales.is_default)
-    {
-      char *srcd = grub_util_path_concat (2, src, "po");
-      copy_by_ext (srcd, dst_locale, ".mo", 0);
-      copy_locales (dst_locale, 0);
-      copy_locales (dst_locale, 1);
-      free (srcd);
-    }
-  else
-    {
-      const char *locale_dir = get_localedir ();
-      char *locale_langpack_dir = xasprintf ("%s-langpack", locale_dir);
-
-      for (i = 0; i < install_locales.n_entries; i++)
-	{
-	  char *srcf = grub_util_path_concat_ext (3, src,
-						"po",
-						install_locales.entries[i],
-						".mo");
-	  char *dstf = grub_util_path_concat_ext (2, dst_locale,
-						install_locales.entries[i],
-						".mo");
-	  if (grub_install_compress_file (srcf, dstf, 0))
-	    {
-	      free (srcf);
-	      free (dstf);
-	      continue;
-	    }
-	  free (srcf);
-	  srcf = grub_util_path_concat_ext (4,
-						 locale_langpack_dir,
-						 install_locales.entries[i],
-						 "LC_MESSAGES",
-						 PACKAGE,
-						 ".mo");
-	  if (grub_install_compress_file (srcf, dstf, 0))
-	    {
-	      free (srcf);
-	      free (dstf);
-	      continue;
-	    }
-	  free (srcf);
-	  srcf = grub_util_path_concat_ext (4,
-						 locale_dir,
-						 install_locales.entries[i],
-						 "LC_MESSAGES",
-						 PACKAGE,
-						 ".mo");
-	  if (grub_install_compress_file (srcf, dstf, 0))
-	    {
-	      free (srcf);
-	      free (dstf);
-	      continue;
-	    }
-	  grub_util_error (_("cannot find locale `%s'"),
-			   install_locales.entries[i]);
-	}
-
-      free (locale_langpack_dir);
     }
 
   if (install_themes.is_default)
@@ -1011,7 +1109,6 @@ grub_install_copy_files (const char *src,
     }
 
   free (dst_platform);
-  free (dst_locale);
   free (dst_fonts);
 }
 

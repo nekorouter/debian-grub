@@ -21,16 +21,10 @@
 #include <grub/env.h>
 #include <grub/file.h>
 #include <grub/lockdown.h>
-
-/* There is no verifier framework in grub 2.02 */
-#if 0
 #include <grub/verify.h>
-#endif
 
 static int lockdown = GRUB_LOCKDOWN_DISABLED;
 
-/* There is no verifier framework in grub 2.02 */
-#if 0
 static grub_err_t
 lockdown_verifier_init (grub_file_t io __attribute__ ((unused)),
                     enum grub_file_type type,
@@ -71,20 +65,13 @@ struct grub_file_verifier lockdown_verifier =
     .name = "lockdown_verifier",
     .init = lockdown_verifier_init,
   };
-#endif
 
 void
 grub_lockdown (void)
 {
   lockdown = GRUB_LOCKDOWN_ENABLED;
 
-  /*
-   * XXX: The lockdown verifier doesn't make sense until
-   * Debian has moved to the shim_lock verifier.
-   */
-#if 0
   grub_verifier_register (&lockdown_verifier);
-#endif
 
   grub_env_set ("lockdown", "y");
   grub_env_export ("lockdown");

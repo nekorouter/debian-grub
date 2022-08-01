@@ -44,33 +44,28 @@ GRUB_MOD_LICENSE ("GPLv3+");
 
 static grub_dl_t my_mod;
 
-static grub_efi_physical_address_t address;
-static grub_efi_uintn_t pages;
-static grub_efi_device_path_t *file_path;
-static grub_efi_handle_t image_handle;
-static grub_efi_char16_t *cmdline;
-
 static grub_err_t
-grub_chainloader_unload (void)
+grub_chainloader_unload (void *context)
 {
+  grub_efi_handle_t image_handle = (grub_efi_handle_t) context;
+  grub_efi_loaded_image_t *loaded_image;
   grub_efi_boot_services_t *b;
+
+  loaded_image = grub_efi_get_loaded_image (image_handle);
+  if (loaded_image != NULL)
+    grub_free (loaded_image->load_options);
 
   b = grub_efi_system_table->boot_services;
   efi_call_1 (b->unload_image, image_handle);
-  efi_call_2 (b->free_pages, address, pages);
-
-  grub_free (file_path);
-  grub_free (cmdline);
-  cmdline = 0;
-  file_path = 0;
 
   grub_dl_unref (my_mod);
   return GRUB_ERR_NONE;
 }
 
 static grub_err_t
-grub_chainloader_boot (void)
+grub_chainloader_boot (void *context)
 {
+  grub_efi_handle_t image_handle = (grub_efi_handle_t) context;
   grub_efi_boot_services_t *b;
   grub_efi_status_t status;
   grub_efi_uintn_t exit_data_size;
@@ -90,7 +85,7 @@ grub_chainloader_boot (void)
 	      *grub_utf16_to_utf8 ((grub_uint8_t *) buf,
 				   exit_data, exit_data_size) = 0;
 
-	      grub_error (GRUB_ERR_BAD_OS, buf);
+	      grub_error (GRUB_ERR_BAD_OS, "%s", buf);
 	      grub_free (buf);
 	    }
 	}
@@ -110,21 +105,27 @@ static grub_err_t
 copy_file_path (grub_efi_file_path_device_path_t *fp,
 		const char *str, grub_efi_uint16_t len)
 {
-  grub_efi_char16_t *p;
+  grub_efi_char16_t *p, *path_name;
   grub_efi_uint16_t size;
 
   fp->header.type = GRUB_EFI_MEDIA_DEVICE_PATH_TYPE;
   fp->header.subtype = GRUB_EFI_FILE_PATH_DEVICE_PATH_SUBTYPE;
 
-  size = grub_utf8_to_utf16 (fp->path_name, len * GRUB_MAX_UTF16_PER_UTF8,
+  path_name = grub_calloc (len, GRUB_MAX_UTF16_PER_UTF8 * sizeof (*path_name));
+  if (!path_name)
+    return grub_error (GRUB_ERR_OUT_OF_MEMORY, "failed to allocate path buffer");
+
+  size = grub_utf8_to_utf16 (path_name, len * GRUB_MAX_UTF16_PER_UTF8,
 			     (const grub_uint8_t *) str, len, 0);
-  for (p = fp->path_name; p < fp->path_name + size; p++)
+  for (p = path_name; p < path_name + size; p++)
     if (*p == '/')
       *p = '\\';
 
+  grub_memcpy (fp->path_name, path_name, size * sizeof (*fp->path_name));
   /* File Path is NULL terminated */
   fp->path_name[size++] = '\0';
   fp->header.length = size * sizeof (grub_efi_char16_t) + sizeof (*fp);
+  grub_free (path_name);
   return GRUB_ERR_NONE;
 }
 
@@ -134,7 +135,7 @@ make_file_path (grub_efi_device_path_t *dp, const char *filename)
   char *dir_start;
   char *dir_end;
   grub_size_t size;
-  grub_efi_device_path_t *d;
+  grub_efi_device_path_t *d, *file_path;
 
   dir_start = grub_strchr (filename, ')');
   if (! dir_start)
@@ -158,7 +159,7 @@ make_file_path (grub_efi_device_path_t *dp, const char *filename)
       if (len < 4)
 	{
 	  grub_error (GRUB_ERR_OUT_OF_RANGE,
-		      "malformed EFI Device Path node has length=%d", len);
+		      "malformed EFI Device Path node has length=%" PRIuGRUB_SIZE, len);
 	  return NULL;
 	}
 
@@ -187,7 +188,7 @@ make_file_path (grub_efi_device_path_t *dp, const char *filename)
   if (copy_file_path ((grub_efi_file_path_device_path_t *) d,
 		      dir_start, dir_end - dir_start) != GRUB_ERR_NONE)
     {
-    fail:
+ fail:
       grub_free (file_path);
       return 0;
     }
@@ -216,11 +217,15 @@ grub_cmd_chainloader (grub_command_t cmd __attribute__ ((unused)),
   grub_efi_status_t status;
   grub_efi_boot_services_t *b;
   grub_device_t dev = 0;
-  grub_efi_device_path_t *dp = 0;
+  grub_efi_device_path_t *dp = NULL, *file_path = NULL;
   grub_efi_loaded_image_t *loaded_image;
   char *filename;
   void *boot_image = 0;
   grub_efi_handle_t dev_handle = 0;
+  grub_efi_physical_address_t address = 0;
+  grub_efi_uintn_t pages = 0;
+  grub_efi_char16_t *cmdline = NULL;
+  grub_efi_handle_t image_handle = NULL;
 
   if (argc == 0)
     return grub_error (GRUB_ERR_BAD_ARGUMENT, N_("filename expected"));
@@ -228,14 +233,9 @@ grub_cmd_chainloader (grub_command_t cmd __attribute__ ((unused)),
 
   grub_dl_ref (my_mod);
 
-  /* Initialize some global variables.  */
-  address = 0;
-  image_handle = 0;
-  file_path = 0;
-
   b = grub_efi_system_table->boot_services;
 
-  file = grub_file_open (filename);
+  file = grub_file_open (filename, GRUB_FILE_TYPE_EFI_CHAINLOADED_IMAGE);
   if (! file)
     goto fail;
 
@@ -402,7 +402,11 @@ grub_cmd_chainloader (grub_command_t cmd __attribute__ ((unused)),
   grub_file_close (file);
   grub_device_close (dev);
 
-  grub_loader_set (grub_chainloader_boot, grub_chainloader_unload, 0);
+  /* We're finished with the source image buffer and file path now. */
+  efi_call_2 (b->free_pages, address, pages);
+  grub_free (file_path);
+
+  grub_loader_set_ex (grub_chainloader_boot, grub_chainloader_unload, image_handle, 0);
   return 0;
 
  fail:
@@ -413,10 +417,14 @@ grub_cmd_chainloader (grub_command_t cmd __attribute__ ((unused)),
   if (file)
     grub_file_close (file);
 
+  grub_free (cmdline);
   grub_free (file_path);
 
   if (address)
     efi_call_2 (b->free_pages, address, pages);
+
+  if (image_handle != NULL)
+    efi_call_1 (b->unload_image, image_handle);
 
   grub_dl_unref (my_mod);
 
