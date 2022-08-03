@@ -1,4 +1,4 @@
-grub2 (2.06-3~deb11u1) UNRELEASED; urgency=medium
+grub2 (2.06-3~deb11u1) bullseye; urgency=medium
 
   [ Steve McIntyre ]
   * Rebuild for bullseye.
