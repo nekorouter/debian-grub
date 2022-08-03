@@ -4,6 +4,8 @@ grub2 (2.06-3~deb10u1) UNRELEASED; urgency=medium
   * Switch to upstream 2.06 release, and rebuild for buster.
     - Tweak build-deps etc. for the rebuild.
   * Updated the 2.06-3 changelog to mention closure of CVE-2022-28736
+  * Re-enable os-prober by default, don't make that change in a stable
+    update.
 
  -- Steve McIntyre <93sam@debian.org>  Mon, 01 Aug 2022 20:26:34 +0100
 
