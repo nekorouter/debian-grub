@@ -1,4 +1,4 @@
-grub2 (2.06-3~deb10u1) UNRELEASED; urgency=medium
+grub2 (2.06-3~deb10u1) buster; urgency=medium
 
   [ Steve McIntyre ]
   * Switch to upstream 2.06 release, and rebuild for buster.
