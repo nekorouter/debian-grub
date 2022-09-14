@@ -1,3 +1,11 @@
+grub2 (2.06-3~deb11u2) bullseye; urgency=high
+
+  [ Steve McIntyre ]
+  * Don't strip Xen binaries so they work again. Closes: #1017944.
+    Thanks to Valentin Kleibel for the patch.
+
+ -- Steve McIntyre <93sam@debian.org>  Wed, 14 Sep 2022 23:40:50 +0100
+
 grub2 (2.06-3~deb11u1) bullseye; urgency=medium
 
   [ Steve McIntyre ]
