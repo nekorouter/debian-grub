@@ -90,3 +90,13 @@ minilzo-2.10.patch
 0090-fs-btrfs-Fix-several-fuzz-issues-with-invalid-dir-it.patch
 0091-fs-btrfs-Fix-more-ASAN-and-SEGV-issues-found-with-fu.patch
 0092-fs-btrfs-Fix-more-fuzz-issues-related-to-chunks.patch
+riscv-adjust-march-flags-for-binutils-2.38.patch
+loader-drop-argv-argument-in-grub_initrd_load.patch
+efi-add-definition-of-LoadFile2-protocol.patch
+efi-implemented-LoadFile2-initrd-loading-protocol-fo.patch
+linux-ignore-FDT-unless-we-need-to-modify-it.patch
+loader-Move-arm64-linux-loader-to-common-code.patch
+RISC-V-Update-image-header.patch
+RISC-V-Use-common-linux-loader.patch
+add-devicetree-command-support.patch
+efi-EFI-Device-Tree-Fixup-Protocol.patch
